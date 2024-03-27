@@ -1,9 +1,8 @@
 import * as React from 'react';
+import { Main } from './pages/Main';
 
-function App() {
+export const App = () =>  {
     return (
-        <div>{'coin market cap'}</div>
+        <Main />
     );
 }
-
-export default App;

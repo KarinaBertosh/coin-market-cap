@@ -3,7 +3,7 @@ import { Table } from "antd";
 import { columns } from '../../utils/constants';
 import { getPrice } from '../../utils/default';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { setDefaultTableData, setTableData } from '../../store/slices/assets';
+import { setDefaultTableData, setIsInputTextError, setTableData } from '../../store/slices/assets';
 import { fetchAssets } from '../../api/assets';
 import { SearchInput } from '../SearchInput/SearchInput';
 import { IRowData } from '../../utils/types';
@@ -40,7 +40,7 @@ export const CoinTable = () => {
       try {
         const foundCoin = defaultTableData.find((coin: IRowData) => coin.key.toLowerCase() === inputText.toLowerCase() || coin.symbol.toLowerCase() === inputText.toLowerCase());
         dispatch(setTableData(foundCoin ? [foundCoin] : defaultTableData));
-        // dispatch(setIsInputTextError(!!foundCoin ? false : true));
+        dispatch(setIsInputTextError(!!foundCoin || !inputText ? false : true));
       } catch (error) {
         console.log(error);
       }

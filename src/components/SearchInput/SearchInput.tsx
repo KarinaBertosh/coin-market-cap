@@ -11,8 +11,6 @@ export const SearchInput = () => {
     const dispatch = useAppDispatch();
     const { isInputTextError } = useAppSelector((state) => state.assets);
 
-    console.log(isInputTextError);
-
     return (
         <div className='input'>
             <Input.Search placeholder="input search text" onSearch={onSearch} enterButton />

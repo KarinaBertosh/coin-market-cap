@@ -19,7 +19,7 @@ export const CoinTable = () => {
         const data = assets.map((asset: any) => (
           {
             key: asset.id,
-            add: 'x',
+            add: 'Add',
             symbol: asset.symbol,
             logo: asset.symbol,
             priceUsd: `$ ${getPrice(asset.priceUsd)}`,

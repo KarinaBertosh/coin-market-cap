@@ -1,9 +1,13 @@
-import { IRowData, IColumn } from "./types";
+import React from 'react';
+import { IRowData } from "./types";
+import { Button } from 'antd';
 
-export const columns: IColumn[] = [
+
+export const columns: any = [
     {
         dataIndex: 'add',
         key: 'add',
+        render: ( value: any) => { return ( <Button >{value}</Button>); },
     },
     {
         title: 'Symbol',

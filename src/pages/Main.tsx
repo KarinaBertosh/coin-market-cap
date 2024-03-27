@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { TableCoin } from '../components/TableCoin/TableCoin';
+import { CoinTable } from '../components/CoinTable/CoinTable';
+
 
 export function Main() {
     return (
-        <TableCoin />
+        <CoinTable />
     );
 }

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { IAssets } from "./types";
 
 
 export const getPrice = (price: any) => {
@@ -13,3 +14,4 @@ export const fetchAssets = async () => await axios.get('https://api.coincap.io/v
   .then(function (response) {
     return response.data.data;
   });
+

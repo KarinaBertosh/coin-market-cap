@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Table } from "antd";
 import { columns } from '../../utils/constants';
 import { fetchAssets, getPrice } from '../../utils/default';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { setTableData } from '../../../store/slices/assets';
 
-export function CoinTable() {
-  const [assets, setAssets] = useState([]);
+export const CoinTable = () => {
+  const dispatch = useAppDispatch();
+  const { tableData } = useAppSelector((state) => state.assets);
 
   useEffect(() => {
     (async () => {
@@ -20,12 +23,11 @@ export function CoinTable() {
           volumeUsd24Hr: `$ ${getPrice(asset.volumeUsd24Hr)}`,
         }
       ));
-      setAssets(data);
-    }
-    )();
+      dispatch(setTableData(data));
+    })();
   }, []);
 
   return (
-    <Table dataSource={assets} columns={columns} />
+    <Table dataSource={tableData} columns={columns} />
   );
-}
+};

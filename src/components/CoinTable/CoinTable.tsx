@@ -3,12 +3,14 @@ import { Table } from "antd";
 import { columns } from '../../utils/constants';
 import { getPrice } from '../../utils/default';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { setTableData } from '../../store/slices/assets';
+import { setDefaultTableData, setTableData } from '../../store/slices/assets';
 import { fetchAssets } from '../../api/assets';
+import { SearchInput } from '../SearchInput/SearchInput';
+import { IRowData } from '../../utils/types';
 
 export const CoinTable = () => {
   const dispatch = useAppDispatch();
-  const { tableData, isLoading } = useAppSelector((state) => state.assets);
+  const { defaultTableData, tableData, isLoading, inputText } = useAppSelector((state) => state.assets);
 
   useEffect(() => {
     (async () => {
@@ -25,6 +27,7 @@ export const CoinTable = () => {
             volumeUsd24Hr: `$ ${getPrice(asset.volumeUsd24Hr)}`,
           }
         ));
+        dispatch(setDefaultTableData(data));
         dispatch(setTableData(data));
       } catch (error) {
         console.log(error);
@@ -32,8 +35,23 @@ export const CoinTable = () => {
     })();
   }, []);
 
+  useEffect(() => {
+    (async () => {
+      try {
+        const foundCoin = defaultTableData.find((coin: IRowData) => coin.key.toLowerCase() === inputText.toLowerCase() || coin.symbol.toLowerCase() === inputText.toLowerCase());
+        dispatch(setTableData(foundCoin ? [foundCoin] : defaultTableData));
+        // dispatch(setIsInputTextError(!!foundCoin ? false : true));
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, [inputText]);
+
 
   return (
-    <Table dataSource={tableData} columns={columns} loading={isLoading} />
+    <>
+      <SearchInput />
+      <Table dataSource={tableData} columns={columns} loading={isLoading} />
+    </>
   );
 };

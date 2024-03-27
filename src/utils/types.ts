@@ -6,7 +6,22 @@ export interface IColumn {
     sortDirections?: any;
 }
 
-export interface IAssets {
+export interface IAsset {
+    id: string,
+    rank: string,
+    symbol: string,
+    name: string,
+    supply: string,
+    maxSupply: any,
+    marketCapUsd: string,
+    volumeUsd24Hr: string,
+    priceUsd: string,
+    changePercent24Hr: string,
+    vwap24Hr: string,
+    explorer: string;
+}
+
+export interface IRowData {
     add: string;
     key: string;
     logo: string;

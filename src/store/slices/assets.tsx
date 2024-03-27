@@ -1,8 +1,8 @@
 import {
   createSlice
 } from '@reduxjs/toolkit';
-import { fetchAssets } from '../../src/api/assets';
-import { getPrice } from '../../src/utils/default';
+import { fetchAssets } from '../../api/assets';
+
 
 interface IAssetsState {
   assets: any;

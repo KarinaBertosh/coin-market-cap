@@ -1,7 +1,3 @@
-import axios from "axios";
-import { IAssets } from "./types";
-
-
 export const getPrice = (price: any) => {
   const index = price.startsWith('0')
     ? price.indexOf(Array.from(price).filter((el) => el !== '0')[1]) + 3
@@ -9,9 +5,3 @@ export const getPrice = (price: any) => {
 
   return price.slice(0, index);
 };
-
-export const fetchAssets = async () => await axios.get('https://api.coincap.io/v2/assets/')
-  .then(function (response) {
-    return response.data.data;
-  });
-

@@ -25,3 +25,19 @@
 .footer {
     text-align: 'center';
 }
+
+h1 {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 30px;
+    color: red;
+}
+
+.m-b-10 {
+    margin-bottom: 10px;
+}
+
+.m-r-10 {
+    margin-right: 10px;
+}

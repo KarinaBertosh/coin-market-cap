@@ -30,6 +30,11 @@
     "webpack-dev-server": "^4.7.1"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.0",
+    "@mui/material": "^5.15.14",
+    "@mui/styled-engine-sc": "^6.0.0-alpha.18",
+    "@mui/x-charts": "^7.0.0",
     "@types/react": "^18.2.55",
     "@types/react-dom": "^18.2.19",
     "@types/react-router-dom": "^5.3.3",
@@ -39,6 +44,11 @@
     "mini-css-extract-plugin": "^2.8.1",
     "sass": "^1.72.0",
     "sass-loader": "^14.1.1",
-    "style-loader": "^3.3.4"
+    "style-loader": "^3.3.4",
+    "styled-components": "^6.1.8"
+  },
+  "peerDependencies": {
+    "react": "^17.0.0 || ^18.0.0",
+    "react-dom": "^17.0.0 || ^18.0.0"
   }
 }

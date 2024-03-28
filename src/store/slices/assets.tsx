@@ -1,7 +1,7 @@
 import {
   createSlice
 } from '@reduxjs/toolkit';
-import { fetchAssets } from '../../api/assets';
+import { fetchAssetHistory, fetchAssets } from '../../api/assets';
 import { IAsset } from '../../utils/types';
 
 
@@ -13,6 +13,7 @@ interface IAssetsState {
   inputText: string;
   isInputTextError: boolean;
   selectedCoin: IAsset,
+  historyCoinPriceChanges: any;
 }
 
 const initialState: IAssetsState = {
@@ -22,7 +23,8 @@ const initialState: IAssetsState = {
   isLoading: false,
   inputText: '',
   isInputTextError: false,
-  selectedCoin: null
+  selectedCoin: null, 
+  historyCoinPriceChanges: []
 };
 
 export const slice = createSlice({
@@ -54,6 +56,16 @@ export const slice = createSlice({
       state.isLoading = false;
     });
     builder.addCase(fetchAssets.rejected, (state) => {
+      state.isLoading = false;
+    });
+    builder.addCase(fetchAssetHistory.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(fetchAssetHistory.fulfilled, (state, { payload }) => {
+      state.historyCoinPriceChanges = payload;
+      state.isLoading = false;
+    });
+    builder.addCase(fetchAssetHistory.rejected, (state) => {
       state.isLoading = false;
     });
   },

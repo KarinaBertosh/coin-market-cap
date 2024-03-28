@@ -17,32 +17,26 @@ export const CoinTable = () => {
   useEffect(() => {
     (async () => {
       try {
-        const assets = await dispatch(fetchAssets()).unwrap();
-        const data = assets.map((asset: any) => (
-          {
-            key: asset.id,
-            add: 'Add',
-            symbol: asset.symbol,
-            logo: asset.symbol,
-            priceUsd: `$ ${getPrice(asset.priceUsd)}`,
-            marketCapUsd: `$ ${getPrice(asset.marketCapUsd)}`,
-            volumeUsd24Hr: `$ ${getPrice(asset.volumeUsd24Hr)}`,
-          }
-        ));
-        dispatch(setDefaultTableData(data));
-        dispatch(setTableData(data));
-      } catch (error) {
-        console.log(error);
-      }
-    })();
-  }, []);
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const foundCoin = defaultTableData.find((coin: IRowData) => coin.key.toLowerCase() === inputText.toLowerCase() || coin.symbol.toLowerCase() === inputText.toLowerCase());
-        dispatch(setTableData(foundCoin ? [foundCoin] : defaultTableData));
-        dispatch(setIsInputTextError(!!foundCoin || !inputText ? false : true));
+        if (!assets.length) {
+          const assets = await dispatch(fetchAssets()).unwrap();
+          const data = assets.map((asset: any) => (
+            {
+              key: asset.id,
+              add: 'Add',
+              symbol: asset.symbol,
+              logo: asset.symbol,
+              priceUsd: `$ ${getPrice(asset.priceUsd)}`,
+              marketCapUsd: `$ ${getPrice(asset.marketCapUsd)}`,
+              volumeUsd24Hr: `$ ${getPrice(asset.volumeUsd24Hr)}`,
+            }
+          ));
+          dispatch(setDefaultTableData(data));
+          dispatch(setTableData(data));
+        } else {
+          const foundCoin = defaultTableData.find((coin: IRowData) => coin.key.toLowerCase() === inputText.toLowerCase() || coin.symbol.toLowerCase() === inputText.toLowerCase());
+          dispatch(setTableData(foundCoin ? [foundCoin] : defaultTableData));
+          dispatch(setIsInputTextError(!!foundCoin || !inputText ? false : true));
+        }
       } catch (error) {
         console.log(error);
       }

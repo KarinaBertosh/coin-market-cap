@@ -3,14 +3,16 @@ import { Table } from "antd";
 import { columns } from '../../utils/constants';
 import { getPrice } from '../../utils/default';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { setDefaultTableData, setIsInputTextError, setTableData } from '../../store/slices/assets';
+import { setDefaultTableData, setIsInputTextError, setSelectedCoin, setTableData } from '../../store/slices/assets';
 import { fetchAssets } from '../../api/assets';
 import { SearchInput } from '../SearchInput/SearchInput';
-import { IRowData } from '../../utils/types';
+import { IAsset, IRowData } from '../../utils/types';
+import { useNavigate } from "react-router-dom";
 
 export const CoinTable = () => {
   const dispatch = useAppDispatch();
-  const { defaultTableData, tableData, isLoading, inputText } = useAppSelector((state) => state.assets);
+  const navigate = useNavigate();
+  const { assets, defaultTableData, tableData, isLoading, inputText } = useAppSelector((state) => state.assets);
 
   useEffect(() => {
     (async () => {
@@ -47,11 +49,23 @@ export const CoinTable = () => {
     })();
   }, [inputText]);
 
+  const onClick = (key: string) => {
+    const foundCoin = assets.find((asset: IAsset) => asset.id === key);
+    dispatch(setSelectedCoin(foundCoin));
+    navigate('/info');
+  };
+
+  const onRow = (record: IRowData,) => {
+    return {
+      onClick: () => onClick(record.key),
+    };
+  };
+
 
   return (
     <>
       <SearchInput />
-      <Table dataSource={tableData} columns={columns} loading={isLoading} />
+      <Table dataSource={tableData} columns={columns} loading={isLoading} onRow={onRow} />
     </>
   );
 };

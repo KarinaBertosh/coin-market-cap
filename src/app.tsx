@@ -1,20 +1,17 @@
 import * as React from 'react';
-import { Main } from './pages/Main';
-import { Routes, Route, Outlet, Link, Router } from "react-router-dom";
-import { CoinTable } from './components/CoinTable/CoinTable';
-import { SearchInput } from './components/SearchInput/SearchInput';
-import { Info } from './components/Info/Info';
+import { MainPage } from './pages/MainPage/MainPage';
+import { Routes, Route } from "react-router-dom";
+import { CoinInfoPage } from './pages/CoinInfoPage/CoinInfoPage';
 
 
 export const App = () => {
     return (
         <div className="App">
-          <Routes>
-            <Route path="*" element={<Main />} />
-            <Route path='/' element={<Main />} />
-            <Route path='/info' element={<Info />} />
-          </Routes>
-        {/* <Main /> */}
-      </div>
+            <Routes>
+                <Route path="*" element={<MainPage />} />
+                <Route path='/' element={<MainPage />} />
+                <Route path='/info' element={<CoinInfoPage />} />
+            </Routes>
+        </div>
     );
 };

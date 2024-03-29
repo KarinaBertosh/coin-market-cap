@@ -25,9 +25,9 @@ export const CoinTable = () => {
               add: 'Add',
               symbol: asset.symbol,
               logo: asset.symbol,
-              priceUsd: `$ ${getPrice(asset.priceUsd)}`,
-              marketCapUsd: `$ ${getPrice(asset.marketCapUsd)}`,
-              volumeUsd24Hr: `$ ${getPrice(asset.volumeUsd24Hr)}`,
+              priceUsd: `$${getPrice(asset.priceUsd)}`,
+              marketCapUsd: `$${getPrice(asset.marketCapUsd)}`,
+              volumeUsd24Hr: `$${getPrice(asset.volumeUsd24Hr)}`,
             }
           ));
           dispatch(setDefaultTableData(data));
@@ -49,11 +49,12 @@ export const CoinTable = () => {
     navigate('/info');
   };
 
-  const onRow = (record: IRowData,) => {
+  const onRow = (record: IRowData, rowIndex: any) => {
     return {
-      onClick: () => onClick(record.key),
+      onClick: () => {console.log({ record, rowIndex }); onClick(record.key); },
     };
   };
+
 
 
   return (

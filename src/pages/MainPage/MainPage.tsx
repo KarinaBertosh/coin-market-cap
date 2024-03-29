@@ -2,7 +2,7 @@ import * as React from 'react';
 import { CoinTable } from '../../components/CoinTable/CoinTable';
 
 
-export function MainPage() {
+export const MainPage = () => {
     return (
         <CoinTable />
     );

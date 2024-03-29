@@ -7,6 +7,7 @@ import { fetchAssetHistory } from '../../api/assets';
 import { getPrice, navigateToMain } from '../../utils/default';
 import '../../style.scss';
 import './style.scss';
+import { AddButton } from '../../components/AddButton/AddButton';
 
 
 export function CoinInfoPage() {
@@ -42,7 +43,7 @@ export function CoinInfoPage() {
           ? <>
             <div className='m-b-10'>
               {renderBackButton()}
-              <Button>Add</Button>
+              <AddButton record={selectedCoin} value={"Add"} />
             </div>
             <div>
               <div className='m-b-10'>

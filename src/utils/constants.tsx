@@ -1,13 +1,18 @@
 import React from 'react';
 import { IRowData } from "./types";
-import { Button } from 'antd';
+import { AddButton } from '../components/AddButton/AddButton';
 
 
 export const columns: any = [
     {
         dataIndex: 'add',
         key: 'add',
-        render: ( value: any) => { return ( <Button >{value}</Button>); },
+        onCell: () => {
+            return { onClick: (e: any) => e.stopPropagation() };
+        },
+        render: (value: any, record: any) => {
+            return (<AddButton record={record} value={value} />);
+        },
     },
     {
         title: 'Symbol',

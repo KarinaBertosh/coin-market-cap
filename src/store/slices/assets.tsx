@@ -14,6 +14,9 @@ interface IAssetsState {
   isInputTextError: boolean;
   selectedCoin: IAsset,
   historyCoinPriceChanges: any;
+  portfolioCoins: any;
+  portfolioDifferenceCost: string;
+  portfolioDifferenceCostPercent: string
 }
 
 const initialState: IAssetsState = {
@@ -23,8 +26,11 @@ const initialState: IAssetsState = {
   isLoading: false,
   inputText: '',
   isInputTextError: false,
-  selectedCoin: null, 
-  historyCoinPriceChanges: []
+  selectedCoin: null,
+  historyCoinPriceChanges: [],
+  portfolioCoins: [],
+  portfolioDifferenceCost: '0',
+  portfolioDifferenceCostPercent: '0',
 };
 
 export const slice = createSlice({
@@ -45,6 +51,15 @@ export const slice = createSlice({
     },
     setSelectedCoin: (state, { payload }) => {
       state.selectedCoin = payload;
+    },
+    setPortfolioCoins: (state, { payload }) => {
+      state.portfolioCoins = payload;
+    },
+    setPortfolioDifferenceCost: (state, { payload }) => {
+      state.portfolioDifferenceCost = payload;
+    },
+    setPortfolioDifferencePercent: (state, { payload }) => {
+      state.portfolioDifferenceCostPercent = payload;
     },
   },
   extraReducers(builder) {
@@ -71,6 +86,15 @@ export const slice = createSlice({
   },
 });
 
-export const { setDefaultTableData, setTableData, setInputText, setIsInputTextError, setSelectedCoin } = slice.actions;
+export const {
+  setDefaultTableData,
+  setTableData,
+  setInputText,
+  setIsInputTextError,
+  setSelectedCoin,
+  setPortfolioCoins,
+  setPortfolioDifferenceCost,
+  setPortfolioDifferencePercent
+} = slice.actions;
 
 export default slice.reducer;

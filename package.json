@@ -6,7 +6,14 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server --open --mode development --hot",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
+  },
+  "homepage": "https://karinabertosh.github.io/coin-market-cap",
+  "repository": {
+    "type": "git",
+    "url": "git+https://karinabertosh.github.io/coin-market-cap.git"
   },
   "author": "",
   "license": "ISC",
@@ -41,6 +48,7 @@
     "antd": "^5.15.4",
     "axios": "^1.6.8",
     "css-loader": "^6.10.0",
+    "gh-pages": "^6.1.1",
     "mini-css-extract-plugin": "^2.8.1",
     "sass": "^1.72.0",
     "sass-loader": "^14.1.1",

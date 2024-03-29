@@ -16,22 +16,6 @@ export const Modal = (props: IModalProps) => {
   const { isModalOpen, setIsModalOpen } = props;
   const { portfolioCoins } = useAppSelector((state) => state.assets);
 
-  const getPortfolioCoins = () => {
-    const result: IRowData[] = [];
-    portfolioCoins.forEach((coin: IRowData) => {
-      const foundIndexCoin = result.findIndex((c) => c.key === coin.key);
-      if (foundIndexCoin >= 0) {
-        result[foundIndexCoin] = {
-          ...result[foundIndexCoin],
-          priceUsd: `$${Number(getPrice(result[foundIndexCoin].priceUsd.slice(1))) + Number(getPrice(coin.priceUsd.slice(1)))}`
-        };
-      } else {
-        result.push(coin);
-      }
-    });
-    return result;
-  };
-
   return (
     <ModalWindow
       title="My portfolio"
@@ -40,7 +24,7 @@ export const Modal = (props: IModalProps) => {
       onCancel={() => setIsModalOpen(false)}
     >
       {portfolioCoins.length
-        ? getPortfolioCoins().map((coin: IRowData) =>
+        ? portfolioCoins.map((coin: IRowData) =>
           <div className="coin-block" key={coin.key}>
             <div style={{ display: 'flex' }}>
               {coin.symbol}:

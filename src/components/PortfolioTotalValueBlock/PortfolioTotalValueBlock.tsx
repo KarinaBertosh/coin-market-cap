@@ -22,7 +22,7 @@ export const PortfolioTotalValueBlock = () => {
         <div className='price'>
           {getTotalPortfolioValue()} &nbsp;
         </div>
-        +{portfolioDifferenceCost} &nbsp;
+        {portfolioDifferenceCost} &nbsp;
         ({portfolioDifferenceCostPercent} %)
       </div >
       <Modal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />

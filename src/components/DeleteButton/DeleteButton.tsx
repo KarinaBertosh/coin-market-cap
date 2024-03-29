@@ -3,6 +3,7 @@ import { Button } from 'antd';
 import { setPortfolioCoins, setPortfolioDifferenceCost, setPortfolioDifferencePercent } from '../../store/slices/assets';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { getPrice, getTotalValue } from '../../utils/default';
+import { IRowData } from '../../utils/types';
 
 
 interface IDeleteButtonProps {
@@ -15,27 +16,22 @@ export const DeleteButton = (props: IDeleteButtonProps) => {
   const { record, value } = props;
   const { portfolioCoins } = useAppSelector((state) => state.assets);
 
-  // const addCoinInPortfolio = (coin: string) => {
-  //   const portfolioDifferenceCost = getPrice(String(portfolioCoins
-  //     ? getTotalValue([...portfolioCoins, coin]) - getTotalValue(portfolioCoins)
-  //     : 0));
+  const deleteCoinInPortfolio = (coin: IRowData) => {
+    const result: IRowData[] = [...portfolioCoins].filter((c) => c.key !== coin.key);
 
-  //   const portfolioDifferenceCostPercent = getTotalValue(portfolioCoins) ? getPrice(String(
-  //     (getTotalValue([...portfolioCoins, coin]) / getTotalValue(portfolioCoins) - 1) * 100
-  //   )) : 100;
+    dispatch(setPortfolioCoins(result));
 
-
-  //   dispatch(setPortfolioDifferenceCost(portfolioDifferenceCost));
-  //   dispatch(setPortfolioDifferencePercent(portfolioDifferenceCostPercent));
-
-  //   dispatch(setPortfolioCoins(
-  //     portfolioCoins.length
-  //       ? [...portfolioCoins, coin]
-  //       : [coin]));
-  // };
+    const portfolioDifferenceCost = getPrice(String(portfolioCoins
+      ? getTotalValue(result) - getTotalValue([...portfolioCoins])
+      : 0));
+    const portfolioDifferenceCostPercent = getTotalValue(portfolioCoins) ? getPrice(String(
+      (getTotalValue([...portfolioCoins]) / getTotalValue(result) - 1) * 100
+    )) : 100;
+    dispatch(setPortfolioDifferenceCost(portfolioDifferenceCost));
+    dispatch(setPortfolioDifferencePercent(portfolioDifferenceCostPercent));
+  };
 
   return (
-    // <Button onClick={() => addCoinInPortfolio(record)}>{value}</Button>
-    <Button>{value}</Button>
+    <Button onClick={() => deleteCoinInPortfolio(record)}>{value}</Button>
   );
 };

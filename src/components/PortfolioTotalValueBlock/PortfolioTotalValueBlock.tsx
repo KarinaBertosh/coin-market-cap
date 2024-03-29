@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal } from '../Modal/Modal';
+import { Portfolio } from '../Portfolio/Portfolio';
 import { useAppSelector } from '../../hooks/redux';
 import { getPrice, getTotalValue } from '../../utils/default';
 import '../../style.scss';
@@ -25,7 +25,7 @@ export const PortfolioTotalValueBlock = () => {
         {getPrice(portfolioDifferenceCost)} &nbsp;
         ({portfolioDifferenceCostPercent} %)
       </div >
-      <Modal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+      <Portfolio isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
     </>
   );
 };

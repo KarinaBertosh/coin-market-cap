@@ -6,33 +6,25 @@ import { DeleteButton } from '../DeleteButton/DeleteButton';
 import { getPrice } from '../../utils/default';
 import '../../style.scss';
 import './style.scss';
+import { Input } from '../Input/Input';
 
 interface IModalProps {
   isModalOpen: boolean,
   setIsModalOpen: (isModalOpen: boolean) => void;
+  coin: IRowData;
 }
 
 export const Modal = (props: IModalProps) => {
   const { isModalOpen, setIsModalOpen } = props;
-  const { portfolioCoins } = useAppSelector((state) => state.assets);
 
   return (
     <ModalWindow
-      title="My portfolio"
+      title="Please select number of coins"
       open={isModalOpen}
       footer=""
       onCancel={() => setIsModalOpen(false)}
     >
-      {portfolioCoins.length
-        ? portfolioCoins.map((coin: IRowData) =>
-          <div className="coin-block" key={coin.key} >
-            <div style={{ display: 'flex' }}>
-              {coin.symbol}:
-              <div className='price'>{`${getPrice(coin.priceUsd)}`}</div>
-            </div>
-            <DeleteButton record={coin} value={"Delete"} />
-          </div>)
-        : <div>Your portfolio is empty</div>}
+      <Input coin={props.coin}/>
     </ModalWindow >
   );
 };

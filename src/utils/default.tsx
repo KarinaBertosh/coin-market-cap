@@ -3,14 +3,16 @@ import { IRowData } from "./types";
 export const getPrice = (price: any, numberPastComma = 2) => {
   if (!price) return 0;
 
+// const str = '153055.46000000002';
+  // console.log('dddddddd', str.slice(0, str.indexOf('.') + 3));
+
+
   const index = price.startsWith('0')
     ? price.indexOf(Array.from(price).filter((el) => el !== '0')[1]) + numberPastComma + 1
     : price.indexOf('.') + 3;
 
   return price.slice(0, index);
 };
-
-export const navigateToMain = (navigate: any) => navigate('/');
 
 const getNumber = (coin: IRowData) => {
   return Number(getPrice(coin.priceUsd.slice(1)));

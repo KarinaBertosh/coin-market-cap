@@ -49,13 +49,10 @@ export const CoinTable = () => {
     navigate('/info');
   };
 
-  const onRow = (record: IRowData, rowIndex: any) => {
-    return {
-      onClick: () => {console.log({ record, rowIndex }); onClick(record.key); },
-    };
-  };
-
-
+  const onRow = (record: IRowData) => ({
+    onClick: () => onClick(record.key)
+  })
+ 
 
   return (
     <>

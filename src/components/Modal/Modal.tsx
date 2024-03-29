@@ -25,7 +25,7 @@ export const Modal = (props: IModalProps) => {
     >
       {portfolioCoins.length
         ? portfolioCoins.map((coin: IRowData) =>
-          <div className="coin-block" key={coin.key}>
+          <div className="coin-block" key={coin.key} >
             <div style={{ display: 'flex' }}>
               {coin.symbol}:
               <div className='price'>{`${getPrice(coin.priceUsd)}`}</div>
@@ -33,6 +33,6 @@ export const Modal = (props: IModalProps) => {
             <DeleteButton record={coin} value={"Delete"} />
           </div>)
         : <div>Your portfolio is empty</div>}
-    </ModalWindow>
+    </ModalWindow >
   );
 };

@@ -2,8 +2,6 @@ import * as React from 'react';
 import { Layout, theme } from 'antd';
 import { Header } from '../Header/Header';
 
-const { Content, Footer } = Layout;
-
 
 export const Overlay = ({ children }: any) => {
   const { token: { colorBgContainer, borderRadiusLG } } = theme.useToken();
@@ -11,7 +9,7 @@ export const Overlay = ({ children }: any) => {
   return (
     <Layout>
       <Header />
-      <Content style={{ padding: '0 48px' }}>
+      <Layout.Content style={{ padding: '0 20px' }}>
         <div
           style={{
             padding: 24,
@@ -21,8 +19,7 @@ export const Overlay = ({ children }: any) => {
           }}>
           {children}
         </div>
-      </Content>
-      <Footer className='footer' />
+      </Layout.Content>
     </Layout>
   );
 };

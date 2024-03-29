@@ -4,10 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import { Button, Select, Spin } from 'antd';
 import { LineChart } from '@mui/x-charts/LineChart';
 import { fetchAssetHistory } from '../../api/assets';
-import { getPrice, navigateToMain } from '../../utils/default';
+import { getPrice } from '../../utils/default';
+import { AddButton } from '../../components/AddButton/AddButton';
 import '../../style.scss';
 import './style.scss';
-import { AddButton } from '../../components/AddButton/AddButton';
+import { IRowData } from '../../utils/types';
 
 
 export function CoinInfoPage() {
@@ -17,7 +18,9 @@ export function CoinInfoPage() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const { selectedCoin, isLoading } = useAppSelector((state) => state.assets);
+  const { selectedCoin, isLoading, defaultTableData } = useAppSelector((state) => state.assets);
+  const foundSelectedCoin = defaultTableData.find((coin: IRowData) => coin.key === selectedCoin.id)
+  
 
   useEffect(() => {
     (async () => {
@@ -33,7 +36,7 @@ export function CoinInfoPage() {
     })();
   }, [currentChartType]);
 
-  const renderBackButton = () => <Button className='m-r-10' onClick={() => navigateToMain(navigate)}>Back</Button>;
+  const renderBackButton = () => <Button className='m-r-10' onClick={() => navigate('/')}>Back</Button>;
 
 
   return (
@@ -43,7 +46,7 @@ export function CoinInfoPage() {
           ? <>
             <div className='m-b-10'>
               {renderBackButton()}
-              <AddButton record={selectedCoin} value={"Add"} />
+              <AddButton record={foundSelectedCoin} value={"Add"} />
             </div>
             <div>
               <div className='m-b-10'>

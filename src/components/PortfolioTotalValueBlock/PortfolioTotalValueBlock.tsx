@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Modal } from '../Modal/Modal';
 import { useAppSelector } from '../../hooks/redux';
-import { getTotalValue } from '../../utils/default';
+import { getPrice, getTotalValue } from '../../utils/default';
 import '../../style.scss';
 import './style.scss';
 
@@ -12,7 +12,7 @@ export const PortfolioTotalValueBlock = () => {
 
   const getTotalPortfolioValue = () => {
     if (!portfolioCoins.length) return `0 USD`;
-    const totalValue = getTotalValue(portfolioCoins);
+    const totalValue = getPrice(String(getTotalValue(portfolioCoins)));
     return `${totalValue} USD`;
   };
 
@@ -22,7 +22,7 @@ export const PortfolioTotalValueBlock = () => {
         <div className='price'>
           {getTotalPortfolioValue()} &nbsp;
         </div>
-        {portfolioDifferenceCost} &nbsp;
+        {getPrice(portfolioDifferenceCost)} &nbsp;
         ({portfolioDifferenceCostPercent} %)
       </div >
       <Modal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />

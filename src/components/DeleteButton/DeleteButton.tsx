@@ -32,6 +32,8 @@ export const DeleteButton = (props: IDeleteButtonProps) => {
   };
 
   return (
-    <Button onClick={() => deleteCoinInPortfolio(record)}>{value}</Button>
+    <Button onClick={() => deleteCoinInPortfolio(record)}>
+      {value}
+    </Button>
   );
 };

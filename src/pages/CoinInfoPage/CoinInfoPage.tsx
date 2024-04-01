@@ -6,7 +6,6 @@ import { IRowData } from '../../utils/types';
 import { CoinInfo } from '../../components/CoinInfo/CoinInfo';
 import { CoinChart } from '../../components/CoinChart/CoinChart';
 import { NavigationButtons } from '../../components/NavigationButtons/NavigationButtons';
-import '../../style.scss';
 import './style.scss';
 
 
@@ -36,17 +35,16 @@ export const CoinInfoPage = () => {
 
   return (
     <>
-      {selectedCoin != undefined
-        ? <>
-          <NavigationButtons foundSelectedCoin={foundSelectedCoin} />
-          <div>
-            <CoinInfo />
-            <CoinChart
-              historyCoinPriceChanges={historyCoinPriceChanges}
-              setCurrentChartType={setCurrentChartType} />
-          </div>
+      <NavigationButtons foundSelectedCoin={foundSelectedCoin} />
+      {selectedCoin &&
+        <>
+          <CoinInfo />
+          <CoinChart
+            historyCoinPriceChanges={historyCoinPriceChanges}
+            setCurrentChartType={setCurrentChartType}
+          />
         </>
-        : <NavigationButtons foundSelectedCoin={foundSelectedCoin} />}
+      }
     </>
   );
 };

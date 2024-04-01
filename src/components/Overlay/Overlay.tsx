@@ -9,16 +9,15 @@ export const Overlay = ({ children }: any) => {
   return (
     <Layout>
       <Header />
-      <Layout.Content style={{ padding: '0 20px' }}>
-        <div
-          style={{
-            padding: 24,
-            minHeight: 380,
-            background: colorBgContainer,
-            borderRadius: borderRadiusLG,
-          }}>
-          {children}
-        </div>
+      <Layout.Content
+        style={{
+          padding: 24,
+          minHeight: 380,
+          background: colorBgContainer,
+          borderRadius: borderRadiusLG,
+        }}
+      >
+        {children}
       </Layout.Content>
     </Layout>
   );

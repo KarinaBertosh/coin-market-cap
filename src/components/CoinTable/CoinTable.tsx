@@ -4,7 +4,7 @@ import { columns } from '../../utils/constants';
 import { getData } from '../../utils/default';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { setSelectedCoin, } from '../../store/slices/assets';
-import { SearchInput } from '../SearchInput/SearchInput';
+import { TextSearch } from '../TextSearch/TextSearch';
 import { IAsset, IRowData } from '../../utils/types';
 import { useNavigate } from "react-router-dom";
 
@@ -21,11 +21,11 @@ export const CoinTable = () => {
         console.log(error);
       }
     })();
-  }, [inputText]);
+  }, []);
 
   const onClick = (key: string) => {
-    const foundCoin = assets.find((asset: IAsset) => asset.id === key);
-    dispatch(setSelectedCoin(foundCoin));
+    const selectedCoin = assets.find((asset: IAsset) => asset.id === key);
+    dispatch(setSelectedCoin(selectedCoin));
     navigate('/info');
   };
 
@@ -33,10 +33,9 @@ export const CoinTable = () => {
     onClick: () => onClick(record.key)
   });
 
-
   return (
     <>
-      <SearchInput />
+      <TextSearch />
       <Table dataSource={tableData} columns={columns} loading={isLoading} onRow={onRow} />
     </>
   );

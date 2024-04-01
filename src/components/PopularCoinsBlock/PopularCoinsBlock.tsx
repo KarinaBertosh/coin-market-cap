@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { fetchRates } from '../../api/assets';
 import { PopularCoin } from '../PopularCoin/PopularCoin';
-import '../../style.scss';
 import './style.scss';
 
 

@@ -7,12 +7,10 @@ export const columns: any = [
     {
         dataIndex: 'add',
         key: 'add',
-        onCell: () => {
-            return { onClick: (e: any) => e.stopPropagation() };
-        },
-        render: (value: any, record: any) => {
-            return (<AddButton record={record} value={value} />);
-        },
+        onCell: () => ({ onClick: (e: any) => e.stopPropagation() }),
+        render: (value: any, record: any) =>
+            <AddButton record={record} value={value} />
+        ,
     },
     {
         title: 'Symbol',

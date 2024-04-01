@@ -15,9 +15,10 @@ export const AddButton = (props: IAddButtonProps) => {
 
   return (
     <>
-      <Button onClick={() => setIsModalOpen(true)}>{value}</Button>
+      <Button onClick={() => setIsModalOpen(true)}>
+        {value}
+      </Button>
       <Modal isModalOpen={isOpenModal} setIsModalOpen={setIsModalOpen} coin={record} />
     </>
-
   );
 };

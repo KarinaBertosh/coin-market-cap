@@ -24,7 +24,7 @@ export const Modal = (props: IModalProps) => {
       footer=""
       onCancel={() => setIsModalOpen(false)}
     >
-      <Input coin={props.coin}/>
+      <Input coin={props.coin} />
     </ModalWindow >
   );
 };

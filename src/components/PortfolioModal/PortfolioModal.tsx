@@ -12,7 +12,7 @@ interface IPortfolioProps {
   setIsModalOpen: (isModalOpen: boolean) => void;
 }
 
-export const Portfolio = (props: IPortfolioProps) => {
+export const PortfolioModal = (props: IPortfolioProps) => {
   const { isModalOpen, setIsModalOpen } = props;
   const { portfolioCoins } = useAppSelector((state) => state.assets);
 

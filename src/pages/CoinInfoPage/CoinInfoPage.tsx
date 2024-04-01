@@ -6,9 +6,9 @@ import { LineChart } from '@mui/x-charts/LineChart';
 import { fetchAssetHistory } from '../../api/assets';
 import { getPrice } from '../../utils/default';
 import { AddButton } from '../../components/AddButton/AddButton';
+import { IRowData } from '../../utils/types';
 import '../../style.scss';
 import './style.scss';
-import { IRowData } from '../../utils/types';
 
 
 export function CoinInfoPage() {

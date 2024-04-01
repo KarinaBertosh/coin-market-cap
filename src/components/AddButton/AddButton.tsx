@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
 import { Button } from 'antd';
-import { setPortfolioCoins, setPortfolioDifferenceCost, setPortfolioDifferencePercent } from '../../store/slices/assets';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { getPrice, getTotalValue } from '../../utils/default';
 import { IRowData } from '../../utils/types';
 import { Modal } from '../Modal/Modal';
 
@@ -15,10 +12,6 @@ interface IAddButtonProps {
 export const AddButton = (props: IAddButtonProps) => {
   const [isOpenModal, setIsModalOpen] = useState(false);
   const { record, value } = props;
-
-  // const openModal = () => {
-  //   setIsModalOpen(true);
-  // };
 
   return (
     <>

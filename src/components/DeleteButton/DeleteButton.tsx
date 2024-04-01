@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from 'antd';
-import { setPortfolioCoins, setPortfolioDifferenceCost, setPortfolioDifferencePercent } from '../../store/slices/assets';
+import { setPortfolioCoins } from '../../store/slices/assets';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { getPrice, getTotalValue } from '../../utils/default';
 import { IRowData } from '../../utils/types';
@@ -21,14 +21,14 @@ export const DeleteButton = (props: IDeleteButtonProps) => {
 
     dispatch(setPortfolioCoins(result));
 
-    const portfolioDifferenceCost = getPrice(String(portfolioCoins
-      ? getTotalValue(result) - getTotalValue([...portfolioCoins])
-      : 0));
-    const portfolioDifferenceCostPercent = getTotalValue(portfolioCoins) ? getPrice(String(
-      (getTotalValue([...portfolioCoins]) / getTotalValue(result) - 1) * 100
-    )) : 100;
-    dispatch(setPortfolioDifferenceCost(portfolioDifferenceCost));
-    dispatch(setPortfolioDifferencePercent(portfolioDifferenceCostPercent));
+    // const portfolioDifferenceCost = getPrice(String(portfolioCoins
+    //   ? getTotalValue(result) - getTotalValue([...portfolioCoins])
+    //   : 0));
+    // const portfolioDifferenceCostPercent = getTotalValue(portfolioCoins) ? getPrice(String(
+    //   (getTotalValue([...portfolioCoins]) / getTotalValue(result) - 1) * 100
+    // )) : 100;
+    // dispatch(setPortfolioDifferenceCost(portfolioDifferenceCost));
+    // dispatch(setPortfolioDifferencePercent(portfolioDifferenceCostPercent));
   };
 
   return (

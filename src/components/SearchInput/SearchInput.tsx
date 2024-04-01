@@ -1,9 +1,9 @@
 import React from 'react';
 import { Input } from 'antd';
 import type { SearchProps } from 'antd/es/input/Search';
-import './style.scss';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { setInputText } from '../../store/slices/assets';
+import './style.scss';
 
 
 export const SearchInput = () => {

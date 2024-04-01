@@ -19,6 +19,7 @@ export interface IAsset {
     changePercent24Hr: string,
     vwap24Hr: string,
     explorer: string;
+
 }
 
 export interface IRowData {
@@ -29,4 +30,5 @@ export interface IRowData {
     priceUsd: string;
     symbol: string;
     volumeUsd24Hr: string;
+    coinsNumber?: number;
 }

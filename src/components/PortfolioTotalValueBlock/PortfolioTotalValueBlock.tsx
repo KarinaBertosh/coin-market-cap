@@ -1,14 +1,19 @@
-import React, { useState } from 'react';
-import { Portfolio } from '../Portfolio/Portfolio';
-import { useAppSelector } from '../../hooks/redux';
-import { getPrice, getTotalValue } from '../../utils/default';
+import React, { useEffect, useState } from 'react';
+import { PortfolioModal } from '../PortfolioModal/PortfolioModal';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { getData, getPrice, getTotalValue } from '../../utils/default';
+import { IRowData } from '../../utils/types';
 import '../../style.scss';
 import './style.scss';
 
 
 export const PortfolioTotalValueBlock = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { portfolioCoins, portfolioDifferenceCost, portfolioDifferenceCostPercent } = useAppSelector((state) => state.assets);
+  const [differenceCost, setDifferenceCost] = useState('0');
+  const [differenceCostPercent, setDifferenceCostPercent] = useState('0');
+  const dispatch = useAppDispatch();
+  const { portfolioCoins } = useAppSelector((state) => state.assets);
+
 
   const getTotalPortfolioValue = () => {
     if (!portfolioCoins.length) return `0 USD`;
@@ -16,16 +21,38 @@ export const PortfolioTotalValueBlock = () => {
     return `${totalValue} USD`;
   };
 
+  useEffect(() => {
+    (
+      async () => {
+        let result = 0;
+        const data = await getData(dispatch);
+        portfolioCoins.forEach((coin: IRowData) => {
+          const foundCoin = data.find((c: IRowData) => c.key === coin.key);
+          result += Number(foundCoin.priceUsd.slice(1)) * coin.coinsNumber;
+        });
+        const totalValue = Number(getTotalPortfolioValue().slice(0, getTotalPortfolioValue().length - 4));
+        setDifferenceCost(getPrice(String(totalValue - result)));
+
+        const portfolioDifferenceCostPercent = portfolioCoins.length
+          ? getPrice(String((result / totalValue - 1) * 100))
+          : 0;
+
+        setDifferenceCostPercent(portfolioDifferenceCostPercent);
+      }
+    )();
+  }, [portfolioCoins]);
+
+
   return (
     <>
       <div className='portfolio-value-block' onClick={() => setIsModalOpen(true)}>
         <div className='price'>
           {getTotalPortfolioValue()} &nbsp;
         </div>
-        {getPrice(portfolioDifferenceCost)} &nbsp;
-        ({portfolioDifferenceCostPercent} %)
+        {differenceCost} &nbsp;
+        ({differenceCostPercent} %)
       </div >
-      <Portfolio isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+      <PortfolioModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
     </>
   );
 };

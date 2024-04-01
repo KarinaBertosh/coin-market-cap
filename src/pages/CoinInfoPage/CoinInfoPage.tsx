@@ -1,26 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { useNavigate } from 'react-router-dom';
-import { Button, Select, Spin } from 'antd';
-import { LineChart } from '@mui/x-charts/LineChart';
 import { fetchAssetHistory } from '../../api/assets';
 import { getPrice } from '../../utils/default';
-import { AddButton } from '../../components/AddButton/AddButton';
 import { IRowData } from '../../utils/types';
+import { CoinInfo } from '../../components/CoinInfo/CoinInfo';
+import { CoinChart } from '../../components/CoinChart/CoinChart';
+import { NavigationButtons } from '../../components/NavigationButtons/NavigationButtons';
 import '../../style.scss';
 import './style.scss';
 
 
-export function CoinInfoPage() {
-  const [data, setData] = useState([]);
+export const CoinInfoPage = () => {
+  const [historyCoinPriceChanges, setHistoryCoinPriceChanges] = useState([]);
   const [currentChartType, setCurrentChartType] = useState('d1');
 
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
-  const { selectedCoin, isLoading, defaultTableData } = useAppSelector((state) => state.assets);
-  const foundSelectedCoin = defaultTableData.find((coin: IRowData) => coin.key === selectedCoin.id)
-  
+  const { selectedCoin, tableData } = useAppSelector((state) => state.assets);
+  const foundSelectedCoin = tableData.find((coin: IRowData) => coin.key === selectedCoin?.id);
+
 
   useEffect(() => {
     (async () => {
@@ -29,65 +27,26 @@ export function CoinInfoPage() {
           id: selectedCoin.id,
           interval: currentChartType
         })).unwrap();
-        setData(historyCoinPriceChanges.map((el: any) => Number(getPrice(el.priceUsd, 0))));
+        setHistoryCoinPriceChanges(historyCoinPriceChanges.map((el: any) => Number(getPrice(el.priceUsd, 0))));
       } catch (error) {
         console.log(error);
       }
     })();
   }, [currentChartType]);
 
-  const renderBackButton = () => <Button className='m-r-10' onClick={() => navigate('/')}>Back</Button>;
-
-
   return (
     <>
-      {
-        selectedCoin != undefined
-          ? <>
-            <div className='m-b-10'>
-              {renderBackButton()}
-              <AddButton record={foundSelectedCoin} value={"Add"} />
-            </div>
-            <div>
-              <div className='m-b-10'>
-                <img src="logo" alt="logo" />
-                <div>Name: {selectedCoin.name}</div>
-                <div>Symbol:{selectedCoin.symbol}</div>
-                <div>Rank: {selectedCoin.rank}</div>
-                <div>Supply: {selectedCoin.supply ?? 0}</div>
-                <div>Max supply: {selectedCoin.maxSupply ?? 0}</div>
-                <div>Price(usd): {`$ ${getPrice(selectedCoin.priceUsd)}`}</div>
-              </div>
-              <div className='chart'>
-                <Select
-                  defaultValue="Price change chart per:"
-                  style={{ width: 300 }}
-                  onChange={(type) => setCurrentChartType(type)}
-                  options={[
-                    { value: 'd1', label: 'Day' },
-                    { value: 'h12', label: '12 hours' },
-                    { value: 'h1', label: '1 hour' },
-                  ]}
-                  className='m-b-10'
-                />
-                {
-                  isLoading
-                    ? <Spin />
-                    : <LineChart
-                      xAxis={[{ data: data }]}
-                      series={[{ data: data }]}
-                      width={1200}
-                      height={300}
-                    />
-                }
-              </div>
-            </div>
-          </>
-          : <>
-            {renderBackButton()}
-            <h1>Go to the main page to pick up your coin</h1>
-          </>
-      }
+      {selectedCoin != undefined
+        ? <>
+          <NavigationButtons foundSelectedCoin={foundSelectedCoin} />
+          <div>
+            <CoinInfo />
+            <CoinChart
+              historyCoinPriceChanges={historyCoinPriceChanges}
+              setCurrentChartType={setCurrentChartType} />
+          </div>
+        </>
+        : <NavigationButtons foundSelectedCoin={foundSelectedCoin} />}
     </>
   );
-}
+};

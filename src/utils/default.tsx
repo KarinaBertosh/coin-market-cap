@@ -1,5 +1,5 @@
 import { fetchAssets } from "../api/assets";
-import { setDefaultTableData, setTableData } from "../store/slices/assets";
+import { setTableData } from "../store/slices/assets";
 import { IRowData } from "./types";
 
 export const getPrice = (price: any, numberPastComma = 2) => {
@@ -32,7 +32,6 @@ export const getData = async (dispatch: any) => {
       volumeUsd24Hr: `$${getPrice(asset.volumeUsd24Hr)}`,
     }
   ));
-  dispatch(setDefaultTableData(data));
   dispatch(setTableData(data));
   return data;
 }

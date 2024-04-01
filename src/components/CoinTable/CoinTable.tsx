@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react';
 import { Table } from "antd";
 import { columns } from '../../utils/constants';
-import { getData, getPrice } from '../../utils/default';
+import { getData } from '../../utils/default';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { setDefaultTableData, setIsInputTextError, setSelectedCoin, setTableData } from '../../store/slices/assets';
-import { fetchAssets } from '../../api/assets';
+import { setSelectedCoin, } from '../../store/slices/assets';
 import { SearchInput } from '../SearchInput/SearchInput';
 import { IAsset, IRowData } from '../../utils/types';
 import { useNavigate } from "react-router-dom";
@@ -12,18 +11,12 @@ import { useNavigate } from "react-router-dom";
 export const CoinTable = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { assets, defaultTableData, tableData, isLoading, inputText } = useAppSelector((state) => state.assets);
+  const { assets, tableData, isLoading, inputText } = useAppSelector((state) => state.assets);
 
   useEffect(() => {
     (async () => {
       try {
-        if (!assets.length) {
-          await getData(dispatch)
-        } else {
-          const foundCoin = defaultTableData.find((coin: IRowData) => coin.key.toLowerCase() === inputText.toLowerCase() || coin.symbol.toLowerCase() === inputText.toLowerCase());
-          dispatch(setTableData(foundCoin ? [foundCoin] : defaultTableData));
-          dispatch(setIsInputTextError(!!foundCoin || !inputText ? false : true));
-        }
+        await getData(dispatch);
       } catch (error) {
         console.log(error);
       }
@@ -38,8 +31,8 @@ export const CoinTable = () => {
 
   const onRow = (record: IRowData) => ({
     onClick: () => onClick(record.key)
-  })
- 
+  });
+
 
   return (
     <>

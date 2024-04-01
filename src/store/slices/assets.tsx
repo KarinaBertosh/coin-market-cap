@@ -7,7 +7,6 @@ import { IAsset } from '../../utils/types';
 
 interface IAssetsState {
   assets: any;
-  defaultTableData: any;
   tableData: any;
   isLoading: boolean;
   inputText: string;
@@ -19,7 +18,6 @@ interface IAssetsState {
 
 const initialState: IAssetsState = {
   assets: [],
-  defaultTableData: [],
   tableData: [],
   isLoading: false,
   inputText: '',
@@ -33,9 +31,6 @@ export const slice = createSlice({
   name: 'assets',
   initialState,
   reducers: {
-    setDefaultTableData: (state, { payload }) => {
-      state.defaultTableData = payload;
-    },
     setTableData: (state, { payload }) => {
       state.tableData = payload;
     },
@@ -77,7 +72,6 @@ export const slice = createSlice({
 });
 
 export const {
-  setDefaultTableData,
   setTableData,
   setInputText,
   setIsInputTextError,

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Input as InputNumber } from 'antd';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { IRowData } from '../../utils/types';
@@ -10,11 +10,12 @@ interface IInputProps {
 }
 
 export const Input = (props: IInputProps) => {
+  const [isError, setIsError] = useState(false);
   const dispatch = useAppDispatch();
   const { portfolioCoins } = useAppSelector((state) => state.assets);
 
   const addCoinInPortfolio = (number: number) => {
-    console.log({ number, portfolioCoins });
+    setIsError(false);
 
     const updatedCoin = {
       ...props.coin,
@@ -50,11 +51,15 @@ export const Input = (props: IInputProps) => {
   };
 
   const onPressEnter = (e: any) => {
-    Number(e.target.value) && addCoinInPortfolio(e.target.value);
-    //send error text
+    Number(e.target.value)
+      ? addCoinInPortfolio(e.target.value)
+      : setIsError(true);
   };
 
   return (
-    <InputNumber defaultValue='0' maxLength={16} onPressEnter={onPressEnter} />
+    <>
+      <InputNumber defaultValue='0' maxLength={16} onPressEnter={onPressEnter} />
+      {isError && <p>Error: Enter the number, the number must be greater than 0</p>}
+    </>
   );
 };

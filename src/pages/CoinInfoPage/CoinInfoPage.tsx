@@ -24,7 +24,7 @@ export const CoinInfoPage = () => {
           id: selectedCoin.id,
           interval: chartType
         });
-        setCoinPrices(coinPrices.map((el: any) => Number(getPrice(el.priceUsd, 0))));
+        setCoinPrices(coinPrices.map((el: any) => getPrice(el.priceUsd, 0)));
       } catch (error) {
         setIsLoading(false);
         console.log(error);

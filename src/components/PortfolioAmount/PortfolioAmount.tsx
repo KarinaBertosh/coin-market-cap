@@ -1,22 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { Portfolio } from '../Portfolio/Portfolio';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { getData, getPrice, getTotalValue } from '../../utils/default';
+import { getData, getPrice, getCoinsTotalValue } from '../../utils/default';
 import { ICoinRow } from '../../utils/types';
 import './style.scss';
 
 
 export const PortfolioAmount = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [differenceAmount, setDifferenceAmount] = useState('0');
-  const [differenceAmountPercent, setDifferenceAmountPercent] = useState('0');
+  const [differenceAmount, setDifferenceAmount] = useState(0);
+  const [differenceAmountPercent, setDifferenceAmountPercent] = useState(0);
 
   const dispatch = useAppDispatch();
   const { portfolioCoins } = useAppSelector((state) => state.assets);
 
   const getTotalAmount = () => {
     if (!portfolioCoins.length) return `0 USD`;
-    const totalAmount = getPrice(String(getTotalValue(portfolioCoins)));
+    const totalAmount = getPrice(getCoinsTotalValue(portfolioCoins));
     return `${totalAmount} USD`;
   };
 
@@ -30,22 +30,22 @@ export const PortfolioAmount = () => {
     const totalAmount = Number(getTotalAmount().slice(0, getTotalAmount().length - 4));
 
     return {
-      differenceAmount: getPrice(String(totalAmount - difference)),
-      totalAmount,
-      difference
+      differenceAmount: getPrice(totalAmount - difference),
+      totalAmount: totalAmount,
+      difference: difference,
     };
   };
 
-  const getPortfolioDifferencePercent = (result: number, totalValue: number) => {
+  const getPortfolioDifferencePercent = (difference: number, totalValue: number) => {
     return portfolioCoins.length
-      ? getPrice(String((result / totalValue - 1) * 100))
+      ? Number(getPrice((difference / totalValue - 1) * 100))
       : 0;
   };
 
   useEffect(() => {
     (async () => {
       const { difference, totalAmount, differenceAmount } = await getDifferenceAmount();
-      setDifferenceAmount(differenceAmount);
+      setDifferenceAmount(Number(differenceAmount));
       setDifferenceAmountPercent(() => getPortfolioDifferencePercent(difference, totalAmount));
     })();
   }, [portfolioCoins]);

@@ -27,7 +27,7 @@ export const Portfolio = (props: IPortfolioProps) => {
           <div className="coin-block" key={coin.key} >
             <div style={{ display: 'flex' }}>
               {coin.symbol}:
-              <div className="price">{`${getPrice(coin.priceUsd)}`}</div>
+              <div className="price">{getPrice(Number(coin.priceUsd))}</div>
             </div>
             <DeleteButton coin={coin} value={"Delete"} />
           </div>)

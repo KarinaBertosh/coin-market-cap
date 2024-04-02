@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from 'antd';
 import { setPortfolioCoins } from '../../store/slices/assets';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { getPrice, getTotalValue } from '../../utils/default';
+import { getPrice, getCoinsTotalValue } from '../../utils/default';
 import { ICoinRow } from '../../utils/types';
 
 

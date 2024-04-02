@@ -2,22 +2,22 @@ import { fetchAssets } from "../api/assets";
 import { setTableData } from "../store/slices/assets";
 import { ICoinRow } from "./types";
 
-export const getPrice = (price: any, numberPastComma = 2) => {
+export const getPrice = (price: number, numberPastComma = 2) => {
   if (!price) return 0;
 
-  const index = price.startsWith('0')
-    ? price.indexOf(Array.from(price).filter((el) => el !== '0')[1]) + numberPastComma + 1
-    : price.indexOf('.') + 3;
+  const index = String(price).startsWith('0')
+    ? String(price).indexOf(Array.from(String(price)).filter((el) => el !== '0')[1]) + numberPastComma + 1
+    : String(price).indexOf('.') + 3;
 
-  return price.slice(0, index);
+  return Number(String(price).slice(0, index)).toFixed(2);
 };
 
-const getNumber = (coin: ICoinRow) => {
-  return Number(getPrice(coin.priceUsd.slice(1)) * coin.coinsNumber);
+const getOneCoinTotalPrice = (coin: ICoinRow) => {
+  return Number(getPrice(Number(coin.priceUsd.slice(1)))) * coin.coinsNumber;
 };
 
-export const getTotalValue = (portfolioCoins: ICoinRow[]) => portfolioCoins.reduce((prev: any, cur: any) =>
-  prev.priceUsd ? getNumber(prev) : prev + getNumber(cur), 0,);
+export const getCoinsTotalValue = (coins: ICoinRow[]) => coins.reduce((acc: any, cur: ICoinRow) =>
+  acc.priceUsd ? getOneCoinTotalPrice(acc) : acc + getOneCoinTotalPrice(cur), 0,);
 
 export const getData = async (dispatch: any) => {
   const assets = await dispatch(fetchAssets()).unwrap();

@@ -8,9 +8,9 @@ interface IPopularCoinProps {
 
 export const PopularCoin = ({ rating }: IPopularCoinProps) => {
   return (
-    <div key={rating.id} className='popular-coin-block'>
+    <div key={rating.id} className="popular-coin-block">
       {rating.symbol}:
-      <div className='price'>
+      <div className="price">
         {`$${getPrice(rating.rateUsd)}`}
       </div>
     </div>

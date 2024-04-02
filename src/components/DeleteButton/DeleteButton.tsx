@@ -3,21 +3,21 @@ import { Button } from 'antd';
 import { setPortfolioCoins } from '../../store/slices/assets';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { getPrice, getTotalValue } from '../../utils/default';
-import { IRowData } from '../../utils/types';
+import { ICoinRow } from '../../utils/types';
 
 
 interface IDeleteButtonProps {
-  record: any,
+  coin: any,
   value: string;
 }
 
 export const DeleteButton = (props: IDeleteButtonProps) => {
   const dispatch = useAppDispatch();
-  const { record, value } = props;
+  const { coin, value } = props;
   const { portfolioCoins } = useAppSelector((state) => state.assets);
 
-  const deleteCoinInPortfolio = (coin: IRowData) => {
-    const result: IRowData[] = [...portfolioCoins].filter((c) => c.key !== coin.key);
+  const deleteCoin = (coin: ICoinRow) => {
+    const result: ICoinRow[] = [...portfolioCoins].filter((c) => c.key !== coin.key);
 
     dispatch(setPortfolioCoins(result));
 
@@ -32,7 +32,7 @@ export const DeleteButton = (props: IDeleteButtonProps) => {
   };
 
   return (
-    <Button onClick={() => deleteCoinInPortfolio(record)}>
+    <Button onClick={() => deleteCoin(coin)}>
       {value}
     </Button>
   );

@@ -19,7 +19,7 @@ export const PopularCoinsBlock = () => {
   }, []);
 
   return (
-    <div className='popular-coins-block'>
+    <div className="popular-coins-block">
       {ratings.map((rating) =>
         <PopularCoin rating={rating} key={rating.id}/>
       )}

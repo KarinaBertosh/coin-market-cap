@@ -1,6 +1,6 @@
 import { fetchAssets } from "../api/assets";
 import { setTableData } from "../store/slices/assets";
-import { IRowData } from "./types";
+import { ICoinRow } from "./types";
 
 export const getPrice = (price: any, numberPastComma = 2) => {
   if (!price) return 0;
@@ -12,11 +12,11 @@ export const getPrice = (price: any, numberPastComma = 2) => {
   return price.slice(0, index);
 };
 
-const getNumber = (coin: IRowData) => {
+const getNumber = (coin: ICoinRow) => {
   return Number(getPrice(coin.priceUsd.slice(1)) * coin.coinsNumber);
 };
 
-export const getTotalValue = (portfolioCoins: IRowData[]) => portfolioCoins.reduce((prev: any, cur: any) =>
+export const getTotalValue = (portfolioCoins: ICoinRow[]) => portfolioCoins.reduce((prev: any, cur: any) =>
   prev.priceUsd ? getNumber(prev) : prev + getNumber(cur), 0,);
 
 export const getData = async (dispatch: any) => {

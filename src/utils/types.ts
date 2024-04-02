@@ -22,7 +22,7 @@ export interface IAsset {
 
 }
 
-export interface IRowData {
+export interface ICoinRow {
     add: string;
     key: string;
     logo: string;

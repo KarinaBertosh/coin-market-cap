@@ -1,29 +1,24 @@
 import {
   createSlice
 } from '@reduxjs/toolkit';
-import { fetchAssetHistory, fetchAssets } from '../../api/assets';
+import { fetchAssets } from '../../api/assets';
 import { IAsset } from '../../utils/types';
-
 
 interface IAssetsState {
   assets: any;
-  tableData: any;
+  coinsRow: any;
   isLoading: boolean;
-  inputText: string;
-  isInputTextError: boolean;
+  searchText: string;
   selectedCoin: IAsset,
-  historyCoinPriceChanges: any;
   portfolioCoins: any;
 }
 
 const initialState: IAssetsState = {
   assets: [],
-  tableData: [],
+  coinsRow: [],
   isLoading: false,
-  inputText: '',
-  isInputTextError: false,
+  searchText: '',
   selectedCoin: null,
-  historyCoinPriceChanges: [],
   portfolioCoins: [],
 };
 
@@ -32,13 +27,10 @@ export const slice = createSlice({
   initialState,
   reducers: {
     setTableData: (state, { payload }) => {
-      state.tableData = payload;
+      state.coinsRow = payload;
     },
-    setInputText: (state, { payload }) => {
-      state.inputText = payload;
-    },
-    setIsInputTextError: (state, { payload }) => {
-      state.isInputTextError = payload;
+    setSearchText: (state, { payload }) => {
+      state.searchText = payload;
     },
     setSelectedCoin: (state, { payload }) => {
       state.selectedCoin = payload;
@@ -58,23 +50,12 @@ export const slice = createSlice({
     builder.addCase(fetchAssets.rejected, (state) => {
       state.isLoading = false;
     });
-    builder.addCase(fetchAssetHistory.pending, (state) => {
-      state.isLoading = true;
-    });
-    builder.addCase(fetchAssetHistory.fulfilled, (state, { payload }) => {
-      state.historyCoinPriceChanges = payload;
-      state.isLoading = false;
-    });
-    builder.addCase(fetchAssetHistory.rejected, (state) => {
-      state.isLoading = false;
-    });
   },
 });
 
 export const {
   setTableData,
-  setInputText,
-  setIsInputTextError,
+  setSearchText,
   setSelectedCoin,
   setPortfolioCoins,
 } = slice.actions;

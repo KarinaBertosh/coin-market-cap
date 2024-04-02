@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Input as InputNumber } from 'antd';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { IRowData } from '../../utils/types';
+import { ICoinRow } from '../../utils/types';
 import { getPrice, getTotalValue } from '../../utils/default';
 import { setPortfolioCoins } from '../../store/slices/assets';
 
 interface IInputProps {
-  coin: IRowData;
+  coin: ICoinRow;
 }
 
 export const Input = (props: IInputProps) => {
@@ -23,8 +23,8 @@ export const Input = (props: IInputProps) => {
     };
 
     if (portfolioCoins.length) {
-      const result: IRowData[] = [...portfolioCoins];
-      const foundIndexCoin = result.findIndex((c: IRowData) => c.key === props.coin.key);
+      const result: ICoinRow[] = [...portfolioCoins];
+      const foundIndexCoin = result.findIndex((c: ICoinRow) => c.key === props.coin.key);
 
       foundIndexCoin >= 0
         ? result[foundIndexCoin] = {

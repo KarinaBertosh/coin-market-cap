@@ -1,35 +1,36 @@
 import React from 'react';
-import { useAppSelector } from '../../hooks/redux';
 import { Select, Spin } from 'antd';
 import { LineChart } from '@mui/x-charts/LineChart';
+import './style.scss';
 
-interface ICoinChart {
-  historyCoinPriceChanges: any,
-  setCurrentChartType: (type: any) => void;
+interface ICoinChartProps {
+  coinPrices: any,
+  setChartType: (type: any) => void;
+  isLoading: boolean;
 }
 
-export const CoinChart = ({ historyCoinPriceChanges, setCurrentChartType }: ICoinChart) => {
-  const { isLoading } = useAppSelector((state) => state.assets);
+export const CoinChart = ({ coinPrices, setChartType, isLoading }: ICoinChartProps) => {
+  const options = [
+    { value: 'd1', label: 'Day' },
+    { value: 'h12', label: '12 hours' },
+    { value: 'h1', label: '1 hour' },
+  ];
 
   return (
-    <div className='chart'>
+    <div className="chart">
       <Select
         defaultValue="Price change chart per:"
         style={{ width: 300 }}
-        onChange={(type) => setCurrentChartType(type)}
-        options={[
-          { value: 'd1', label: 'Day' },
-          { value: 'h12', label: '12 hours' },
-          { value: 'h1', label: '1 hour' },
-        ]}
-        className='m-b-10'
+        onChange={(type) => setChartType(type)}
+        options={options}
+        className="m-b-10"
       />
       {
         isLoading
           ? <Spin />
           : <LineChart
-            xAxis={[{ data: historyCoinPriceChanges }]}
-            series={[{ data: historyCoinPriceChanges }]}
+            xAxis={[{ data: coinPrices }]}
+            series={[{ data: coinPrices }]}
             width={1200}
             height={300}
           />

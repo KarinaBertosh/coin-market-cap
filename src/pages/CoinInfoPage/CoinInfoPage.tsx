@@ -1,47 +1,49 @@
 import React, { useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { fetchAssetHistory } from '../../api/assets';
+import { useAppSelector } from '../../hooks/redux';
+import { getCoinPrices } from '../../api/assets';
 import { getPrice } from '../../utils/default';
-import { IRowData } from '../../utils/types';
+import { ICoinRow } from '../../utils/types';
 import { CoinInfo } from '../../components/CoinInfo/CoinInfo';
 import { CoinChart } from '../../components/CoinChart/CoinChart';
 import { NavigationButtons } from '../../components/NavigationButtons/NavigationButtons';
-import './style.scss';
 
 
 export const CoinInfoPage = () => {
-  const [historyCoinPriceChanges, setHistoryCoinPriceChanges] = useState([]);
-  const [currentChartType, setCurrentChartType] = useState('d1');
+  const [coinPrices, setCoinPrices] = useState([]);
+  const [chartType, setChartType] = useState('d1');
+  const [isLoading, setIsLoading] = useState(false);
 
-  const dispatch = useAppDispatch();
-
-  const { selectedCoin, tableData } = useAppSelector((state) => state.assets);
-  const foundSelectedCoin = tableData.find((coin: IRowData) => coin.key === selectedCoin?.id);
-
+  const { selectedCoin, coinsRow } = useAppSelector((state) => state.assets);
+  const coin = coinsRow.find((coin: ICoinRow) => coin.key === selectedCoin?.id);
 
   useEffect(() => {
     (async () => {
       try {
-        const historyCoinPriceChanges = await dispatch(fetchAssetHistory({
+        setIsLoading(true);
+        const coinPrices = await getCoinPrices({
           id: selectedCoin.id,
-          interval: currentChartType
-        })).unwrap();
-        setHistoryCoinPriceChanges(historyCoinPriceChanges.map((el: any) => Number(getPrice(el.priceUsd, 0))));
+          interval: chartType
+        });
+        setCoinPrices(coinPrices.map((el: any) => Number(getPrice(el.priceUsd, 0))));
       } catch (error) {
+        setIsLoading(false);
         console.log(error);
+      } finally {
+        setIsLoading(false);
       }
     })();
-  }, [currentChartType]);
+  }, [chartType]);
 
   return (
     <>
-      <NavigationButtons foundSelectedCoin={foundSelectedCoin} />
+      <NavigationButtons coin={coin} />
       {selectedCoin &&
         <>
           <CoinInfo />
           <CoinChart
-            historyCoinPriceChanges={historyCoinPriceChanges}
-            setCurrentChartType={setCurrentChartType}
+            coinPrices={coinPrices}
+            setChartType={setChartType}
+            isLoading={isLoading}
           />
         </>
       }

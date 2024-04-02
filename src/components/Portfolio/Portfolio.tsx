@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal as ModalWindow } from 'antd';
 import { useAppSelector } from '../../hooks/redux';
-import { IRowData } from '../../utils/types';
+import { ICoinRow } from '../../utils/types';
 import { DeleteButton } from '../DeleteButton/DeleteButton';
 import { getPrice } from '../../utils/default';
 import './style.scss';
@@ -11,7 +11,7 @@ interface IPortfolioProps {
   setIsModalOpen: (isModalOpen: boolean) => void;
 }
 
-export const PortfolioModal = (props: IPortfolioProps) => {
+export const Portfolio = (props: IPortfolioProps) => {
   const { isModalOpen, setIsModalOpen } = props;
   const { portfolioCoins } = useAppSelector((state) => state.assets);
 
@@ -23,13 +23,13 @@ export const PortfolioModal = (props: IPortfolioProps) => {
       onCancel={() => setIsModalOpen(false)}
     >
       {portfolioCoins.length
-        ? portfolioCoins.map((coin: IRowData) =>
+        ? portfolioCoins.map((coin: ICoinRow) =>
           <div className="coin-block" key={coin.key} >
             <div style={{ display: 'flex' }}>
               {coin.symbol}:
-              <div className='price'>{`${getPrice(coin.priceUsd)}`}</div>
+              <div className="price">{`${getPrice(coin.priceUsd)}`}</div>
             </div>
-            <DeleteButton record={coin} value={"Delete"} />
+            <DeleteButton coin={coin} value={"Delete"} />
           </div>)
         : <div>Your portfolio is empty</div>}
     </ModalWindow >

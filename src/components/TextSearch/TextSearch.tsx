@@ -1,20 +1,37 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Input } from 'antd';
-import type { SearchProps } from 'antd/es/input/Search';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { setSearchText } from '../../store/slices/assets';
+import { setSearchText, setTableData } from '../../store/slices/assets';
 import { callApi, getData } from '../../utils/default';
 import './style.scss';
 
 
 export const TextSearch = () => {
-  const onSearch: SearchProps['onSearch'] = (value, _e) => dispatch(setSearchText(value));
+  const [isError, setIsError] = useState(false);
+  const handlingCoinSearch = (e: any) => dispatch(setSearchText(e.target.value));
   const dispatch = useAppDispatch();
-  const { searchText } = useAppSelector((state) => state.assets);
+  const { searchText, coinsRow } = useAppSelector((state) => state.assets);
+
+  const renderAllCoins = async () => await callApi(await getData(dispatch));
 
   useEffect(() => {
     (async () => {
-      await callApi(async () => await getData(dispatch));
+      await renderAllCoins();
+    })();
+  }, []);
+
+  useEffect(() => {
+    const isCoinFound = (key: string) => key.toLowerCase().startsWith(searchText.toLowerCase());
+    (async () => {
+      if (coinsRow && searchText) {
+        const coin = coinsRow.find((coinRow) => isCoinFound(coinRow.key) || isCoinFound(coinRow.symbol));
+        coin
+          ? dispatch(setTableData([coin]))
+          : renderAllCoins();
+        setIsError(!coin);
+      } else {
+        await renderAllCoins();
+      }
     })();
   }, [searchText]);
 
@@ -22,11 +39,13 @@ export const TextSearch = () => {
     <div className="text-search">
       <Input.Search
         placeholder="input search text"
-        onSearch={onSearch}
+        onChange={handlingCoinSearch}
         enterButton
       />
-      {/* {isInputTextError &&
-                <div>There is no such coin</div>} */}
+      {
+        isError &&
+        <div>There is no such coin</div>
+      }
     </div>
   );
 };

@@ -2,6 +2,14 @@ import React from 'react';
 import { useAppSelector } from '../../hooks/redux';
 import { getPrice } from '../../utils/default';
 
+const COIN_INFO_COLUMNS = {
+  NAME: 'Name: ',
+  SYMBOL: 'Symbol: ',
+  RANK: 'Rank: ',
+  SUPPLY: 'Supply: ',
+  MAX_SUPPLY: 'Max supply: ',
+  PRICE: 'Price(usd): '
+};
 
 export const CoinInfo = () => {
   const { selectedCoin } = useAppSelector((state) => state.assets);
@@ -10,12 +18,12 @@ export const CoinInfo = () => {
   return (
     <div className="m-b-10">
       <img src="logo" alt="logo" />
-      <div>Name: {name}</div>
-      <div>Symbol:{symbol}</div>
-      <div>Rank: {rank}</div>
-      <div>Supply: {supply ?? 0}</div>
-      <div>Max supply: {maxSupply ?? 0}</div>
-      <div>Price(usd): {`$ ${getPrice(priceUsd)}`}</div>
+      <div>{COIN_INFO_COLUMNS.NAME}&nbsp;{name}</div>
+      <div> {COIN_INFO_COLUMNS.SYMBOL}&nbsp;{symbol}</div>
+      <div>{COIN_INFO_COLUMNS.RANK}&nbsp;{rank}</div>
+      <div>{COIN_INFO_COLUMNS.SUPPLY}&nbsp;{supply ?? 0}</div>
+      <div>{COIN_INFO_COLUMNS.MAX_SUPPLY}&nbsp;{maxSupply ?? 0}</div>
+      <div>{COIN_INFO_COLUMNS.PRICE}&nbsp;{`$ ${getPrice(priceUsd)}`}</div>
     </div>
   );
 };

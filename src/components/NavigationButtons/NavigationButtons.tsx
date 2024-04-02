@@ -3,6 +3,7 @@ import { useAppSelector } from '../../hooks/redux';
 import { Button } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { AddButton } from '../AddButton/AddButton';
+import { ROUTES } from '../../utils/constants';
 
 interface INavigationButtonsProps {
   coin: any,
@@ -14,7 +15,7 @@ export const NavigationButtons = ({ coin }: INavigationButtonsProps) => {
 
   return (
     <div className="m-b-10">
-      <Button className="m-r-10" onClick={() => navigate('/')}>Back</Button>
+      <Button className="m-r-10" onClick={() => navigate(ROUTES.MAIN)}>Back</Button>
       {
         selectedCoin
           ? <AddButton coin={coin} value={"Add"} />

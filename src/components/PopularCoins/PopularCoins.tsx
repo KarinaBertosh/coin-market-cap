@@ -4,7 +4,7 @@ import { PopularCoin } from '../PopularCoin/PopularCoin';
 import './style.scss';
 
 
-export const PopularCoinsBlock = () => {
+export const PopularCoins = () => {
   const [ratings, setRatings] = useState([]);
 
   useEffect(() => {
@@ -19,9 +19,9 @@ export const PopularCoinsBlock = () => {
   }, []);
 
   return (
-    <div className="popular-coins-block">
+    <div className="popular-coins">
       {ratings.map((rating) =>
-        <PopularCoin rating={rating} key={rating.id}/>
+        <PopularCoin rating={rating} key={rating.id} />
       )}
     </div >
   );

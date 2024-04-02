@@ -42,3 +42,9 @@ export const columns: any = [
         sorter: (a: ICoinRow, b: ICoinRow) => Number(a.volumeUsd24Hr.slice(2)) - Number(b.volumeUsd24Hr.slice(2)),
     },
 ];
+
+export const ROUTES = {
+    ERROR: "*",
+    MAIN: '/',
+    INFO: '/info'
+};

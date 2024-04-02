@@ -1,6 +1,6 @@
 import React from 'react';
 import { Table } from "antd";
-import { columns } from '../../utils/constants';
+import { ROUTES, columns } from '../../utils/constants';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { setSelectedCoin, } from '../../store/slices/assets';
 import { TextSearch } from '../TextSearch/TextSearch';
@@ -15,7 +15,7 @@ export const CoinsTable = () => {
   const onClick = (coinKey: string) => {
     const selectedCoin = assets.find((asset: IAsset) => asset.id === coinKey);
     dispatch(setSelectedCoin(selectedCoin));
-    navigate('/info');
+    navigate(ROUTES.INFO);
   };
 
   const onRow = (coinRow: ICoinRow) => ({

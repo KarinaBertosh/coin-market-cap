@@ -2,14 +2,13 @@ import React, { useState } from 'react';
 import { Input as InputNumber } from 'antd';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { ICoinRow } from '../../utils/types';
-import { getPrice, getTotalValue } from '../../utils/default';
 import { setPortfolioCoins } from '../../store/slices/assets';
 
 interface IInputProps {
   coin: ICoinRow;
 }
 
-export const Input = (props: IInputProps) => {
+export const InputCoinAdding = (props: IInputProps) => {
   const [isError, setIsError] = useState(false);
   const dispatch = useAppDispatch();
   const { portfolioCoins } = useAppSelector((state) => state.assets);

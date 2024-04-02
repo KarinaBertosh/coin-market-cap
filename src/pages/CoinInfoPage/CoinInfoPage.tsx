@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAppSelector } from '../../hooks/redux';
 import { getCoinPrices } from '../../api/assets';
-import { getPrice } from '../../utils/default';
+import { callApi, getPrice } from '../../utils/default';
 import { ICoinRow } from '../../utils/types';
 import { CoinInfo } from '../../components/CoinInfo/CoinInfo';
 import { CoinChart } from '../../components/CoinChart/CoinChart';
@@ -18,19 +18,13 @@ export const CoinInfoPage = () => {
 
   useEffect(() => {
     (async () => {
-      try {
-        setIsLoading(true);
-        const coinPrices = await getCoinPrices({
-          id: selectedCoin.id,
-          interval: chartType
-        });
-        setCoinPrices(coinPrices.map((el: any) => getPrice(el.priceUsd, 0)));
-      } catch (error) {
-        setIsLoading(false);
-        console.log(error);
-      } finally {
-        setIsLoading(false);
-      }
+      setIsLoading(true);
+      const coinPrices = await callApi(async () => await getCoinPrices({
+        id: selectedCoin.id,
+        interval: chartType
+      }));
+      setCoinPrices(coinPrices.map((el: any) => getPrice(el.priceUsd, 0)));
+      setIsLoading(false);
     })();
   }, [chartType]);
 

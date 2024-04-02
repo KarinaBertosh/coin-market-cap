@@ -2,15 +2,15 @@ import {
   createSlice
 } from '@reduxjs/toolkit';
 import { fetchAssets } from '../../api/assets';
-import { IAsset } from '../../utils/types';
+import { IAsset, ICoinRow } from '../../utils/types';
 
 interface IAssetsState {
-  assets: any;
-  coinsRow: any;
+  assets: IAsset[];
+  coinsRow: ICoinRow[];
   isLoading: boolean;
   searchText: string;
   selectedCoin: IAsset,
-  portfolioCoins: any;
+  portfolioCoins: ICoinRow[];
 }
 
 const initialState: IAssetsState = {

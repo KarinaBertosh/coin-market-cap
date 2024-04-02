@@ -34,5 +34,13 @@ export const getData = async (dispatch: any) => {
   ));
   dispatch(setTableData(data));
   return data;
+};
+
+export const callApi = async (action: any) => {
+  try {
+    return await action();
+  } catch (error) {
+    console.log(error);
+  }
 }
 

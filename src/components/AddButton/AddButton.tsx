@@ -3,7 +3,6 @@ import { Button } from 'antd';
 import { ICoinRow } from '../../utils/types';
 import { ModalAddCoin } from '../ModalAddCoin/ModalAddCoin';
 
-
 interface IAddButtonProps {
   coin: ICoinRow,
   value: string;

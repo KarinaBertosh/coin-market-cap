@@ -5,7 +5,6 @@ export interface IColumn {
     sorter?: (a: any, b: any) => number,
     sortDirections?: any;
 }
-
 export interface IAsset {
     id: string,
     rank: string,
@@ -21,7 +20,6 @@ export interface IAsset {
     explorer: string;
 
 }
-
 export interface ICoinRow {
     add: string;
     key: string;
@@ -31,4 +29,9 @@ export interface ICoinRow {
     symbol: string;
     volumeUsd24Hr: string;
     coinsNumber?: number;
+}
+
+export interface ICoinPrice {
+    priceUsd: string,
+    time: number;
 }

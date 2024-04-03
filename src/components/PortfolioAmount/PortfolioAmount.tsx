@@ -12,6 +12,7 @@ export const PortfolioAmount = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [amountDifference, setAmountDifference] = useState(0);
   const [percentAmountDifference, setPercentAmountDifference] = useState(0);
+  const plus = '+';
 
   const portfolioCoins = coins ? JSON.parse(coins) : [];
   const dispatch = useAppDispatch();
@@ -59,6 +60,7 @@ export const PortfolioAmount = () => {
         <p className="price">
           {getTotalAmount(portfolioCoins)} &nbsp;
         </p>
+        {amountDifference > 0 && plus}
         {amountDifference}&nbsp;{percentAmountDifference}&nbsp;%
       </div >
       <Portfolio

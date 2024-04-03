@@ -19,7 +19,6 @@ export const Portfolio = (props: IPortfolioProps) => {
   const portfolioCoins = coins ? JSON.parse(coins) : [];
 
   return (
-    // <></>
     <ModalWindow
       title="My portfolio"
       open={isModalOpen}
@@ -32,7 +31,6 @@ export const Portfolio = (props: IPortfolioProps) => {
             <div style={{ display: 'flex' }}>
               {coin.symbol}:
               <div className="price">{getTotalAmount([coin])}</div>
-              <div className="price">{0}</div>
             </div>
             <DeleteButton coin={coin} value={"Delete"} />
           </div>)

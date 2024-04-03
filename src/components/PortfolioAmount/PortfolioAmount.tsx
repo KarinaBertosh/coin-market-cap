@@ -13,6 +13,8 @@ export const PortfolioAmount = () => {
 
   const dispatch = useAppDispatch();
   const { portfolioCoins } = useAppSelector((state) => state.assets);
+  console.log({portfolioCoins});
+  
 
   const getTotalAmount = () => {
     if (!portfolioCoins.length) return `0 USD`;

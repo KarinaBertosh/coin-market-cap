@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal as ModalWindow } from 'antd';
 import { ICoinRow } from '../../utils/types';
-import { InputCoinAdding } from '../InputCoinAdding/InputCoinAdding';
+import { InputAddCoin } from '../InputAddCoin/InputAddCoin ';
 import './style.scss';
 
 interface IModalProps {
@@ -20,7 +20,7 @@ export const ModalCoinAdding = (props: IModalProps) => {
       footer=""
       onCancel={() => setIsModalOpen(false)}
     >
-      <InputCoinAdding coin={props.coin} />
+      <InputAddCoin coin={props.coin} />
     </ModalWindow >
   );
 };

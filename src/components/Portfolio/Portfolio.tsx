@@ -1,8 +1,8 @@
 import React from 'react';
-import { Modal as ModalWindow } from 'antd';
 import { ICoinRow } from '../../utils/types';
 import useLocalStorageState from 'use-local-storage-state';
 import { PortfolioCoin } from '../PortfolioCoin/PortfolioCoin';
+import { Modal } from '../Modal/Modal';
 import './style.scss';
 
 interface IPortfolioProps {
@@ -20,11 +20,10 @@ export const Portfolio = (props: IPortfolioProps) => {
   const emptyPortfolioText = 'Your portfolio is empty';
 
   return (
-    <ModalWindow
-      title="My portfolio"
-      open={isModalOpen}
-      footer=""
-      onCancel={() => setIsModalOpen(false)}
+    <Modal
+      isModalOpen={isModalOpen}
+      setIsModalOpen={setIsModalOpen}
+      title='Portfolio'
     >
       {
         portfolioCoins.length
@@ -32,6 +31,6 @@ export const Portfolio = (props: IPortfolioProps) => {
             <PortfolioCoin coin={coin} />)
           : <p>{emptyPortfolioText}</p>
       }
-    </ModalWindow >
+    </Modal>
   );
 };

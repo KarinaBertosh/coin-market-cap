@@ -1,7 +1,7 @@
 import React from 'react';
-import { Modal as ModalWindow } from 'antd';
 import { ICoinRow } from '../../utils/types';
 import { InputAddCoin } from '../InputAddCoin/InputAddCoin ';
+import { Modal } from '../Modal/Modal';
 import './style.scss';
 
 interface IModalAddCoinProps {
@@ -14,13 +14,12 @@ export const ModalAddCoin = (props: IModalAddCoinProps) => {
   const { isModalOpen, setIsModalOpen } = props;
 
   return (
-    <ModalWindow
-      title="Please select number of coins"
-      open={isModalOpen}
-      footer=""
-      onCancel={() => setIsModalOpen(false)}
+    <Modal
+      isModalOpen={isModalOpen}
+      setIsModalOpen={setIsModalOpen}
+      title='Please select number of coins'
     >
       <InputAddCoin coin={props.coin} />
-    </ModalWindow >
+    </Modal>
   );
 };

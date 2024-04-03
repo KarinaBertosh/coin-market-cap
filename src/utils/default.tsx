@@ -13,7 +13,9 @@ export const getPrice = (price: number, numberPastComma = 2) => {
 };
 
 const getOneCoinTotalPrice = (coin: ICoinRow) => {
-  return Number(getPrice(Number(coin.priceUsd.slice(1)))) * coin.coinsNumber;
+  console.log({ coin });
+
+  return Number(getPrice(Number(coin?.priceUsd?.slice(1)))) * coin.coinsNumber;
 };
 
 export const getCoinsTotalValue = (coins: ICoinRow[]) => coins.reduce((acc: any, cur: ICoinRow) =>
@@ -42,7 +44,13 @@ export const callApi = async (action: any) => {
   } catch (error) {
     console.log(error);
   }
-}
+};
+
+export const getTotalAmount = (portfolioCoins: ICoinRow[]) => {
+  if (!portfolioCoins.length) return `0 USD`;
+  const totalAmount = getPrice(getCoinsTotalValue(portfolioCoins));
+  return `${totalAmount} USD`;
+};
 
 
 

@@ -1,8 +1,7 @@
 import React from 'react';
 import { Button } from 'antd';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { getPrice, getCoinsTotalValue } from '../../utils/default';
 import { ICoinRow } from '../../utils/types';
+import useLocalStorageState from 'use-local-storage-state';
 
 
 interface IDeleteButtonProps {
@@ -11,23 +10,13 @@ interface IDeleteButtonProps {
 }
 
 export const DeleteButton = (props: IDeleteButtonProps) => {
-  const dispatch = useAppDispatch();
   const { coin, value } = props;
-  // const { portfolioCoins } = useAppSelector((state) => state.assets);
+  const [coins, setCoins] = useLocalStorageState<string>('coins');
+
 
   const deleteCoin = (coin: ICoinRow) => {
-    // const result: ICoinRow[] = [...portfolioCoins].filter((c) => c.key !== coin.key);
-
-    // dispatch(setPortfolioCoins(result));
-
-    // const portfolioDifferenceCost = getPrice(String(portfolioCoins
-    //   ? getTotalValue(result) - getTotalValue([...portfolioCoins])
-    //   : 0));
-    // const portfolioDifferenceCostPercent = getTotalValue(portfolioCoins) ? getPrice(String(
-    //   (getTotalValue([...portfolioCoins]) / getTotalValue(result) - 1) * 100
-    // )) : 100;
-    // dispatch(setPortfolioDifferenceCost(portfolioDifferenceCost));
-    // dispatch(setPortfolioDifferencePercent(portfolioDifferenceCostPercent));
+    // const updateCoins = JSON.parse(coins).filter((c: ICoinRow) => c.key !== coin.key);
+    // setCoins(JSON.stringify(updateCoins));
   };
 
   return (

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Input as InputNumber } from 'antd';
 import { ICoinRow } from '../../utils/types';
-import { KEY } from '../../utils/constants';
+import useLocalStorageState from 'use-local-storage-state';
 
 interface IInputProps {
   coin: ICoinRow;
@@ -9,16 +9,9 @@ interface IInputProps {
 
 export const InputAddCoin = (props: IInputProps) => {
   const { coin } = props;
+  const [coins, setCoins] = useLocalStorageState<string>('coins');
   const [isError, setIsError] = useState(false);
   const errorText = 'Error: Enter the number, the number must be greater than 0';
-
-  const getPortfolioCoins = () => localStorage[KEY] ? JSON.parse(localStorage[KEY]) : [];
-
-  const addCoinsInLS = (coins: ICoinRow[]) => {
-    getPortfolioCoins().length
-      ? localStorage[KEY] = JSON.stringify(coins)
-      : localStorage.setItem(KEY, JSON.stringify(coins));
-  };
 
   const addCoinInPortfolio = (number: string) => {
     setIsError(false);
@@ -26,15 +19,16 @@ export const InputAddCoin = (props: IInputProps) => {
       ...coin,
       coinsNumber: Number(number)
     };
-    const coins: ICoinRow[] = [...getPortfolioCoins()];
-    const coinIndex = coins.findIndex((c: ICoinRow) => c.key === coin.key);
+
+    const copyCoins: ICoinRow[] = [...coins ? JSON.parse(coins) : []];
+    const coinIndex = copyCoins.findIndex((c: ICoinRow) => c.key === coin.key);
     coinIndex >= 0
-      ? coins[coinIndex] = {
-        ...coins[coinIndex],
-        coinsNumber: coins[coinIndex].coinsNumber + Number(number)
+      ? copyCoins[coinIndex] = {
+        ...copyCoins[coinIndex],
+        coinsNumber: copyCoins[coinIndex].coinsNumber + Number(number)
       }
-      : coins.push(updatedCoin);
-    addCoinsInLS(coins);
+      : copyCoins.push(updatedCoin);
+    setCoins(JSON.stringify(copyCoins));
   };
 
   const handlingPressEnter = (e: any) => {

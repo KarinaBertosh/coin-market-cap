@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { Portfolio } from '../Portfolio/Portfolio';
 import { useAppDispatch } from '../../hooks/redux';
-import { getData, getPrice, getCoinsTotalValue } from '../../utils/default';
+import { getData, getPrice, getCoinsTotalValue, getTotalAmount } from '../../utils/default';
 import { ICoinRow } from '../../utils/types';
-import { KEY } from '../../utils/constants';
+import useLocalStorageState from 'use-local-storage-state';
 import './style.scss';
 
 
 export const PortfolioAmount = () => {
+  const [coins, setCoins] = useLocalStorageState<string>('coins');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [differenceAmount, setDifferenceAmount] = useState(0);
   const [differenceAmountPercent, setDifferenceAmountPercent] = useState(0);
 
-  const getPortfolioCoins = () => localStorage[KEY] ? JSON.parse(localStorage[KEY]) : [];
-
+  const portfolioCoins = coins ? JSON.parse(coins) : [];
   const dispatch = useAppDispatch();
+
 
   useEffect(() => {
     (async () => {
@@ -22,22 +23,16 @@ export const PortfolioAmount = () => {
       setDifferenceAmount(Number(differenceAmount));
       setDifferenceAmountPercent(() => getPortfolioDifferencePercent(totalAmountLocal, oldTotalAmount));
     })();
-  }, );
-
-  const getTotalAmount = () => {
-    if (!getPortfolioCoins().length) return `0 USD`;
-    const totalAmount = getPrice(getCoinsTotalValue(getPortfolioCoins()));
-    return `${totalAmount} USD`;
-  };
+  },);
 
   const getDifferenceAmount = async () => {
     let totalAmountLocal = 0;
     const data = await getData(dispatch);
-    getPortfolioCoins().forEach((coin: ICoinRow) => {
+    portfolioCoins.forEach((coin: ICoinRow) => {
       const foundedCoin = data.find((c: ICoinRow) => c.key === coin.key);
-      totalAmountLocal += Number(foundedCoin.priceUsd.slice(1)) * coin.coinsNumber;
+      if(foundedCoin) totalAmountLocal += Number(foundedCoin.priceUsd.slice(1)) * coin.coinsNumber;
     });
-    const oldTotalAmount = Number(getTotalAmount().slice(0, getTotalAmount().length - 4));
+    const oldTotalAmount = Number(getTotalAmount(portfolioCoins).slice(0, getTotalAmount(portfolioCoins).length - 4));
 
     return {
       differenceAmount: getPrice(oldTotalAmount - totalAmountLocal),
@@ -47,7 +42,7 @@ export const PortfolioAmount = () => {
   };
 
   const getPortfolioDifferencePercent = (totalAmountLocal: number, oldTotalAmount: number) => {
-    return getPortfolioCoins().length
+    return portfolioCoins.length
       ? Number(getPrice((totalAmountLocal / oldTotalAmount - 1) * 100))
       : 0;
   };
@@ -58,7 +53,7 @@ export const PortfolioAmount = () => {
         className="portfolio-amount"
         onClick={() => setIsModalOpen(true)}>
         <div className="price">
-          {getTotalAmount()} &nbsp;
+          {getTotalAmount(portfolioCoins)} &nbsp;
         </div>
         {differenceAmount}&nbsp;{differenceAmountPercent}&nbsp;%
       </div >

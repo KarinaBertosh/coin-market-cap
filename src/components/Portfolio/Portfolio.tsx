@@ -1,10 +1,11 @@
 import React from 'react';
 import { Modal as ModalWindow } from 'antd';
-import { useAppSelector } from '../../hooks/redux';
 import { ICoinRow } from '../../utils/types';
 import { DeleteButton } from '../DeleteButton/DeleteButton';
-import { getPrice } from '../../utils/default';
+// import { getTotalAmount } from '../../utils/default';
+import useLocalStorageState from 'use-local-storage-state';
 import './style.scss';
+import { getCoinsTotalValue, getPrice, getTotalAmount } from '../../utils/default';
 
 interface IPortfolioProps {
   isModalOpen: boolean,
@@ -13,25 +14,30 @@ interface IPortfolioProps {
 
 export const Portfolio = (props: IPortfolioProps) => {
   const { isModalOpen, setIsModalOpen } = props;
-  // const { portfolioCoins } = useAppSelector((state) => state.assets);
+  const [coins, setCoins] = useLocalStorageState<string>('coins');
+
+  const portfolioCoins = coins ? JSON.parse(coins) : [];
 
   return (
+    // <></>
     <ModalWindow
       title="My portfolio"
       open={isModalOpen}
       footer=""
       onCancel={() => setIsModalOpen(false)}
     >
-      {/* {portfolioCoins.length
+      {portfolioCoins.length
         ? portfolioCoins.map((coin: ICoinRow) =>
           <div className="coin-block" key={coin.key} >
             <div style={{ display: 'flex' }}>
               {coin.symbol}:
-              <div className="price">{getPrice(Number(coin.priceUsd))}</div>
+              <div className="price">{getTotalAmount([coin])}</div>
+              <div className="price">{0}</div>
             </div>
             <DeleteButton coin={coin} value={"Delete"} />
           </div>)
-        : <div>Your portfolio is empty</div>} */}
+        : <div>Your portfolio is empty</div>
+      }
     </ModalWindow >
   );
 };

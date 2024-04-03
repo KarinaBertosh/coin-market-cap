@@ -12,7 +12,7 @@ export const getPrice = (price: number, numberPastComma = 2, isPrice = false) =>
     ? priceString.indexOf(Array.from(priceString).filter((el) => el !== '0')[1]) + numberPastComma + 1
     : priceString.indexOf('.') + 3;
 
-  const changedPrice = Number(String(price).slice(0, index));
+  const changedPrice = Number(priceString.slice(0, index));
   return isPrice ? formatter.format(changedPrice) : changedPrice;
 };
 
@@ -30,7 +30,7 @@ export const getCoinFromApi = async (dispatch: any) => {
       add: 'Add',
       symbol: asset.symbol,
       logo: asset.symbol,
-      priceUsd: `$${getPrice(asset.priceUsd, 2, true)}`,
+      priceUsd: `$${getPrice(asset.priceUsd)}`,
       marketCapUsd: `$${getPrice(asset.marketCapUsd)}`,
       volumeUsd24Hr: `$${getPrice(asset.volumeUsd24Hr)}`,
     }

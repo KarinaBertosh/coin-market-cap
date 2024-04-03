@@ -11,7 +11,6 @@ export const columns: any = [
         render: (value: any, record: any) =>
             <AddButton coin={record} value={value} />
         ,
-        width: 100
     },
     {
         title: 'Symbol',

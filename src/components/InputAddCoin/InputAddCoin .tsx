@@ -37,7 +37,6 @@ export const InputAddCoin = (props: IInputProps) => {
   };
 
   const handlingError = (value: string) => {
-
     if (!Number(value)) {
       setIsError(true);
       setErrorText(Number(value) === 0

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Input } from 'antd';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { setSearchText, setTableData } from '../../store/slices/assets';
-import { callApi, getData } from '../../utils/default';
+import { setSearchText, setCoinsRow } from '../../store/slices/assets';
+import { callApi, getCoinFromApi } from '../../utils/default';
 import './style.scss';
 
 
@@ -12,7 +12,7 @@ export const TextSearch = () => {
   const dispatch = useAppDispatch();
   const { searchText, coinsRow } = useAppSelector((state) => state.assets);
 
-  const renderAllCoins = async () => await callApi(await getData(dispatch));
+  const renderAllCoins = async () => await callApi(await getCoinFromApi(dispatch));
 
   useEffect(() => {
     (async () => {
@@ -26,7 +26,7 @@ export const TextSearch = () => {
       if (coinsRow && searchText) {
         const coin = coinsRow.find((coinRow) => isCoinFound(coinRow.key) || isCoinFound(coinRow.symbol));
         coin
-          ? dispatch(setTableData([coin]))
+          ? dispatch(setCoinsRow([coin]))
           : renderAllCoins();
         setIsError(!coin);
       } else {

@@ -1,5 +1,5 @@
 import { fetchAssets } from "../api/assets";
-import { setTableData } from "../store/slices/assets";
+import { setCoinsRow } from "../store/slices/assets";
 import { ICoinRow } from "./types";
 
 export const getPrice = (price: number, numberPastComma = 2) => {
@@ -21,9 +21,9 @@ const getOneCoinTotalPrice = (coin: ICoinRow) => {
 export const getCoinsTotalValue = (coins: ICoinRow[]) => coins.reduce((acc: any, cur: ICoinRow) =>
   acc.priceUsd ? getOneCoinTotalPrice(acc) : acc + getOneCoinTotalPrice(cur), 0,);
 
-export const getData = async (dispatch: any) => {
+export const getCoinFromApi = async (dispatch: any) => {
   const assets = await dispatch(fetchAssets()).unwrap();
-  const data = assets.map((asset: any) => (
+  const coins = assets.map((asset: any) => (
     {
       key: asset.id,
       add: 'Add',
@@ -34,8 +34,8 @@ export const getData = async (dispatch: any) => {
       volumeUsd24Hr: `$${getPrice(asset.volumeUsd24Hr)}`,
     }
   ));
-  dispatch(setTableData(data));
-  return data;
+  dispatch(setCoinsRow(coins));
+  return coins;
 };
 
 export const callApi = async (action: any) => {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Portfolio } from '../Portfolio/Portfolio';
 import { useAppDispatch } from '../../hooks/redux';
-import { getData, getPrice, getTotalAmount } from '../../utils/default';
+import { getCoinFromApi, getPrice, getTotalAmount } from '../../utils/default';
 import { ICoinRow } from '../../utils/types';
 import useLocalStorageState from 'use-local-storage-state';
 import './style.scss';
@@ -19,27 +19,28 @@ export const PortfolioAmount = () => {
   useEffect(() => {
     (async () => {
       const {
-        newAmount,
-        oldAmount,
+        amountFromApi,
+        localAmount,
         amountDifference
       } = await getAmountDifference();
       setAmountDifference(Number(amountDifference));
-      setPercentAmountDifference(() => getPercentAmountDifference(newAmount, oldAmount));
+      setPercentAmountDifference(() => getPercentAmountDifference(amountFromApi, localAmount));
     })();
   }, [coins]);
 
   const getAmountDifference = async () => {
-    let newAmount = 0;
-    const data = await getData(dispatch);
-    portfolioCoins.forEach((coin: ICoinRow) => {
-      const foundedCoin = data.find((c: ICoinRow) => c.key === coin.key);
-      if (foundedCoin) newAmount += Number(foundedCoin.priceUsd.slice(1)) * coin.coinsNumber;
+    let amountFromApi = 0;
+    const coinsFromApi = await getCoinFromApi(dispatch);
+
+    portfolioCoins.forEach((portfolioCoin: ICoinRow) => {
+      const coin = coinsFromApi.find((coinFromApi: ICoinRow) => coinFromApi.key === portfolioCoin.key);
+      if (coin) amountFromApi += Number(coin.priceUsd.slice(1)) * portfolioCoin.coinsNumber;
     });
-    const oldAmount = Number(getTotalAmount(portfolioCoins).slice(0, getTotalAmount(portfolioCoins).length - 4));
+    const localAmount = Number(getTotalAmount(portfolioCoins).slice(0, getTotalAmount(portfolioCoins).length - 4));
     return {
-      amountDifference: getPrice(oldAmount - newAmount),
-      oldAmount,
-      newAmount,
+      amountDifference: getPrice(localAmount - amountFromApi),
+      localAmount,
+      amountFromApi,
     };
   };
 

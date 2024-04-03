@@ -24,7 +24,7 @@ export const slice = createSlice({
   name: 'assets',
   initialState,
   reducers: {
-    setTableData: (state, { payload }) => {
+    setCoinsRow: (state, { payload }) => {
       state.coinsRow = payload;
     },
     setSearchText: (state, { payload }) => {
@@ -49,7 +49,7 @@ export const slice = createSlice({
 });
 
 export const {
-  setTableData,
+  setCoinsRow,
   setSearchText,
   setSelectedCoin,
 } = slice.actions;

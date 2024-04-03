@@ -7,11 +7,16 @@ interface IInputProps {
   coin: ICoinRow;
 }
 
+const ERRORS_TEXT = {
+  NUMBER: 'Error: enter the number',
+  ZERO: 'Error: the number must be greater than 0'
+};
+
 export const InputAddCoin = (props: IInputProps) => {
   const { coin } = props;
   const [coins, setCoins] = useLocalStorageState<string>('coins');
   const [isError, setIsError] = useState(false);
-  const errorText = 'Error: Enter the number, the number must be greater than 0';
+  const [errorText, setErrorText] = useState('');
 
   const addCoinInPortfolio = (number: string) => {
     setIsError(false);
@@ -31,17 +36,30 @@ export const InputAddCoin = (props: IInputProps) => {
     setCoins(JSON.stringify(copyCoins));
   };
 
+  const handlingError = (value: string) => {
+
+    if (!Number(value)) {
+      setIsError(true);
+      setErrorText(Number(value) === 0
+        ? ERRORS_TEXT.ZERO
+        : ERRORS_TEXT.NUMBER
+      );
+    } else {
+      setIsError(false);
+      setErrorText('');
+      addCoinInPortfolio(value);
+    }
+  };
+
   const handlingPressEnter = (e: any) => {
-    Number(e.target.value)
-      ? addCoinInPortfolio(e.target.value)
-      : setIsError(true);
+    handlingError(e.target.value);
   };
 
   return (
     <>
       <InputNumber
         defaultValue='0'
-        maxLength={16}
+        maxLength={2}
         onPressEnter={handlingPressEnter}
       />
       {isError && <p>{errorText}</p>}

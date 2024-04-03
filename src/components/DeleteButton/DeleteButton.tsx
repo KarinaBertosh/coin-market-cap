@@ -13,13 +13,13 @@ export const DeleteButton = (props: IDeleteButtonProps) => {
   const { coin, value } = props;
   const [coins, setCoins] = useLocalStorageState<string>('coins');
 
-  const deleteCoin = (coin: ICoinRow) => {
+  const deleteCoin = () => {
     const updateCoins = JSON.parse(coins).filter((c: ICoinRow) => c.key !== coin.key);
     setCoins(JSON.stringify(updateCoins));
   };
 
   return (
-    <Button onClick={() => deleteCoin(coin)}>
+    <Button onClick={deleteCoin}>
       {value}
     </Button>
   );

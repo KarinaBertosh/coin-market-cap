@@ -1,11 +1,9 @@
 import React from 'react';
 import { Modal as ModalWindow } from 'antd';
 import { ICoinRow } from '../../utils/types';
-import { DeleteButton } from '../DeleteButton/DeleteButton';
-// import { getTotalAmount } from '../../utils/default';
 import useLocalStorageState from 'use-local-storage-state';
+import { PortfolioCoin } from '../PortfolioCoin/PortfolioCoin';
 import './style.scss';
-import { getCoinsTotalValue, getPrice, getTotalAmount } from '../../utils/default';
 
 interface IPortfolioProps {
   isModalOpen: boolean,
@@ -16,7 +14,10 @@ export const Portfolio = (props: IPortfolioProps) => {
   const { isModalOpen, setIsModalOpen } = props;
   const [coins, setCoins] = useLocalStorageState<string>('coins');
 
-  const portfolioCoins = coins ? JSON.parse(coins) : [];
+  const portfolioCoins = coins
+    ? JSON.parse(coins)
+    : [];
+  const emptyPortfolioText = 'Your portfolio is empty';
 
   return (
     <ModalWindow
@@ -25,16 +26,11 @@ export const Portfolio = (props: IPortfolioProps) => {
       footer=""
       onCancel={() => setIsModalOpen(false)}
     >
-      {portfolioCoins.length
-        ? portfolioCoins.map((coin: ICoinRow) =>
-          <div className="coin-block" key={coin.key} >
-            <div style={{ display: 'flex' }}>
-              {coin.symbol}:
-              <div className="price">{getTotalAmount([coin])}</div>
-            </div>
-            <DeleteButton coin={coin} value={"Delete"} />
-          </div>)
-        : <div>Your portfolio is empty</div>
+      {
+        portfolioCoins.length
+          ? portfolioCoins.map((coin: ICoinRow) =>
+            <PortfolioCoin coin={coin} />)
+          : <p>{emptyPortfolioText}</p>
       }
     </ModalWindow >
   );

@@ -1,10 +1,3 @@
-export interface IColumn {
-    key: React.Key;
-    title?: string,
-    dataIndex: string,
-    sorter?: (a: any, b: any) => number,
-    sortDirections?: any;
-}
 export interface IAsset {
     id: string,
     rank: string,
@@ -29,9 +22,4 @@ export interface ICoinRow {
     symbol: string;
     volumeUsd24Hr: string;
     coinsNumber?: number;
-}
-
-export interface ICoinPrice {
-    priceUsd: string,
-    time: number;
 }

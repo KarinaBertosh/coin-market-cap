@@ -4,7 +4,7 @@ import { ICoinRow } from '../../utils/types';
 import useLocalStorageState from 'use-local-storage-state';
 
 interface IDeleteButtonProps {
-  coin: any,
+  coin: ICoinRow,
   value: string;
 }
 

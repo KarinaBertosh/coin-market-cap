@@ -4,8 +4,8 @@ import { LineChart } from '@mui/x-charts/LineChart';
 import './style.scss';
 
 interface ICoinChartProps {
-  coinPrices: any,
-  setChartType: (type: any) => void;
+  coinPrices: number[],
+  setChartType: (type: string) => void;
   isLoading: boolean;
 }
 

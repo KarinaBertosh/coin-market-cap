@@ -4,9 +4,10 @@ import { Button } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { AddButton } from '../AddButton/AddButton';
 import { ROUTES } from '../../utils/constants';
+import { ICoinRow } from '../../utils/types';
 
 interface INavigationButtonsProps {
-  coin: any,
+  coin: ICoinRow,
 }
 
 export const NavigationButtons = ({ coin }: INavigationButtonsProps) => {

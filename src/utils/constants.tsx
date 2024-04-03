@@ -3,12 +3,12 @@ import { ICoinRow } from "./types";
 import { AddButton } from '../components/AddButton/AddButton';
 
 
-export const columns: any = [
+export const columns = [
     {
         dataIndex: 'add',
         key: 'add',
         onCell: () => ({ onClick: (e: any) => e.stopPropagation() }),
-        render: (value: any, record: any) =>
+        render: (value: string, record: ICoinRow) =>
             <AddButton coin={record} value={value} />
         ,
     },

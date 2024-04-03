@@ -24,7 +24,7 @@ export const CoinInfo = () => {
       <div>{COIN_INFO_COLUMNS.RANK}&nbsp;{rank}</div>
       <div>{COIN_INFO_COLUMNS.SUPPLY}&nbsp;{supply ?? 0}</div>
       <div>{COIN_INFO_COLUMNS.MAX_SUPPLY}&nbsp;{maxSupply ?? 0}</div>
-      <div>{COIN_INFO_COLUMNS.PRICE}&nbsp;{getPrice(Number(priceUsd))}</div>
+      <div>{COIN_INFO_COLUMNS.PRICE}&nbsp;{getPrice(Number(priceUsd), 2, true)}</div>
     </div>
   );
 };

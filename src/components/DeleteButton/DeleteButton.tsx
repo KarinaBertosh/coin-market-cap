@@ -13,10 +13,9 @@ export const DeleteButton = (props: IDeleteButtonProps) => {
   const { coin, value } = props;
   const [coins, setCoins] = useLocalStorageState<string>('coins');
 
-
   const deleteCoin = (coin: ICoinRow) => {
-    // const updateCoins = JSON.parse(coins).filter((c: ICoinRow) => c.key !== coin.key);
-    // setCoins(JSON.stringify(updateCoins));
+    const updateCoins = JSON.parse(coins).filter((c: ICoinRow) => c.key !== coin.key);
+    setCoins(JSON.stringify(updateCoins));
   };
 
   return (

@@ -1,43 +1,40 @@
 import React, { useState } from 'react';
 import { Input as InputNumber } from 'antd';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { ICoinRow } from '../../utils/types';
-import { setPortfolioCoins } from '../../store/slices/assets';
+import { KEY } from '../../utils/constants';
 
 interface IInputProps {
   coin: ICoinRow;
 }
 
 export const InputAddCoin = (props: IInputProps) => {
+  const { coin } = props;
   const [isError, setIsError] = useState(false);
-  const dispatch = useAppDispatch();
-  const { portfolioCoins } = useAppSelector((state) => state.assets);
-
   const errorText = 'Error: Enter the number, the number must be greater than 0';
+
+  const getPortfolioCoins = () => localStorage[KEY] ? JSON.parse(localStorage[KEY]) : [];
+
+  const addCoinsInLS = (coins: ICoinRow[]) => {
+    getPortfolioCoins().length
+      ? localStorage[KEY] = JSON.stringify(coins)
+      : localStorage.setItem(KEY, JSON.stringify(coins));
+  };
+
   const addCoinInPortfolio = (number: string) => {
     setIsError(false);
     const updatedCoin = {
-      ...props.coin,
+      ...coin,
       coinsNumber: Number(number)
     };
-    const updatePortfolioCoins = (coins: ICoinRow[]) => {
-      dispatch(setPortfolioCoins(coins));
-    };
-
-    if (portfolioCoins.length) {
-      const coins: ICoinRow[] = [...portfolioCoins];
-      const foundedCoin = coins.findIndex((c: ICoinRow) => c.key === props.coin.key);
-
-      foundedCoin >= 0
-        ? coins[foundedCoin] = {
-          ...coins[foundedCoin],
-          coinsNumber: Number(coins[foundedCoin].coinsNumber) + Number(number)
-        }
-        : coins.push(updatedCoin);
-      updatePortfolioCoins(coins);
-    } else {
-      updatePortfolioCoins([updatedCoin]);
-    }
+    const coins: ICoinRow[] = [...getPortfolioCoins()];
+    const coinIndex = coins.findIndex((c: ICoinRow) => c.key === coin.key);
+    coinIndex >= 0
+      ? coins[coinIndex] = {
+        ...coins[coinIndex],
+        coinsNumber: coins[coinIndex].coinsNumber + Number(number)
+      }
+      : coins.push(updatedCoin);
+    addCoinsInLS(coins);
   };
 
   const handlingPressEnter = (e: any) => {

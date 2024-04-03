@@ -13,7 +13,7 @@ interface IPortfolioProps {
 
 export const Portfolio = (props: IPortfolioProps) => {
   const { isModalOpen, setIsModalOpen } = props;
-  const { portfolioCoins } = useAppSelector((state) => state.assets);
+  // const { portfolioCoins } = useAppSelector((state) => state.assets);
 
   return (
     <ModalWindow
@@ -22,7 +22,7 @@ export const Portfolio = (props: IPortfolioProps) => {
       footer=""
       onCancel={() => setIsModalOpen(false)}
     >
-      {portfolioCoins.length
+      {/* {portfolioCoins.length
         ? portfolioCoins.map((coin: ICoinRow) =>
           <div className="coin-block" key={coin.key} >
             <div style={{ display: 'flex' }}>
@@ -31,7 +31,7 @@ export const Portfolio = (props: IPortfolioProps) => {
             </div>
             <DeleteButton coin={coin} value={"Delete"} />
           </div>)
-        : <div>Your portfolio is empty</div>}
+        : <div>Your portfolio is empty</div>} */}
     </ModalWindow >
   );
 };

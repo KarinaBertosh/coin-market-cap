@@ -48,3 +48,6 @@ export const ROUTES = {
     MAIN: '/',
     INFO: '/info'
 };
+
+export const KEY = 'coins';
+

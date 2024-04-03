@@ -4,13 +4,13 @@ import { ICoinRow } from '../../utils/types';
 import { InputAddCoin } from '../InputAddCoin/InputAddCoin ';
 import './style.scss';
 
-interface IModalProps {
+interface IModalAddCoinProps {
   isModalOpen: boolean,
   setIsModalOpen: (isModalOpen: boolean) => void;
   coin: ICoinRow;
 }
 
-export const ModalCoinAdding = (props: IModalProps) => {
+export const ModalAddCoin = (props: IModalAddCoinProps) => {
   const { isModalOpen, setIsModalOpen } = props;
 
   return (

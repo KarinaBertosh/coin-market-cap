@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from 'antd';
 import { ICoinRow } from '../../utils/types';
-import { ModalCoinAdding } from '../ModalCoinAdding/ModalCoinAdding';
+import { ModalAddCoin } from '../ModalAddCoin/ModalAddCoin';
 
 
 interface IAddButtonProps {
@@ -18,7 +18,7 @@ export const AddButton = (props: IAddButtonProps) => {
       <Button onClick={() => setIsModalOpen(true)}>
         {value}
       </Button>
-      <ModalCoinAdding isModalOpen={isOpenModal} setIsModalOpen={setIsModalOpen} coin={coin} />
+      <ModalAddCoin isModalOpen={isOpenModal} setIsModalOpen={setIsModalOpen} coin={coin} />
     </>
   );
 };

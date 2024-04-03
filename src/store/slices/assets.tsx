@@ -10,7 +10,6 @@ interface IAssetsState {
   isLoading: boolean;
   searchText: string;
   selectedCoin: IAsset,
-  portfolioCoins: ICoinRow[];
 }
 
 const initialState: IAssetsState = {
@@ -19,7 +18,6 @@ const initialState: IAssetsState = {
   isLoading: false,
   searchText: '',
   selectedCoin: null,
-  portfolioCoins: [],
 };
 
 export const slice = createSlice({
@@ -34,9 +32,6 @@ export const slice = createSlice({
     },
     setSelectedCoin: (state, { payload }) => {
       state.selectedCoin = payload;
-    },
-    setPortfolioCoins: (state, { payload }) => {
-      state.portfolioCoins = payload;
     },
   },
   extraReducers(builder) {
@@ -57,7 +52,6 @@ export const {
   setTableData,
   setSearchText,
   setSelectedCoin,
-  setPortfolioCoins,
 } = slice.actions;
 
 export default slice.reducer;

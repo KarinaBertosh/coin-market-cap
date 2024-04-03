@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Portfolio } from '../Portfolio/Portfolio';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { useAppDispatch } from '../../hooks/redux';
 import { getData, getPrice, getCoinsTotalValue } from '../../utils/default';
 import { ICoinRow } from '../../utils/types';
+import { KEY } from '../../utils/constants';
 import './style.scss';
 
 
@@ -11,46 +12,45 @@ export const PortfolioAmount = () => {
   const [differenceAmount, setDifferenceAmount] = useState(0);
   const [differenceAmountPercent, setDifferenceAmountPercent] = useState(0);
 
+  const getPortfolioCoins = () => localStorage[KEY] ? JSON.parse(localStorage[KEY]) : [];
+
   const dispatch = useAppDispatch();
-  const { portfolioCoins } = useAppSelector((state) => state.assets);
-  console.log({portfolioCoins});
-  
+
+  useEffect(() => {
+    (async () => {
+      const { totalAmountLocal, oldTotalAmount, differenceAmount } = await getDifferenceAmount();
+      setDifferenceAmount(Number(differenceAmount));
+      setDifferenceAmountPercent(() => getPortfolioDifferencePercent(totalAmountLocal, oldTotalAmount));
+    })();
+  }, );
 
   const getTotalAmount = () => {
-    if (!portfolioCoins.length) return `0 USD`;
-    const totalAmount = getPrice(getCoinsTotalValue(portfolioCoins));
+    if (!getPortfolioCoins().length) return `0 USD`;
+    const totalAmount = getPrice(getCoinsTotalValue(getPortfolioCoins()));
     return `${totalAmount} USD`;
   };
 
   const getDifferenceAmount = async () => {
-    let difference = 0;
+    let totalAmountLocal = 0;
     const data = await getData(dispatch);
-    portfolioCoins.forEach((coin: ICoinRow) => {
-      const foundCoin = data.find((c: ICoinRow) => c.key === coin.key);
-      difference += Number(foundCoin.priceUsd.slice(1)) * coin.coinsNumber;
+    getPortfolioCoins().forEach((coin: ICoinRow) => {
+      const foundedCoin = data.find((c: ICoinRow) => c.key === coin.key);
+      totalAmountLocal += Number(foundedCoin.priceUsd.slice(1)) * coin.coinsNumber;
     });
-    const totalAmount = Number(getTotalAmount().slice(0, getTotalAmount().length - 4));
+    const oldTotalAmount = Number(getTotalAmount().slice(0, getTotalAmount().length - 4));
 
     return {
-      differenceAmount: getPrice(totalAmount - difference),
-      totalAmount: totalAmount,
-      difference: difference,
+      differenceAmount: getPrice(oldTotalAmount - totalAmountLocal),
+      oldTotalAmount,
+      totalAmountLocal,
     };
   };
 
-  const getPortfolioDifferencePercent = (difference: number, totalValue: number) => {
-    return portfolioCoins.length
-      ? Number(getPrice((difference / totalValue - 1) * 100))
+  const getPortfolioDifferencePercent = (totalAmountLocal: number, oldTotalAmount: number) => {
+    return getPortfolioCoins().length
+      ? Number(getPrice((totalAmountLocal / oldTotalAmount - 1) * 100))
       : 0;
   };
-
-  useEffect(() => {
-    (async () => {
-      const { difference, totalAmount, differenceAmount } = await getDifferenceAmount();
-      setDifferenceAmount(Number(differenceAmount));
-      setDifferenceAmountPercent(() => getPortfolioDifferencePercent(difference, totalAmount));
-    })();
-  }, [portfolioCoins]);
 
   return (
     <>

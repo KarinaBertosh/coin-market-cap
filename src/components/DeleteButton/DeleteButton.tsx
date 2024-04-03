@@ -1,6 +1,5 @@
 import React from 'react';
 import { Button } from 'antd';
-import { setPortfolioCoins } from '../../store/slices/assets';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { getPrice, getCoinsTotalValue } from '../../utils/default';
 import { ICoinRow } from '../../utils/types';
@@ -14,12 +13,12 @@ interface IDeleteButtonProps {
 export const DeleteButton = (props: IDeleteButtonProps) => {
   const dispatch = useAppDispatch();
   const { coin, value } = props;
-  const { portfolioCoins } = useAppSelector((state) => state.assets);
+  // const { portfolioCoins } = useAppSelector((state) => state.assets);
 
   const deleteCoin = (coin: ICoinRow) => {
-    const result: ICoinRow[] = [...portfolioCoins].filter((c) => c.key !== coin.key);
+    // const result: ICoinRow[] = [...portfolioCoins].filter((c) => c.key !== coin.key);
 
-    dispatch(setPortfolioCoins(result));
+    // dispatch(setPortfolioCoins(result));
 
     // const portfolioDifferenceCost = getPrice(String(portfolioCoins
     //   ? getTotalValue(result) - getTotalValue([...portfolioCoins])

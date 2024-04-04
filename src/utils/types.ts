@@ -16,7 +16,7 @@ export interface IAsset {
 export interface ICoinRow {
     add: string;
     key: string;
-    logo: string;
+    logo?: string;
     marketCapUsd: string;
     priceUsd: string;
     symbol: string;

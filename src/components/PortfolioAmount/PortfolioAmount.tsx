@@ -12,10 +12,11 @@ export const PortfolioAmount = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [amountDifference, setAmountDifference] = useState(0);
   const [percentAmountDifference, setPercentAmountDifference] = useState(0);
-  const plus = '+';
 
-  const portfolioCoins = coins ? JSON.parse(coins) : [];
   const dispatch = useAppDispatch();
+
+  const parsedCoins = JSON.parse(coins);
+  const plus = '+';
 
   useEffect(() => {
     (async () => {
@@ -27,18 +28,17 @@ export const PortfolioAmount = () => {
       setAmountDifference(Number(amountDifference));
       setPercentAmountDifference(getPercentAmountDifference(amountFromApi, localAmount));
     })();
+
   }, [coins]);
 
   const getAmountDifference = async () => {
     let amountFromApi = 0;
     const coinsFromApi = await getCoinFromApi(dispatch);
-
-    portfolioCoins.forEach((portfolioCoin: ICoinRow) => {
+    parsedCoins.forEach((portfolioCoin: ICoinRow) => {
       const coin = coinsFromApi.find((coinFromApi: ICoinRow) => coinFromApi.key === portfolioCoin.key);
       if (coin) amountFromApi += Number(coin.priceUsd.slice(1)) * portfolioCoin.coinsNumber;
     });
-    const localAmount = Number(getTotalAmount(portfolioCoins));
-
+    const localAmount = Number(getTotalAmount(parsedCoins));
     return {
       amountDifference: getFormattedValue(String(localAmount - amountFromApi)),
       localAmount,
@@ -50,7 +50,7 @@ export const PortfolioAmount = () => {
     const percent = Number(getFormattedValue(String((localAmount / amountFromApi - 1) * 100)));
     const finalPercent = String(percent).startsWith('-') ? Number(String(percent).slice(1)) : percent;
 
-    return portfolioCoins.length
+    return parsedCoins.length
       ? finalPercent
       : 0;
   };
@@ -62,7 +62,7 @@ export const PortfolioAmount = () => {
         onClick={() => setIsModalOpen(true)}
       >
         <p className="price">
-          ${getTotalAmount(portfolioCoins)} USD &nbsp;
+          ${getTotalAmount(parsedCoins)} USD &nbsp;
         </p>
         {amountDifference > 0 && plus}
         {amountDifference}&nbsp;{percentAmountDifference}&nbsp;%

@@ -28,7 +28,7 @@ export const Portfolio = (props: IPortfolioProps) => {
       {
         portfolioCoins.length
           ? portfolioCoins.map((coin: ICoinRow) =>
-            <PortfolioCoin coin={coin} />)
+            <PortfolioCoin coin={coin} key={coin.key}/>)
           : <p>{emptyPortfolioText}</p>
       }
     </Modal>

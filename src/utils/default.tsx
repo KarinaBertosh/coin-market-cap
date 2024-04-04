@@ -10,8 +10,7 @@ export const getFormattedValue = (value: string, numberPastComma = 2, isPrice = 
 
   const index = valueString.startsWith('0')
     ? valueString.indexOf(Array.from(valueString).filter((el) => el !== '0')[1]) + numberPastComma + 1
-    : valueString.indexOf('.') + 3;
-
+    : valueString.indexOf('.') === -1 ? valueString.length + 1 : valueString.indexOf('.') + 3;
   const changedPrice = Number(valueString.slice(0, index));
   return isPrice ? formatter.format(changedPrice) : changedPrice;
 };
@@ -19,8 +18,8 @@ export const getFormattedValue = (value: string, numberPastComma = 2, isPrice = 
 const getOneCoinTotalPrice = (coin: ICoinRow) =>
   Number(getFormattedValue(coin?.priceUsd?.slice(1))) * coin.coinsNumber;
 
-export const getAllCoinsValue = (coins: ICoinRow[]) =>
-  coins.reduce((acc: any, cur: ICoinRow) => acc + getOneCoinTotalPrice(cur), 0,);
+export const getAllCoinsValue = (coins: ICoinRow[]) => coins.reduce((acc: any, cur: ICoinRow) =>
+  acc + getOneCoinTotalPrice(cur), 0,);
 
 export const getCoinFromApi = async (dispatch: any) => {
   const assets = await dispatch(fetchAssets()).unwrap();

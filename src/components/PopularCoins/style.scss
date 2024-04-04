@@ -1,0 +1,19 @@
+.popular-coins {
+    display: flex;
+    width: 350px;
+    align-items: center;
+    justify-content: space-between;
+    color: white;
+}
+
+.popular-coin {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+@media (max-width: 680px) and (min-width: 320px) {
+    .popular-coins {
+        width: 120px;
+    }
+}

@@ -53,7 +53,8 @@
     "sass": "^1.72.0",
     "sass-loader": "^14.1.1",
     "style-loader": "^3.3.4",
-    "styled-components": "^6.1.8"
+    "styled-components": "^6.1.8",
+    "use-local-storage-state": "^19.2.0"
   },
   "peerDependencies": {
     "react": "^17.0.0 || ^18.0.0",

@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { CoinTable } from '../../components/CoinTable/CoinTable';
+import { CoinsTable } from '../../components/CoinsTable/CoinsTable';
 
 
-export function MainPage() {
-    return (
-        <CoinTable />
-    );
-}
+export const MainPage = () => {
+  return (
+    <CoinsTable />
+  );
+};

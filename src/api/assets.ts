@@ -1,8 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from "axios";
 
-
-interface IFetchAssetHistoryParams {
+interface ICoinPricesParams {
   id: string,
   interval: string;
 }
@@ -15,10 +14,12 @@ export const fetchAssets = createAsyncThunk(
   },
 );
 
-export const fetchAssetHistory = createAsyncThunk(
-  'GET_assetHistory/fetchAssetHistory',
-  async (data: IFetchAssetHistoryParams) => {
-    const response = await axios.get(`https://api.coincap.io/v2/assets/${data.id}/history?interval=${data.interval}`);
-    return response.data.data;
-  },
-);
+export const getCoinPrices = async (params: ICoinPricesParams) => {
+  const response = await axios.get(`https://api.coincap.io/v2/assets/${params.id}/history?interval=${params.interval}`);
+  return response.data.data;
+};
+
+export const getRates = async () => {
+  const response = await axios.get('https://api.coincap.io/v2/rates');
+  return response.data.data.slice(0, 3);
+};

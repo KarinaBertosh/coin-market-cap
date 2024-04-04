@@ -1,89 +1,46 @@
 import React, { useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { useNavigate } from 'react-router-dom';
-import { Button, Select, Spin } from 'antd';
-import { LineChart } from '@mui/x-charts/LineChart';
-import { fetchAssetHistory } from '../../api/assets';
-import { getPrice, navigateToMain } from '../../utils/default';
-import '../../style.scss';
-import './style.scss';
+import { useAppSelector } from '../../hooks/redux';
+import { getCoinPrices } from '../../api/assets';
+import { callApi, getFormattedValue } from '../../utils/default';
+import { ICoinRow } from '../../utils/types';
+import { CoinInfo } from '../../components/CoinInfo/CoinInfo';
+import { CoinChart } from '../../components/CoinChart/CoinChart';
+import { NavigationButtons } from '../../components/NavigationButtons/NavigationButtons';
 
 
-export function CoinInfoPage() {
-  const [data, setData] = useState([]);
-  const [currentChartType, setCurrentChartType] = useState('d1');
+export const CoinInfoPage = () => {
+  const [coinPrices, setCoinPrices] = useState([]);
+  const [chartType, setChartType] = useState('d1');
+  const [isLoading, setIsLoading] = useState(false);
 
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-
-  const { selectedCoin, isLoading } = useAppSelector((state) => state.assets);
+  const { selectedCoin, coinsRow } = useAppSelector((state) => state.assets);
+  const coin = coinsRow.find((coin: ICoinRow) => coin.key === selectedCoin?.id);
 
   useEffect(() => {
     (async () => {
-      try {
-        const historyCoinPriceChanges = await dispatch(fetchAssetHistory({
-          id: selectedCoin.id,
-          interval: currentChartType
-        })).unwrap();
-        setData(historyCoinPriceChanges.map((el: any) => Number(getPrice(el.priceUsd, 0))));
-      } catch (error) {
-        console.log(error);
-      }
+      setIsLoading(true);
+      const coinPrices = await callApi(async () => await getCoinPrices({
+        id: selectedCoin.id,
+        interval: chartType
+      }));
+      setCoinPrices(coinPrices.map((el: ICoinRow) => getFormattedValue(el.priceUsd, 0)));
+      setIsLoading(false);
     })();
-  }, [currentChartType]);
-
-  const renderBackButton = () => <Button className='m-r-10' onClick={() => navigateToMain(navigate)}>Back</Button>;
-
+  }, [chartType]);
 
   return (
     <>
-      {
-        selectedCoin != undefined
-          ? <>
-            <div className='m-b-10'>
-              {renderBackButton()}
-              <Button>Add</Button>
-            </div>
-            <div>
-              <div className='m-b-10'>
-                <img src="logo" alt="logo" />
-                <div>Name: {selectedCoin.name}</div>
-                <div>Symbol:{selectedCoin.symbol}</div>
-                <div>Rank: {selectedCoin.rank}</div>
-                <div>Supply: {selectedCoin.supply ?? 0}</div>
-                <div>Max supply: {selectedCoin.maxSupply ?? 0}</div>
-                <div>Price(usd): {`$ ${getPrice(selectedCoin.priceUsd)}`}</div>
-              </div>
-              <div className='chart'>
-                <Select
-                  defaultValue="Price change chart per:"
-                  style={{ width: 300 }}
-                  onChange={(type) => setCurrentChartType(type)}
-                  options={[
-                    { value: 'd1', label: 'Day' },
-                    { value: 'h12', label: '12 hours' },
-                    { value: 'h1', label: '1 hour' },
-                  ]}
-                  className='m-b-10'
-                />
-                {
-                  isLoading
-                    ? <Spin />
-                    : <LineChart
-                      xAxis={[{ data: data }]}
-                      series={[{ data: data }]}
-                      width={1200}
-                      height={300}
-                    />
-                }
-              </div>
-            </div>
-          </>
-          : <>
-            {renderBackButton()}
-            <h1>Go to the main page to pick up your coin</h1>
-          </>
+      <NavigationButtons coin={coin} />
+      {selectedCoin &&
+        <>
+          <CoinInfo />
+          <CoinChart
+            coinPrices={coinPrices}
+            setChartType={setChartType}
+            isLoading={isLoading}
+          />
+        </>
       }
     </>
   );
-}
+};

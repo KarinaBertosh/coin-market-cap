@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Input as InputNumber } from 'antd';
 import { ICoinRow } from '../../utils/types';
 import useLocalStorageState from 'use-local-storage-state';
+import { BaseInput } from '../UI/BaseInput/BaseInput';
 
 interface IInputProps {
   coin: ICoinRow;
@@ -12,8 +12,7 @@ const ERRORS_TEXT = {
   ZERO: 'Error: the number must be greater than 0'
 };
 
-export const InputAddCoin = (props: IInputProps) => {
-  const { coin } = props;
+export const InputAddCoin = ({ coin }: IInputProps) => {
   const [coins, setCoins] = useLocalStorageState<string>('coins');
   const [isError, setIsError] = useState(false);
   const [errorText, setErrorText] = useState('');
@@ -55,13 +54,10 @@ export const InputAddCoin = (props: IInputProps) => {
   };
 
   return (
-    <>
-      <InputNumber
-        defaultValue='0'
-        maxLength={2}
-        onPressEnter={handlingPressEnter}
-      />
-      {isError && <p>{errorText}</p>}
-    </>
+    <BaseInput
+      onPressEnter={handlingPressEnter}
+      isError={isError}
+      errorText={errorText}
+    />
   );
 };

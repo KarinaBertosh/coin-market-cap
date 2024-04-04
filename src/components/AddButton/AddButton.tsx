@@ -1,21 +1,27 @@
 import React, { useState } from 'react';
 import { ICoinRow } from '../../utils/types';
-import { ModalAddCoin } from '../ModalAddCoin/ModalAddCoin';
 import { Button } from '../UI/Button/Button';
+import { Modal } from '../UI/Modal/Modal';
+import { InputAddCoin } from '../InputAddCoin/InputAddCoin ';
 
 interface IAddButtonProps {
   coin: ICoinRow,
   buttonName: string;
 }
 
-export const AddButton = (props: IAddButtonProps) => {
-  const [isOpenModal, setIsModalOpen] = useState(false);
-  const { coin, buttonName } = props;
+export const AddButton = ({ coin, buttonName }: IAddButtonProps) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <>
       <Button onClick={() => setIsModalOpen(true)} buttonName={buttonName} />
-      <ModalAddCoin isModalOpen={isOpenModal} setIsModalOpen={setIsModalOpen} coin={coin} />
+      <Modal
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+        title='Please select number of coins'
+      >
+        <InputAddCoin coin={coin} />
+      </Modal>
     </>
   );
 };

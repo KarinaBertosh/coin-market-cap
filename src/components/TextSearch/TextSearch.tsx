@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Input } from 'antd';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { setSearchText, setCoinsRow } from '../../store/slices/assets';
 import { callApi, getCoinFromApi } from '../../utils/default';
+import { SearchInput } from '../UI/SearchInput/SearchInput';
 import './style.scss';
 
 
@@ -36,16 +36,9 @@ export const TextSearch = () => {
   }, [searchText]);
 
   return (
-    <div className="text-search">
-      <Input.Search
-        placeholder="input search text"
-        onChange={handlingCoinSearch}
-        enterButton
-      />
-      {
-        isError &&
-        <div>There is no such coin</div>
-      }
-    </div>
+    <SearchInput
+      onChange={handlingCoinSearch}
+      isError={isError}
+    />
   );
 };

@@ -8,8 +8,8 @@ export const columns = [
         dataIndex: 'add',
         key: 'add',
         onCell: () => ({ onClick: (e: any) => e.stopPropagation() }),
-        render: (value: string, record: ICoinRow) =>
-            <AddButton coin={record} value={value} />
+        render: (value: string, coin: ICoinRow) =>
+            <AddButton coin={coin} buttonName={value} />
         ,
     },
     {

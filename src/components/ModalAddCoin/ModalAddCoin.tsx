@@ -1,7 +1,7 @@
 import React from 'react';
 import { ICoinRow } from '../../utils/types';
 import { InputAddCoin } from '../InputAddCoin/InputAddCoin ';
-import { Modal } from '../Modal/Modal';
+import { Modal } from '../UI/Modal/Modal';
 import './style.scss';
 
 interface IModalAddCoinProps {

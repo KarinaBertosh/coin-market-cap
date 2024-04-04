@@ -1,7 +1,8 @@
 import React from 'react';
 import { ICoinRow } from '../../utils/types';
-import { DeleteButton } from '../DeleteButton/DeleteButton';
 import { getTotalAmount } from '../../utils/default';
+import useLocalStorageState from 'use-local-storage-state';
+import { Button } from '../UI/Button/Button';
 
 
 interface IPortfolioCoinProps {
@@ -12,15 +13,24 @@ export const PortfolioCoin = (props: IPortfolioCoinProps) => {
   const { coin } = props;
   const { key, symbol } = coin;
 
+  const [coins, setCoins] = useLocalStorageState<string>('coins');
+
+  const deleteCoin = () => {
+    const updateCoins = JSON.parse(coins).filter((c: ICoinRow) => c.key !== coin.key);
+    setCoins(JSON.stringify(updateCoins));
+  };
+
   return (
     <div className="coin-block" key={key} >
-      <div style={{ display: 'flex' }}>
-        {symbol}:
-        <div className="price">
-          {getTotalAmount([coin])}
-        </div>
-      </div>
-      <DeleteButton coin={coin} value={"Delete"} />
+      {symbol}:
+      <p className="price">
+        {getTotalAmount([coin])}
+      </p>
+      <Button
+        className="m-r-10"
+        onClick={deleteCoin}
+        buttonName='Delete'
+      />
     </div>
   );
 };

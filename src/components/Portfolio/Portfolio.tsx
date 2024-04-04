@@ -2,7 +2,7 @@ import React from 'react';
 import { ICoinRow } from '../../utils/types';
 import useLocalStorageState from 'use-local-storage-state';
 import { PortfolioCoin } from '../PortfolioCoin/PortfolioCoin';
-import { Modal } from '../Modal/Modal';
+import { Modal } from '../UI/Modal/Modal';
 import './style.scss';
 
 interface IPortfolioProps {

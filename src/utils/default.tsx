@@ -51,6 +51,10 @@ export const getTotalAmount = (portfolioCoins: ICoinRow[]) => {
   return getFormattedValue(getAllCoinsValue(portfolioCoins));
 };
 
+export const renderDollarAmount = (value: string | number) => {
+  return `$${value} USD`;
+}
+
 
 
 

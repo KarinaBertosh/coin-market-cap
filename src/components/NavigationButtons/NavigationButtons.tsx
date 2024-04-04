@@ -15,7 +15,7 @@ export const NavigationButtons = ({ coin }: INavigationButtonsProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
   const { selectedCoin } = useAppSelector((state) => state.assets);
-
+  const errorText = 'Go to the main page to pick up your coin';
 
   return (
     <div className="m-b-10">
@@ -32,7 +32,7 @@ export const NavigationButtons = ({ coin }: INavigationButtonsProps) => {
               <InputAddCoin coin={coin} />
             </Modal>
           </>
-          : <h1>Go to the main page to pick up your coin</h1>
+          : <h1>{errorText}</h1>
       }
     </div>
   );

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Portfolio } from '../Portfolio/Portfolio';
 import { useAppDispatch } from '../../hooks/redux';
-import { getCoinFromApi, getFormattedValue, getTotalAmount } from '../../utils/default';
+import { getCoinFromApi, getFormattedValue, getTotalAmount, renderDollarAmount } from '../../utils/default';
 import { ICoinRow } from '../../utils/types';
 import useLocalStorageState from 'use-local-storage-state';
 import './style.scss';
@@ -62,7 +62,7 @@ export const PortfolioAmount = () => {
         onClick={() => setIsModalOpen(true)}
       >
         <p className="price">
-          ${getTotalAmount(parsedCoins)} USD &nbsp;
+          {renderDollarAmount(getTotalAmount(parsedCoins))} &nbsp;
         </p>
         {amountDifference > 0 && plus}
         {amountDifference}&nbsp;{percentAmountDifference}&nbsp;%

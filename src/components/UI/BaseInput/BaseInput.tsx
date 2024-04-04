@@ -1,7 +1,6 @@
 import React from 'react';
 import { Input as InputANTD } from 'antd';
 
-
 interface IBaseInputProps {
   onPressEnter: (e: any) => void;
   isError: boolean;

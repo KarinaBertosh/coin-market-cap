@@ -4,7 +4,6 @@ import { getFormattedValue } from '../../utils/default';
 interface IPopularCoinProps {
   rating: IRating;
 }
-
 interface IRating {
   id: string,
   symbol: string,

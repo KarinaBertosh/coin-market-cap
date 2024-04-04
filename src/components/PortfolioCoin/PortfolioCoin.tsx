@@ -1,9 +1,8 @@
 import React from 'react';
 import { ICoinRow } from '../../utils/types';
-import { getTotalAmount } from '../../utils/default';
+import { getTotalAmount, renderDollarAmount } from '../../utils/default';
 import useLocalStorageState from 'use-local-storage-state';
 import { Button } from '../UI/Button/Button';
-
 
 interface IPortfolioCoinProps {
   coin: ICoinRow;
@@ -24,7 +23,7 @@ export const PortfolioCoin = (props: IPortfolioCoinProps) => {
     <div className="coin-block" key={key} >
       {symbol}:
       <p className="price">
-        ${getTotalAmount([coin])} USD
+        {renderDollarAmount(getTotalAmount([coin]))}
       </p>
       <Button
         className="m-r-10"

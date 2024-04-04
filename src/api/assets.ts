@@ -1,7 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from "axios";
 
-
 interface ICoinPricesParams {
   id: string,
   interval: string;

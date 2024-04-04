@@ -3,7 +3,7 @@ import { CoinsTable } from '../../components/CoinsTable/CoinsTable';
 
 
 export const MainPage = () => {
-    return (
-        <CoinsTable />
-    );
+  return (
+    <CoinsTable />
+  );
 };

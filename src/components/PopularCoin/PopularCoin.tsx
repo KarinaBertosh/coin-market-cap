@@ -1,5 +1,5 @@
 import React from 'react';
-import { getPrice } from '../../utils/default';
+import { getFormattedValue } from '../../utils/default';
 
 interface IPopularCoinProps {
   rating: IRating;
@@ -18,7 +18,7 @@ export const PopularCoin = ({ rating }: IPopularCoinProps) => {
     <div key={rating.id} className="popular-coin">
       {rating.symbol}:
       <div className="price">
-        {`$${getPrice(Number(rating.rateUsd))}`}
+        {`$${getFormattedValue(rating.rateUsd)}`}
       </div>
     </div>
   );

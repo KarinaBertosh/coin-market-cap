@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Portfolio } from '../Portfolio/Portfolio';
 import { useAppDispatch } from '../../hooks/redux';
-import { getCoinFromApi, getPrice, getTotalAmount } from '../../utils/default';
+import { getCoinFromApi, getFormattedValue, getTotalAmount } from '../../utils/default';
 import { ICoinRow } from '../../utils/types';
 import useLocalStorageState from 'use-local-storage-state';
 import './style.scss';
@@ -25,7 +25,7 @@ export const PortfolioAmount = () => {
         amountDifference
       } = await getAmountDifference();
       setAmountDifference(Number(amountDifference));
-      setPercentAmountDifference(() => getPercentAmountDifference(amountFromApi, localAmount));
+      setPercentAmountDifference(getPercentAmountDifference(amountFromApi, localAmount));
     })();
   }, [coins]);
 
@@ -37,17 +37,21 @@ export const PortfolioAmount = () => {
       const coin = coinsFromApi.find((coinFromApi: ICoinRow) => coinFromApi.key === portfolioCoin.key);
       if (coin) amountFromApi += Number(coin.priceUsd.slice(1)) * portfolioCoin.coinsNumber;
     });
-    const localAmount = Number(getTotalAmount(portfolioCoins).slice(0, getTotalAmount(portfolioCoins).length - 4));
+    const localAmount = Number(getTotalAmount(portfolioCoins));
+
     return {
-      amountDifference: getPrice(localAmount - amountFromApi),
+      amountDifference: getFormattedValue(String(localAmount - amountFromApi)),
       localAmount,
       amountFromApi,
     };
   };
 
-  const getPercentAmountDifference = (newAmount: number, oldAmount: number) => {
+  const getPercentAmountDifference = (amountFromApi: number, localAmount: number) => {
+    const percent = Number(getFormattedValue(String((localAmount / amountFromApi - 1) * 100)));
+    const finalPercent = String(percent).startsWith('-') ? Number(String(percent).slice(1)) : percent;
+
     return portfolioCoins.length
-      ? Number(getPrice((newAmount / oldAmount - 1) * 100))
+      ? finalPercent
       : 0;
   };
 
@@ -58,7 +62,7 @@ export const PortfolioAmount = () => {
         onClick={() => setIsModalOpen(true)}
       >
         <p className="price">
-          {getTotalAmount(portfolioCoins)} &nbsp;
+          ${getTotalAmount(portfolioCoins)} USD &nbsp;
         </p>
         {amountDifference > 0 && plus}
         {amountDifference}&nbsp;{percentAmountDifference}&nbsp;%

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAppSelector } from '../../hooks/redux';
-import { getPrice } from '../../utils/default';
+import { getFormattedValue } from '../../utils/default';
 
 const COIN_INFO_COLUMNS = {
   LOGO: 'Logo: ',
@@ -24,7 +24,7 @@ export const CoinInfo = () => {
       <div>{COIN_INFO_COLUMNS.RANK}&nbsp;{rank}</div>
       <div>{COIN_INFO_COLUMNS.SUPPLY}&nbsp;{supply ?? 0}</div>
       <div>{COIN_INFO_COLUMNS.MAX_SUPPLY}&nbsp;{maxSupply ?? 0}</div>
-      <div>{COIN_INFO_COLUMNS.PRICE}&nbsp;{getPrice(Number(priceUsd), 2, true)}</div>
+      <div>{COIN_INFO_COLUMNS.PRICE}&nbsp;{getFormattedValue(priceUsd, 2, true)}</div>
     </div>
   );
 };

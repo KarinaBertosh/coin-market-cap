@@ -3,8 +3,8 @@ import { MainPage } from './pages/MainPage/MainPage';
 import { Routes, Route } from "react-router-dom";
 import { CoinInfoPage } from './pages/CoinInfoPage/CoinInfoPage';
 import { Overlay } from './components/Overlay/Overlay';
-import './style.scss';
 import { ROUTES } from './utils/constants';
+import './style.scss';
 
 
 export const App = () => {

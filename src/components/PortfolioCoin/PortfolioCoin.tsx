@@ -24,7 +24,7 @@ export const PortfolioCoin = (props: IPortfolioCoinProps) => {
     <div className="coin-block" key={key} >
       {symbol}:
       <p className="price">
-        {getTotalAmount([coin])}
+        ${getTotalAmount([coin])} USD
       </p>
       <Button
         className="m-r-10"

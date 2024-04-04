@@ -29,7 +29,7 @@ export const getCoinFromApi = async (dispatch: any) => {
       add: 'Add',
       symbol: asset.symbol,
       logo: asset.symbol,
-      priceUsd: `$${getFormattedValue(asset.priceUsd)}`,
+      priceUsd: `$${getFormattedValue(asset.priceUsd, 2, true)}`,
       marketCapUsd: `$${getFormattedValue(asset.marketCapUsd)}`,
       volumeUsd24Hr: `$${getFormattedValue(asset.volumeUsd24Hr)}`,
     }
@@ -53,7 +53,13 @@ export const getTotalAmount = (portfolioCoins: ICoinRow[]) => {
 
 export const renderDollarAmount = (value: string | number) => {
   return `$${value} USD`;
-}
+};
+
+export const getFormattedPriceCoins = (coins: ICoinRow[]) =>
+  coins.map((coin: ICoinRow) => ({
+    ...coin,
+    priceUsd: coin.priceUsd.replace(',', '')
+  }));
 
 
 

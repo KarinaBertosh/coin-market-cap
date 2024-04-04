@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ICoinRow } from '../../utils/types';
 import useLocalStorageState from 'use-local-storage-state';
 import { BaseInput } from '../UI/BaseInput/BaseInput';
+import { getFormattedPriceCoins } from '../../utils/default';
 
 interface IInputProps {
   coin: ICoinRow;
@@ -29,10 +30,10 @@ export const InputAddCoin = ({ coin }: IInputProps) => {
     coinIndex >= 0
       ? copyCoins[coinIndex] = {
         ...copyCoins[coinIndex],
-        coinsNumber: copyCoins[coinIndex].coinsNumber + Number(number)
+        coinsNumber: copyCoins[coinIndex].coinsNumber + Number(number),
       }
       : copyCoins.push(updatedCoin);
-    setCoins(JSON.stringify(copyCoins));
+    setCoins(JSON.stringify(getFormattedPriceCoins(copyCoins)));
   };
 
   const handlingError = (value: string) => {

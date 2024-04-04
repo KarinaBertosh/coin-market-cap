@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Portfolio } from '../Portfolio/Portfolio';
 import { useAppDispatch } from '../../hooks/redux';
-import { getCoinFromApi, getFormattedValue, getTotalAmount, renderDollarAmount } from '../../utils/default';
-import { ICoinRow } from '../../utils/types';
 import useLocalStorageState from 'use-local-storage-state';
+import { Portfolio } from '../Portfolio/Portfolio';
+import { ICoinRow } from '../../utils/types';
+import { 
+  getCoinFromApi, 
+  getFormattedPriceCoins, 
+  getFormattedValue, 
+  getTotalAmount, 
+  renderDollarAmount 
+} from '../../utils/default';
 import './style.scss';
 
 
@@ -15,7 +21,7 @@ export const PortfolioAmount = () => {
 
   const dispatch = useAppDispatch();
 
-  const parsedCoins = JSON.parse(coins);
+  const parsedCoins = getFormattedPriceCoins(JSON.parse(coins));
   const plus = '+';
 
   useEffect(() => {
@@ -28,17 +34,17 @@ export const PortfolioAmount = () => {
       setAmountDifference(Number(amountDifference));
       setPercentAmountDifference(getPercentAmountDifference(amountFromApi, localAmount));
     })();
-
   }, [coins]);
 
   const getAmountDifference = async () => {
     let amountFromApi = 0;
-    const coinsFromApi = await getCoinFromApi(dispatch);
-    parsedCoins.forEach((portfolioCoin: ICoinRow) => {
-      const coin = coinsFromApi.find((coinFromApi: ICoinRow) => coinFromApi.key === portfolioCoin.key);
-      if (coin) amountFromApi += Number(coin.priceUsd.slice(1)) * portfolioCoin.coinsNumber;
+    const coinsFromApi = getFormattedPriceCoins(await getCoinFromApi(dispatch));
+    parsedCoins.forEach((parsedCoin: ICoinRow) => {
+      const coin = coinsFromApi.find((coinFromApi: ICoinRow) => coinFromApi.key === parsedCoin.key);
+      if (coin) amountFromApi += Number(coin.priceUsd.slice(1)) * parsedCoin.coinsNumber;
     });
     const localAmount = Number(getTotalAmount(parsedCoins));
+
     return {
       amountDifference: getFormattedValue(String(localAmount - amountFromApi)),
       localAmount,

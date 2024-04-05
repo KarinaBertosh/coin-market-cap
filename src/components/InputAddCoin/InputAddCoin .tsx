@@ -14,7 +14,9 @@ const ERRORS_TEXT = {
 };
 
 export const InputAddCoin = ({ coin }: IInputProps) => {
-  const [coins, setCoins] = useLocalStorageState<string>('coins');
+  const [coins, setCoins] = useLocalStorageState<string>('coins', {
+    defaultValue: '[]'
+  });
   const [isError, setIsError] = useState(false);
   const [errorText, setErrorText] = useState('');
 

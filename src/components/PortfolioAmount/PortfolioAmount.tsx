@@ -21,7 +21,7 @@ export const PortfolioAmount = () => {
 
   const dispatch = useAppDispatch();
 
-  const parsedCoins = getFormattedPriceCoins(JSON.parse(coins));
+  const parsedCoins = getFormattedPriceCoins(JSON.parse(coins || ''));
   const plus = '+';
 
   useEffect(() => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { Modal } from '../components/UI/Modal/Modal';
-import { BaseInput } from '../components/UI/BaseInput/BaseInput';
+import { Modal } from './Modal';
+import { BaseInput } from '../BaseInput/BaseInput';
 
 
 const meta: Meta<typeof Modal> = {

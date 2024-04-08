@@ -9,7 +9,7 @@ interface IAssetsState {
   coinsRow: ICoinRow[];
   isLoading: boolean;
   searchText: string;
-  selectedCoin: IAsset,
+  selectedCoin: IAsset ,
 }
 
 const initialState: IAssetsState = {

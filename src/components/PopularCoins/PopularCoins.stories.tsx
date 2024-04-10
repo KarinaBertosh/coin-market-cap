@@ -1,12 +1,12 @@
 
 import React from 'react';
-import { PortfolioAmount } from './PortfolioAmount';
+import { PopularCoins } from './PopularCoins';
 import { MockedState, MockStore } from '../../tests/mockData';
 import { reactRouterParameters, withRouter } from 'storybook-addon-remix-react-router';
 
 export default {
-  component: PortfolioAmount,
-  title: 'PortfolioAmount',
+  component: PopularCoins,
+  title: 'PopularCoins',
   tags: ['autodocs'],
   excludeStories: /.*MockedState$/,
 };

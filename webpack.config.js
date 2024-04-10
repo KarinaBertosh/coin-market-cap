@@ -10,7 +10,6 @@ module.exports = {
     filename: 'bundle.js',
     publicPath: '/'
   },
-  devtool: 'inline-source-map',
   devServer: {
     static: './dist',
     historyApiFallback: true,

@@ -1,12 +1,11 @@
 
 import React from 'react';
-import { TextSearch } from './TextSearch';
+import { CoinInfo } from './CoinInfo';
 import { MockedState, MockStore } from '../../tests/mockData';
 
 export default {
-  component: TextSearch,
-  title: 'TextSearch',
-  decorators: [(story: any) => <div style={{ padding: '3rem' }}>{story()}</div>],
+  component: CoinInfo,
+  title: 'CoinInfo',
   tags: ['autodocs'],
   excludeStories: /.*MockedState$/,
 };
@@ -15,5 +14,8 @@ export const Default = {
   decorators: [
     (story: any) => <MockStore assetsState={MockedState}>{story()}</MockStore>,
   ],
+  params: {
+    selectedCoin: MockedState.coinsRow[0]
+  }
 };
 

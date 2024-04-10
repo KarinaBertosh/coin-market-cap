@@ -1,12 +1,12 @@
 
 import React from 'react';
-import { PortfolioAmount } from './PortfolioAmount';
+import { NavigationButtons } from './NavigationButtons';
 import { MockedState, MockStore } from '../../tests/mockData';
-import { reactRouterParameters, withRouter } from 'storybook-addon-remix-react-router';
+import { withRouter } from 'storybook-addon-remix-react-router';
 
 export default {
-  component: PortfolioAmount,
-  title: 'PortfolioAmount',
+  component: NavigationButtons,
+  title: 'NavigationButtons',
   tags: ['autodocs'],
   excludeStories: /.*MockedState$/,
 };
@@ -16,10 +16,8 @@ export const Default = {
     (story: any) => <MockStore assetsState={MockedState}>{story()}</MockStore>,
     withRouter
   ],
-  parameters: {
-    reactRouter: reactRouterParameters({
-      routing: { path: '/' },
-    }),
+  args: {
+    coin: MockedState.coinsRow[0]
   },
 };
 

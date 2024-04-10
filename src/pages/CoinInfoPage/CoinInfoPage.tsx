@@ -23,6 +23,8 @@ export const CoinInfoPage = () => {
         id: selectedCoin.id,
         interval: chartType
       }));
+      console.log({coinPrices});
+      
       setCoinPrices(coinPrices.map((el: ICoinRow) => getFormattedValue(el.priceUsd, 0)));
       setIsLoading(false);
     })();

@@ -3,12 +3,12 @@ import { useAppDispatch } from '../../hooks/redux';
 import useLocalStorageState from 'use-local-storage-state';
 import { Portfolio } from '../Portfolio/Portfolio';
 import { ICoinRow } from '../../utils/types';
-import { 
-  getCoinFromApi, 
-  getFormattedPriceCoins, 
-  getFormattedValue, 
-  getTotalAmount, 
-  renderDollarAmount 
+import {
+  getCoinFromApi,
+  getFormattedPriceCoins,
+  getFormattedValue,
+  getTotalAmount,
+  renderDollarAmount
 } from '../../utils/default';
 import './style.scss';
 

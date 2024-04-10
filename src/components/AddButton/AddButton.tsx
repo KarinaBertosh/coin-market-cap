@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ICoinRow } from '../../utils/types';
 import { Button } from '../UI/Button/Button';
 import { Modal } from '../UI/Modal/Modal';
-import { InputAddCoin } from '../InputAddCoin/InputAddCoin ';
+import { InputAddCoin } from '../InputAddCoin/InputAddCoin';
 
 interface IAddButtonProps {
   coin: ICoinRow,

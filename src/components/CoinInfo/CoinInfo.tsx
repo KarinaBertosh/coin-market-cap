@@ -17,14 +17,19 @@ export const CoinInfo = () => {
   const { name, symbol, rank, supply, maxSupply, priceUsd } = selectedCoin;
 
   return (
-    <div className="m-b-10">
-      <div>{COIN_INFO_COLUMNS.LOGO}&nbsp;{symbol}</div>
-      <div>{COIN_INFO_COLUMNS.NAME}&nbsp;{name}</div>
-      <div> {COIN_INFO_COLUMNS.SYMBOL}&nbsp;{symbol}</div>
-      <div>{COIN_INFO_COLUMNS.RANK}&nbsp;{rank}</div>
-      <div>{COIN_INFO_COLUMNS.SUPPLY}&nbsp;{supply ?? 0}</div>
-      <div>{COIN_INFO_COLUMNS.MAX_SUPPLY}&nbsp;{maxSupply ?? 0}</div>
-      <div>{COIN_INFO_COLUMNS.PRICE}&nbsp;{getFormattedValue(priceUsd, 2, true)}</div>
-    </div>
+    <>
+      {
+        selectedCoin &&
+        <div className="m-b-10">
+          <div>{COIN_INFO_COLUMNS.LOGO}&nbsp;{symbol}</div>
+          <div>{COIN_INFO_COLUMNS.NAME}&nbsp;{name}</div>
+          <div> {COIN_INFO_COLUMNS.SYMBOL}&nbsp;{symbol}</div>
+          <div>{COIN_INFO_COLUMNS.RANK}&nbsp;{rank}</div>
+          <div>{COIN_INFO_COLUMNS.SUPPLY}&nbsp;{supply ?? 0}</div>
+          <div>{COIN_INFO_COLUMNS.MAX_SUPPLY}&nbsp;{maxSupply ?? 0}</div>
+          <div>{COIN_INFO_COLUMNS.PRICE}&nbsp;{getFormattedValue(priceUsd, 2, true)}</div>
+        </div>
+      }
+    </>
   );
 };

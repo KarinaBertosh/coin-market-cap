@@ -10,7 +10,6 @@ module.exports = {
     filename: 'bundle.js',
     publicPath: '/'
   },
-  devtool: 'inline-source-map',
   devServer: {
     static: './dist',
     historyApiFallback: true,
@@ -33,6 +32,14 @@ module.exports = {
           'style-loader',
           'css-loader',
           'sass-loader',
+        ],
+      },
+      {
+        test: /\.(png|svg|jpe?g|gif)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+          },
         ],
       },
     ]

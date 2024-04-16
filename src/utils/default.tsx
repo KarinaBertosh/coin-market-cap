@@ -61,6 +61,8 @@ export const getFormattedPriceCoins = (coins: ICoinRow[]) =>
     priceUsd: coin.priceUsd.replace(',', '')
   }));
 
+export const KEY_LS = 'coins'
+
 
 
 

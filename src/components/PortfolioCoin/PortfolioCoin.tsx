@@ -1,7 +1,6 @@
 import React from 'react';
 import { ICoinRow } from '../../utils/types';
-import { getTotalAmount, renderDollarAmount } from '../../utils/default';
-import useLocalStorageState from 'use-local-storage-state';
+import { KEY_LS, getTotalAmount, renderDollarAmount } from '../../utils/default';
 import { Button } from '../UI/Button/Button';
 
 interface IPortfolioCoinProps {
@@ -12,11 +11,11 @@ export const PortfolioCoin = (props: IPortfolioCoinProps) => {
   const { coin } = props;
   const { key, symbol } = coin;
 
-  const [coins, setCoins] = useLocalStorageState<string>('coins');
+  const coins = localStorage.getItem(KEY_LS);
 
   const deleteCoin = () => {
     const updateCoins = JSON.parse(coins).filter((c: ICoinRow) => c.key !== coin.key);
-    setCoins(JSON.stringify(updateCoins));
+    localStorage.setItem(KEY_LS, JSON.stringify(updateCoins));
   };
 
   return (

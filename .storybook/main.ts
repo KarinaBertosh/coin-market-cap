@@ -14,7 +14,7 @@ const config: StorybookConfig = {
     "storybook-addon-remix-react-router",
     "@storybook/addon-styling-webpack",
     "@storybook/addon-styling-webpack",
-    "@storybook/-addon-mock",
+    "@storybook/addon-mock",
   ],
   framework: {
     name: "@storybook/react-webpack5",

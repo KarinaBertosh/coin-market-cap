@@ -1,3 +1,12 @@
 {
-  "presets": ["@babel/preset-env", "@babel/preset-react"]
+  "presets": [
+    "@babel/preset-env",
+    "@babel/preset-react",
+    "@babel/preset-typescript",
+    // "ts-jest/presets/js-with-ts"
+  ],
+  "plugins": ["@babel/plugin-transform-modules-commonjs"]
+  // "transform": {
+  //   "\\.[jt]sx?$": "babel-jest"
+  // }
 }

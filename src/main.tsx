@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { App } from './app';
 import { store } from './store/store';
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 import './style.scss';
+import { Overlay } from './components/Overlay/Overlay';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -12,10 +13,12 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
+    <HashRouter>
       <Provider store={store}>
-        <App />
+        <Overlay>
+          <App />
+        </Overlay>
       </Provider>
-    </BrowserRouter>
+    </HashRouter>
   </React.StrictMode>,
 );

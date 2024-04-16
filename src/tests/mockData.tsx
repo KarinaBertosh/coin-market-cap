@@ -1,8 +1,6 @@
 import { Provider } from 'react-redux';
 import { configureStore, createSlice } from '@reduxjs/toolkit';
 import React from 'react';
-import { callApi } from '../utils/default';
-import { useDispatch } from 'react-redux';
 
 
 export const MockedState = {

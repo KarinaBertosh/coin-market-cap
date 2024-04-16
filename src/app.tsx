@@ -14,12 +14,10 @@ export const App = () => {
   });
 
   return (
-    <Overlay>
-      <Routes>
-        <Route path={ROUTES.ERROR} element={<MainPage />} />
-        <Route path={ROUTES.MAIN} element={<MainPage />} />
-        <Route path={ROUTES.INFO} element={<CoinInfoPage />} />
-      </Routes>
-    </Overlay>
+    <Routes>
+      <Route path={ROUTES.ERROR} element={<MainPage />} />
+      <Route path={ROUTES.MAIN} element={<MainPage />} />
+      <Route path={ROUTES.INFO} element={<CoinInfoPage />} />
+    </Routes>
   );
 };

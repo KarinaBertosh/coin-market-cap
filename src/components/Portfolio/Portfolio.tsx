@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { ICoinRow } from '../../utils/types';
-import useLocalStorageState from 'use-local-storage-state';
 import { PortfolioCoin } from '../PortfolioCoin/PortfolioCoin';
 import { Modal } from '../UI/Modal/Modal';
 import { KEY_LS } from '../../utils/default';

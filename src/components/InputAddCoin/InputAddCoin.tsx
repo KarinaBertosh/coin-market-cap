@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { ICoinRow } from '../../utils/types';
-// import useLocalStorageState from 'use-local-storage-state';
 import { BaseInput } from '../UI/BaseInput/BaseInput';
 import { KEY_LS, getFormattedPriceCoins } from '../../utils/default';
 
@@ -25,7 +24,9 @@ export const InputAddCoin = ({ coin }: IInputProps) => {
       coinsNumber: Number(number)
     };
 
-    const copyCoins: ICoinRow[] = JSON.parse(coins) ? JSON.parse(coins) : [];
+
+    const coins = localStorage.getItem(KEY_LS);
+    const copyCoins: ICoinRow[] = [...coins ? JSON.parse(coins) : []];
     const coinIndex = copyCoins.findIndex((c: ICoinRow) => c.key === coin.key);
     coinIndex >= 0
       ? copyCoins[coinIndex] = {

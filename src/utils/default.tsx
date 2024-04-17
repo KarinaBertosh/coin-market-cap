@@ -56,8 +56,6 @@ export const getFormattedPriceCoins = (coins: ICoinRow[]) =>
 
 export const KEY_LS = 'coins'
 
-export const KEY_LS = 'coins'
-
 
 
 

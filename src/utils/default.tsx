@@ -38,14 +38,6 @@ export const getCoinFromApi = async (dispatch: any) => {
   return coins;
 };
 
-export const callApi = async (action: any) => {
-  try {
-    return await action();
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 export const getTotalAmount = (portfolioCoins: ICoinRow[]) => {
   if (!portfolioCoins.length) return 0;
   return getFormattedValue(getAllCoinsValue(portfolioCoins));
@@ -56,10 +48,13 @@ export const renderDollarAmount = (value: string | number) => {
 };
 
 export const getFormattedPriceCoins = (coins: ICoinRow[]) =>
-  coins.map((coin: ICoinRow) => ({
-    ...coin,
-    priceUsd: coin.priceUsd.replace(',', '')
-  }));
+  coins ?
+    coins.map((coin: ICoinRow) => ({
+      ...coin,
+      priceUsd: coin.priceUsd.replace(',', '')
+    })) : [];
+
+export const KEY_LS = 'coins'
 
 
 

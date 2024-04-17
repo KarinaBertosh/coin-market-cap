@@ -4,6 +4,7 @@ import useLocalStorageState from 'use-local-storage-state';
 import { Portfolio } from '../Portfolio/Portfolio';
 import { ICoinRow } from '../../utils/types';
 import {
+  KEY_LS,
   getCoinFromApi,
   getFormattedPriceCoins,
   getFormattedValue,
@@ -14,14 +15,14 @@ import './style.scss';
 
 
 export const PortfolioAmount = () => {
-  const [coins, setCoins] = useLocalStorageState<string>('coins');
+  const [coins, setCoins] = useState(localStorage.getItem(KEY_LS));  
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [amountDifference, setAmountDifference] = useState(0);
   const [percentAmountDifference, setPercentAmountDifference] = useState(0);
 
   const dispatch = useAppDispatch();
 
-  const parsedCoins = getFormattedPriceCoins(JSON.parse(coins || ''));
+  const parsedCoins = getFormattedPriceCoins(JSON.parse(coins));
   const plus = '+';
 
   useEffect(() => {

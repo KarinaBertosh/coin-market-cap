@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ICoinRow } from '../../utils/types';
-import useLocalStorageState from 'use-local-storage-state';
+// import useLocalStorageState from 'use-local-storage-state';
 import { BaseInput } from '../UI/BaseInput/BaseInput';
-import { getFormattedPriceCoins } from '../../utils/default';
+import { KEY_LS, getFormattedPriceCoins } from '../../utils/default';
 
 interface IInputProps {
   coin: ICoinRow;
@@ -14,9 +14,7 @@ const ERRORS_TEXT = {
 };
 
 export const InputAddCoin = ({ coin }: IInputProps) => {
-  const [coins, setCoins] = useLocalStorageState<string>('coins', {
-    defaultValue: '[]'
-  });
+  const [coins, setCoins] = useState(localStorage.getItem(KEY_LS));
   const [isError, setIsError] = useState(false);
   const [errorText, setErrorText] = useState('');
 
@@ -27,7 +25,7 @@ export const InputAddCoin = ({ coin }: IInputProps) => {
       coinsNumber: Number(number)
     };
 
-    const copyCoins: ICoinRow[] = [...coins ? JSON.parse(coins) : []];
+    const copyCoins: ICoinRow[] = JSON.parse(coins) ? JSON.parse(coins) : [];
     const coinIndex = copyCoins.findIndex((c: ICoinRow) => c.key === coin.key);
     coinIndex >= 0
       ? copyCoins[coinIndex] = {
@@ -35,7 +33,7 @@ export const InputAddCoin = ({ coin }: IInputProps) => {
         coinsNumber: copyCoins[coinIndex].coinsNumber + Number(number),
       }
       : copyCoins.push(updatedCoin);
-    setCoins(JSON.stringify(getFormattedPriceCoins(copyCoins)));
+    localStorage.setItem(KEY_LS, JSON.stringify(getFormattedPriceCoins(copyCoins)));
   };
 
   const handlingError = (value: string) => {

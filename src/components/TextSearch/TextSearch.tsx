@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { setSearchText, setCoinsRow } from '../../store/slices/assets';
-import { callApi, getCoinFromApi } from '../../utils/default';
+import {  getCoinFromApi } from '../../utils/default';
 import { SearchInput } from '../UI/SearchInput/SearchInput';
 import './style.scss';
 
@@ -12,7 +12,13 @@ export const TextSearch = () => {
   const dispatch = useAppDispatch();
   const { searchText, coinsRow } = useAppSelector((state) => state.assets);
 
-  const renderAllCoins = async () => await callApi(await getCoinFromApi(dispatch));
+  const renderAllCoins = async () => {
+    try {
+      await getCoinFromApi(dispatch);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     (async () => {

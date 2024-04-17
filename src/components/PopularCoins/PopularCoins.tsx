@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getRates } from '../../api/assets';
 import { PopularCoin } from '../PopularCoin/PopularCoin';
-import { callApi } from '../../utils/default';
 import './style.scss';
 
 
@@ -10,8 +9,12 @@ export const PopularCoins = () => {
 
   useEffect(() => {
     (async () => {
-      const coins = await callApi(async () => await getRates());
-      setCoins(coins);
+      try {
+        const coins = await getRates();
+        setCoins(coins);
+      } catch (error) {
+        console.log(error);
+      }
     })();
   }, []);
 

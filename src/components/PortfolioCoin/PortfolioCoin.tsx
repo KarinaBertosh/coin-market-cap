@@ -9,15 +9,15 @@ interface IPortfolioCoinProps {
   coin: ICoinRow;
 }
 
-export const PortfolioCoin = (props: IPortfolioCoinProps) => {
-  const { coin } = props;
+export const PortfolioCoin = ({ coin }: IPortfolioCoinProps) => {
   const { key, symbol } = coin;
-  const coins = localStorage.getItem(KEY_LS)
+  const coins = localStorage.getItem(KEY_LS);
+
   const dispatch = useAppDispatch();
 
   const deleteCoin = () => {
-    const updateCoins = JSON.parse(coins).filter((c: ICoinRow) => c.key !== coin.key);
-    localStorage.setItem(KEY_LS, JSON.stringify(updateCoins));
+    const filteredCoins = JSON.parse(coins).filter((c: ICoinRow) => c.key !== coin.key);
+    localStorage.setItem(KEY_LS, JSON.stringify(filteredCoins));
     dispatch(setCoins(getFormattedPriceCoins(JSON.parse(localStorage.getItem(KEY_LS)))));
   };
 

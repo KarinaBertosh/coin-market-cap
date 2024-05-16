@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { ICoinRow } from '../../utils/types';
 import { PortfolioCoin } from '../PortfolioCoin/PortfolioCoin';
 import { Modal } from '../UI/Modal/Modal';
@@ -10,9 +10,8 @@ interface IPortfolioProps {
   setIsModalOpen: (isModalOpen: boolean) => void;
 }
 
-export const Portfolio = (props: IPortfolioProps) => {
-  const { isModalOpen, setIsModalOpen } = props;
-  const coins  =localStorage.getItem(KEY_LS)
+export const Portfolio = ({ isModalOpen, setIsModalOpen }: IPortfolioProps) => {
+  const coins = localStorage.getItem(KEY_LS);
   const portfolioCoins = coins ? JSON.parse(coins) : [];
   const emptyPortfolioText = 'Your portfolio is empty';
 

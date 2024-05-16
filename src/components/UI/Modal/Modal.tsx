@@ -8,7 +8,9 @@ interface IModalProps {
   children: any;
 }
 
-export const Modal = ({ isModalOpen, setIsModalOpen, title, children }: IModalProps) => {
+export const Modal = (props: IModalProps) => {
+  const { isModalOpen, setIsModalOpen, title, children } = props;
+
   return (
     <ModalWindow
       title={title}

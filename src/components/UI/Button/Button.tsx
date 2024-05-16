@@ -7,7 +7,9 @@ interface IButtonProps {
   className?: string;
 }
 
-export const Button = ({ onClick, buttonName, className = '' }: IButtonProps) => {
+export const Button = (props: IButtonProps) => {
+  const { onClick, buttonName, className = '' } = props;
+  
   return (
     <ButtonANTD onClick={onClick} className={className}>
       {buttonName}

@@ -9,7 +9,7 @@ interface IInputProps {
   coin: ICoinRow;
 }
 
-const ERRORS_TEXT = {
+const ERRORS = {
   NUMBER: 'Error: enter the number',
   ZERO: 'Error: the number must be greater than 0'
 };
@@ -36,6 +36,7 @@ export const InputAddCoin = ({ coin }: IInputProps) => {
         coinsNumber: copyCoins[coinIndex].coinsNumber + Number(number),
       }
       : copyCoins.push(updatedCoin);
+
     localStorage.setItem(KEY_LS, JSON.stringify(getFormattedPriceCoins(copyCoins)));
     dispatch(setCoins(getFormattedPriceCoins(JSON.parse(localStorage.getItem(KEY_LS)))));
   };
@@ -44,8 +45,8 @@ export const InputAddCoin = ({ coin }: IInputProps) => {
     if (!Number(value)) {
       setIsError(true);
       setErrorText(Number(value) === 0
-        ? ERRORS_TEXT.ZERO
-        : ERRORS_TEXT.NUMBER
+        ? ERRORS.ZERO
+        : ERRORS.NUMBER
       );
     } else {
       setIsError(false);
@@ -60,7 +61,7 @@ export const InputAddCoin = ({ coin }: IInputProps) => {
 
   return (
     <BaseInput
-      onPressEnter={handlingPressEnter}
+      handlingPressEnter={handlingPressEnter}
       isError={isError}
       errorText={errorText}
     />

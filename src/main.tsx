@@ -4,8 +4,8 @@ import { Provider } from 'react-redux';
 import { App } from './app';
 import { store } from './store/store';
 import { HashRouter } from "react-router-dom";
-import './style.scss';
 import { Overlay } from './components/Overlay/Overlay';
+import './style.scss';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,

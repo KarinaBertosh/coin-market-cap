@@ -17,6 +17,7 @@ export const PortfolioAmount = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [amountDifference, setAmountDifference] = useState(0);
   const [percentAmountDifference, setPercentAmountDifference] = useState(0);
+
   const { coins } = useAppSelector((state) => state.assets);
 
   const dispatch = useAppDispatch();
@@ -54,10 +55,10 @@ export const PortfolioAmount = () => {
 
   const getPercentAmountDifference = (amountFromApi: number, localAmount: number) => {
     const percent = Number(getFormattedValue(String((localAmount / amountFromApi - 1) * 100)));
-    const finalPercent = String(percent).startsWith('-') ? Number(String(percent).slice(1)) : percent;
+    const formattedPercent = String(percent).startsWith('-') ? Number(String(percent).slice(1)) : percent;
 
     return parsedCoins.length
-      ? finalPercent
+      ? formattedPercent
       : 0;
   };
 

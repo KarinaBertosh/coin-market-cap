@@ -6,26 +6,28 @@ import { setSelectedCoin, } from '../../store/slices/assets';
 import { TextSearch } from '../TextSearch/TextSearch';
 import { IAsset, ICoinRow } from '../../utils/types';
 import { useNavigate } from "react-router-dom";
+import './style.scss';
+
 
 export const CoinsTable = () => {
+  const { assets, coinsRow, isLoading } = useAppSelector((state) => state.assets);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { assets, coinsRow, isLoading } = useAppSelector((state) => state.assets);
 
-  const onClick = (coinKey: string) => {
+  const goToCoinInfoPage = (coinKey: string) => {
     const selectedCoin = assets.find((asset: IAsset) => asset.id === coinKey);
     dispatch(setSelectedCoin(selectedCoin));
     navigate(ROUTES.INFO);
   };
 
-  const onRow = (coinRow: ICoinRow) => ({
-    onClick: () => onClick(coinRow.key)
+  const rowClickHandling = (coinRow: ICoinRow) => ({
+    onClick: () => goToCoinInfoPage(coinRow.key)
   });
 
   return (
     <>
       <TextSearch />
-      <Table dataSource={coinsRow} columns={columns} loading={isLoading} onRow={onRow} />
+      <Table dataSource={coinsRow} columns={columns} loading={isLoading} onRow={rowClickHandling} />
     </>
   );
-};;
+};

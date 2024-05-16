@@ -13,8 +13,8 @@ interface INavigationButtonsProps {
 
 export const NavigationButtons = ({ coin }: INavigationButtonsProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const navigate = useNavigate();
   const { selectedCoin } = useAppSelector((state) => state.assets);
+  const navigate = useNavigate();
   const errorText = 'Go to the main page to pick up your coin';
 
   return (

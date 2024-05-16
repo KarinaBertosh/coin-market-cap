@@ -3,11 +3,10 @@ import {
 } from '@reduxjs/toolkit';
 import { fetchAssets } from '../../api/assets';
 import { IAsset, ICoinRow } from '../../utils/types';
-import { KEY_LS, getFormattedPriceCoins } from '../../utils/default';
 
 interface IAssetsState {
   assets: IAsset[];
-  coins: any;
+  coins: ICoinRow[];
   coinsRow: ICoinRow[];
   isLoading: boolean;
   searchText: string;

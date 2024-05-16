@@ -2,7 +2,7 @@ import React from 'react';
 import { Input as InputANTD } from 'antd';
 
 interface IBaseInputProps {
-  onPressEnter: (e: any) => void;
+  handlingPressEnter: (e: any) => void;
   isError: boolean;
   errorText?: string;
   defaultValue?: string;
@@ -10,14 +10,14 @@ interface IBaseInputProps {
 }
 
 export const BaseInput = (props: IBaseInputProps) => {
-  const { onPressEnter, isError, errorText = '' } = props;
+  const { handlingPressEnter, isError, errorText = '' } = props;
 
   return (
     <>
       <InputANTD
         defaultValue='0'
         maxLength={2}
-        onPressEnter={onPressEnter}
+        onPressEnter={handlingPressEnter}
       />
       {isError && <p>{errorText}</p>}
     </>

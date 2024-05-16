@@ -1,6 +1,7 @@
 
+import React from 'react';
 import { InputAddCoin } from './InputAddCoin';
-import { MockedState } from '../../tests/mockData';
+import { MockStore, MockedState } from '../../tests/mockData';
 
 export default {
   component: InputAddCoin,
@@ -9,6 +10,9 @@ export default {
 };
 
 export const Default = {
+  decorators: [
+    (story: any) => <MockStore assetsState={MockedState}>{story()}</MockStore>,
+  ],
   args: {
     coin: MockedState.coinsRow[0]
   },

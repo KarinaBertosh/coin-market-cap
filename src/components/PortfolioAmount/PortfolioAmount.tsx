@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useAppDispatch } from '../../hooks/redux';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { Portfolio } from '../Portfolio/Portfolio';
 import { ICoinRow } from '../../utils/types';
 import {
@@ -14,14 +14,14 @@ import './style.scss';
 
 
 export const PortfolioAmount = () => {
-  const [coins, setCoins] = useState(localStorage.getItem(KEY_LS));  
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [amountDifference, setAmountDifference] = useState(0);
   const [percentAmountDifference, setPercentAmountDifference] = useState(0);
+  const { coins } = useAppSelector((state) => state.assets);
 
   const dispatch = useAppDispatch();
 
-  const parsedCoins = getFormattedPriceCoins(JSON.parse(coins));
+  const parsedCoins = getFormattedPriceCoins(JSON.parse(localStorage.getItem(KEY_LS)));
   const plus = '+';
 
   useEffect(() => {

@@ -3,17 +3,20 @@ import {
 } from '@reduxjs/toolkit';
 import { fetchAssets } from '../../api/assets';
 import { IAsset, ICoinRow } from '../../utils/types';
+import { KEY_LS, getFormattedPriceCoins } from '../../utils/default';
 
 interface IAssetsState {
   assets: IAsset[];
+  coins: any;
   coinsRow: ICoinRow[];
   isLoading: boolean;
   searchText: string;
-  selectedCoin: IAsset ,
+  selectedCoin: IAsset,
 }
 
 const initialState: IAssetsState = {
   assets: [],
+  coins: [],
   coinsRow: [],
   isLoading: false,
   searchText: '',
@@ -24,6 +27,9 @@ export const slice = createSlice({
   name: 'assets',
   initialState,
   reducers: {
+    setCoins: (state, { payload }) => {
+      state.coins = payload;
+    },
     setCoinsRow: (state, { payload }) => {
       state.coinsRow = payload;
     },
@@ -49,6 +55,7 @@ export const slice = createSlice({
 });
 
 export const {
+  setCoins,
   setCoinsRow,
   setSearchText,
   setSelectedCoin,

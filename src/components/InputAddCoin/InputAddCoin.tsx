@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { ICoinRow } from '../../utils/types';
 import { BaseInput } from '../UI/BaseInput/BaseInput';
 import { KEY_LS, getFormattedPriceCoins } from '../../utils/default';
+import { setCoins } from '../../store/slices/assets';
+import { useAppDispatch } from '../../hooks/redux';
 
 interface IInputProps {
   coin: ICoinRow;
@@ -13,9 +15,10 @@ const ERRORS_TEXT = {
 };
 
 export const InputAddCoin = ({ coin }: IInputProps) => {
-  const [coins, setCoins] = useState(localStorage.getItem(KEY_LS));
   const [isError, setIsError] = useState(false);
   const [errorText, setErrorText] = useState('');
+
+  const dispatch = useAppDispatch();
 
   const addCoinInPortfolio = (number: string) => {
     setIsError(false);
@@ -23,7 +26,6 @@ export const InputAddCoin = ({ coin }: IInputProps) => {
       ...coin,
       coinsNumber: Number(number)
     };
-
 
     const coins = localStorage.getItem(KEY_LS);
     const copyCoins: ICoinRow[] = [...coins ? JSON.parse(coins) : []];
@@ -35,6 +37,7 @@ export const InputAddCoin = ({ coin }: IInputProps) => {
       }
       : copyCoins.push(updatedCoin);
     localStorage.setItem(KEY_LS, JSON.stringify(getFormattedPriceCoins(copyCoins)));
+    dispatch(setCoins(getFormattedPriceCoins(JSON.parse(localStorage.getItem(KEY_LS)))));
   };
 
   const handlingError = (value: string) => {

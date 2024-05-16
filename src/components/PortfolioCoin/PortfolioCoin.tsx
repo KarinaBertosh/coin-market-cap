@@ -1,7 +1,9 @@
 import React from 'react';
 import { ICoinRow } from '../../utils/types';
-import { KEY_LS, getTotalAmount, renderDollarAmount } from '../../utils/default';
+import { KEY_LS, getFormattedPriceCoins, getTotalAmount, renderDollarAmount } from '../../utils/default';
 import { Button } from '../UI/Button/Button';
+import { useAppDispatch } from '../../hooks/redux';
+import { setCoins } from '../../store/slices/assets';
 
 interface IPortfolioCoinProps {
   coin: ICoinRow;
@@ -11,10 +13,12 @@ export const PortfolioCoin = (props: IPortfolioCoinProps) => {
   const { coin } = props;
   const { key, symbol } = coin;
   const coins = localStorage.getItem(KEY_LS)
+  const dispatch = useAppDispatch();
 
   const deleteCoin = () => {
     const updateCoins = JSON.parse(coins).filter((c: ICoinRow) => c.key !== coin.key);
     localStorage.setItem(KEY_LS, JSON.stringify(updateCoins));
+    dispatch(setCoins(getFormattedPriceCoins(JSON.parse(localStorage.getItem(KEY_LS)))));
   };
 
   return (

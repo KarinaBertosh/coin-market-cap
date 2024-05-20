@@ -25,9 +25,9 @@ export const CoinsTable = () => {
   });
 
   return (
-    <>
+    <div data-testid="coins-table">
       <TextSearch />
       <Table dataSource={coinsRow} columns={columns} loading={isLoading} onRow={rowClickHandling} />
-    </>
+    </div>
   );
 };

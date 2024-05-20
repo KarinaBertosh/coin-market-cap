@@ -20,7 +20,7 @@ export const SearchInput = (props: ISearchInputProps) => {
       />
       {
         isError &&
-        <div>{errorText}</div>
+        <div data-testid="error-text">{errorText}</div>
       }
     </div>
   );

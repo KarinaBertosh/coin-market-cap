@@ -67,8 +67,9 @@ export const PortfolioAmount = () => {
       <div
         className="portfolio-amount"
         onClick={() => setIsModalOpen(true)}
+        data-testid="portfolio-amount"
       >
-        <p className="price">
+        <p className="price" data-testid="price">
           {renderDollarAmount(getTotalAmount(parsedCoins))} &nbsp;
         </p>
         {amountDifference > 0 && plus}

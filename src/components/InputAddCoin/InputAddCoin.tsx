@@ -60,10 +60,10 @@ export const InputAddCoin = ({ coin }: IInputProps) => {
   };
 
   return (
-    <BaseInput
-      handlingPressEnter={handlingPressEnter}
-      isError={isError}
-      errorText={errorText}
-    />
+      <BaseInput
+        handlingPressEnter={handlingPressEnter}
+        isError={isError}
+        errorText={errorText}
+      />
   );
 };

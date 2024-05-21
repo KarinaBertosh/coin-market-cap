@@ -18,6 +18,7 @@ export const BaseInput = (props: IBaseInputProps) => {
         defaultValue='0'
         maxLength={2}
         onPressEnter={handlingPressEnter}
+        data-testid="input-add-coin"
       />
       {isError && <p>{errorText}</p>}
     </>

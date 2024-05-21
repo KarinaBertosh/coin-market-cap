@@ -20,6 +20,7 @@ export const Portfolio = ({ isModalOpen, setIsModalOpen }: IPortfolioProps) => {
       isModalOpen={isModalOpen}
       setIsModalOpen={setIsModalOpen}
       title='Portfolio'
+      data-testid="portfolio-modal"
     >
       {
         portfolioCoins.length

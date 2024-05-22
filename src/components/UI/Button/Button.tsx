@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button as ButtonANTD } from 'antd';
+import './style.scss'
 
 interface IButtonProps {
   onClick: () => void,

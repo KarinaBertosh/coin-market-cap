@@ -27,7 +27,8 @@ export const getCoinFromApi = async (dispatch: any) => {
     {
       key: asset.id,
       add: 'Add',
-      name: asset.symbol,
+      logo: asset.symbol,
+      symbol: asset.symbol,
       priceUsd: `$${getFormattedValue(asset.priceUsd, 2, true)}`,
       marketCapUsd: `$${getFormattedValue(asset.marketCapUsd)}`,
       volumeUsd24Hr: `$${getFormattedValue(asset.volumeUsd24Hr)}`,

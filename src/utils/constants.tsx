@@ -13,17 +13,19 @@ export const columns = [
     ,
   },
   {
-    title: 'Name',
-    dataIndex: 'name',
-    key: 'name',
+    title: 'Symbol',
+    dataIndex: 'symbol',
+    key: 'symbol',
+  },
+  {
+    title: 'Logo',
+    dataIndex: 'logo',
+    key: 'logo',
     render: (symbol: any) =>
-      <div className='coin-name'>
-        <img 
-        width="50" 
-        alt={symbol} 
+      <img
+        width="50"
+        alt={symbol}
         src={`https://assets.coincap.io/assets/icons/${symbol.toLowerCase()}@2x.png`} />
-        {symbol}
-      </div>
   },
   {
     title: 'Price',

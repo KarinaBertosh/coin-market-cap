@@ -8,7 +8,8 @@ test.describe('basic functionality works correctly', () => {
   test('search coin, render error text', async ({ page }) => {
     const inputSearch = page.getByPlaceholder('input search text');
 
-    expect(page.getByText('Name')).toBeVisible();
+    expect(page.getByText('Symbol')).toBeVisible();
+    expect(page.getByText('Logo')).toBeVisible();
     expect(page.getByText('Price')).toBeVisible();
     expect(page.getByText('Market Cap')).toBeVisible();
     expect(page.getByText('Volume (24h)')).toBeVisible();

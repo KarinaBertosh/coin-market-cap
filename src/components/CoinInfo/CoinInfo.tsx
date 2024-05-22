@@ -1,9 +1,9 @@
 import React from 'react';
 import { useAppSelector } from '../../hooks/redux';
 import { getFormattedValue } from '../../utils/default';
+import '../../style.scss'
 
 const COIN_INFO_COLUMNS = {
-  LOGO: 'Logo: ',
   NAME: 'Name: ',
   SYMBOL: 'Symbol: ',
   RANK: 'Rank: ',
@@ -21,9 +21,12 @@ export const CoinInfo = () => {
       {
         selectedCoin &&
         <div className="m-b-10">
-          <div>{COIN_INFO_COLUMNS.LOGO}&nbsp;{symbol}</div>
-          <div>{COIN_INFO_COLUMNS.NAME}&nbsp;{name}</div>
-          <div> {COIN_INFO_COLUMNS.SYMBOL}&nbsp;{symbol}</div>
+          <div className='coin-name'>
+          {COIN_INFO_COLUMNS.NAME}&nbsp;
+            <img width="15" src={`https://assets.coincap.io/assets/icons/${symbol.toLowerCase()}@2x.png`} alt={symbol} /> 
+            {name}
+            </div>
+          <div>{COIN_INFO_COLUMNS.SYMBOL}&nbsp;{symbol}</div>
           <div>{COIN_INFO_COLUMNS.RANK}&nbsp;{rank}</div>
           <div>{COIN_INFO_COLUMNS.SUPPLY}&nbsp;{supply ?? 0}</div>
           <div>{COIN_INFO_COLUMNS.MAX_SUPPLY}&nbsp;{maxSupply ?? 0}</div>

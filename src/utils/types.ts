@@ -16,10 +16,9 @@ export interface IAsset {
 export interface ICoinRow {
     add: string;
     key: string;
-    logo?: string;
     marketCapUsd: string;
     priceUsd: string;
-    symbol: string;
+    name: string;
     volumeUsd24Hr: string;
     coinsNumber?: number;
 }

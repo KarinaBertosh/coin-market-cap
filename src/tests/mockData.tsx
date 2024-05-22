@@ -8,8 +8,8 @@ export const MockedState = {
     {
       id: "binance-coin",
       rank: "4",
-      symbol: "BNB",
       name: "BNB",
+      symbol: "BNB",
       supply: "166801148.0000000000000000",
       maxSupply: "166801148.0000000000000000",
       marketCapUsd: "99411595304.3798540467656292",
@@ -22,8 +22,8 @@ export const MockedState = {
     {
       id: "solana",
       rank: "5",
-      symbol: "SOL",
-      name: "Solana",
+      name: "SOL",
+      symbol: "Solana",
       supply: "445575505.2622752000000000",
       maxSupply: null,
       marketCapUsd: "80980065321.0953356228821051",
@@ -38,8 +38,7 @@ export const MockedState = {
     {
       key: "solana",
       add: 'Add',
-      symbol: "SOL",
-      logo: "SOL",
+      name: "SOL",
       priceUsd: "$181.7426325386283304",
       marketCapUsd: "$99411595304.3798540467656292",
       volumeUsd24Hr: "$289187104.4006299359351054",
@@ -47,8 +46,7 @@ export const MockedState = {
     {
       key: "binance-coin",
       add: 'Add',
-      symbol: "BNB",
-      logo: "BNB",
+      name: "BNB",
       priceUsd: "$595.9886757157082279",
       marketCapUsd: "$80980065321.0953356228821051",
       volumeUsd24Hr: "$703515563.7307202310995089",
@@ -62,7 +60,6 @@ export const MockedState = {
     symbol: "ICP",
     name: "Internet Computer",
     supply: "462289257.3134180000000000",
-    // maxSupply: null,
     marketCapUsd: "7271519639.8313250920829927",
     volumeUsd24Hr: "95099529.7733148543727729",
     priceUsd: "15.7293718700918391",
@@ -136,21 +133,21 @@ export const mockCoinPrices = [
 export const mockCoinRating = [
   {
     id: "yemeni-rial",
-    symbol: "YER",
+    name: "YER",
     currencySymbol: "﷼",
     type: "fiat",
     rateUsd: "0.0039940082048671"
   },
   {
     id: "ethereum",
-    symbol: "ETH",
+    name: "ETH",
     currencySymbol: null,
     type: "crypto",
     rateUsd: "3524.9311737396141461"
   },
   {
     id: "cambodian-riel",
-    symbol: "KHR",
+    name: "KHR",
     currencySymbol: "៛",
     type: "fiat",
     rateUsd: "0.0002472203305005"

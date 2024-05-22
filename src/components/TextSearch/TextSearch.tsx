@@ -31,7 +31,7 @@ export const TextSearch = () => {
     const checkFirstCharacterMatches = (key: string) => key.toLowerCase().startsWith(searchText.toLowerCase());
     (async () => {
       if (coinsRow && searchText) {
-        const foundCoin = coinsRow.find((coinRow) => checkFirstCharacterMatches(coinRow.key) || checkFirstCharacterMatches(coinRow.symbol));
+        const foundCoin = coinsRow.find((coinRow) => checkFirstCharacterMatches(coinRow.key) || checkFirstCharacterMatches(coinRow.name));
         foundCoin
           ? dispatch(setCoinsRow([foundCoin]))
           : renderAllCoins();

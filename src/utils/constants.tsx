@@ -1,7 +1,7 @@
 import React from 'react';
 import { ICoinRow } from "./types";
 import { AddButton } from '../components/AddButton/AddButton';
-
+import '../style.scss';
 
 export const columns = [
   {
@@ -13,14 +13,17 @@ export const columns = [
     ,
   },
   {
-    title: 'Symbol',
-    dataIndex: 'symbol',
-    key: 'symbol',
-  },
-  {
-    title: 'Logo',
-    dataIndex: 'logo',
-    key: 'logo',
+    title: 'Name',
+    dataIndex: 'name',
+    key: 'name',
+    render: (symbol: any) =>
+      <div className='coin-name'>
+        <img 
+        width="50" 
+        alt={symbol} 
+        src={`https://assets.coincap.io/assets/icons/${symbol.toLowerCase()}@2x.png`} />
+        {symbol}
+      </div>
   },
   {
     title: 'Price',

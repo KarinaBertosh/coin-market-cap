@@ -48,6 +48,15 @@ h1 {
     margin: 0 5px;
 }
 
+.coin-name {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    img {
+        margin-right: 5px;
+    }
+}
+
 @media (max-width: 680px) and (min-width: 320px) {
     * {
         font-size: 9px;

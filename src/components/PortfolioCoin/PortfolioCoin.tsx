@@ -10,7 +10,7 @@ interface IPortfolioCoinProps {
 }
 
 export const PortfolioCoin = ({ coin }: IPortfolioCoinProps) => {
-  const { key, symbol } = coin;
+  const { key } = coin;
   const coins = localStorage.getItem(KEY_LS);
 
   const dispatch = useAppDispatch();
@@ -23,7 +23,7 @@ export const PortfolioCoin = ({ coin }: IPortfolioCoinProps) => {
 
   return (
     <div className="coin-block" key={key} >
-      {symbol}:
+      {coin.name}:
       <p className="price">
         {renderDollarAmount(getTotalAmount([coin]))}
       </p>

@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { NavigationButtons } from './NavigationButtons';
-import { MockedState, MockStore } from '../../tests/mockData';
+import { MockedState, MockStore } from '../../mockData';
 import { withRouter } from 'storybook-addon-remix-react-router';
 
 export default {

@@ -21,11 +21,12 @@ export const columns = [
     title: 'Logo',
     dataIndex: 'logo',
     key: 'logo',
-    render: (symbol: any) =>
-      <img
+    render: (logo: any) => {
+      return <img
         width="50"
-        alt={symbol}
-        src={`https://assets.coincap.io/assets/icons/${symbol.toLowerCase()}@2x.png`} />
+        src={`https://assets.coincap.io/assets/icons/${String(logo).toLowerCase()}@2x.png`}
+        alt={logo} />;
+    }
   },
   {
     title: 'Price',

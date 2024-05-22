@@ -19,6 +19,7 @@ export interface ICoinRow {
     marketCapUsd: string;
     priceUsd: string;
     symbol: string;
+    logo: string;
     volumeUsd24Hr: string;
     coinsNumber?: number;
 }

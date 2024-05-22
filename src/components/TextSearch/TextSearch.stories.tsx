@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { TextSearch } from './TextSearch';
-import { MockedState, MockStore } from '../../tests/mockData';
+import { MockedState, MockStore } from '../../mockData';
 
 export default {
   component: TextSearch,

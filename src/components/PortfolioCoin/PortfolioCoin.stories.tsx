@@ -1,6 +1,6 @@
 import React from 'react';
 import { PortfolioCoin } from './PortfolioCoin';
-import { MockedState, MockStore } from '../../tests/mockData';
+import { MockedState, MockStore } from '../../mockData';
 
 
 export default {

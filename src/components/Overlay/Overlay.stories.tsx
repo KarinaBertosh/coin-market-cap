@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Overlay } from './Overlay';
-import { MockedState, MockStore } from '../../tests/mockData';
+import { MockedState, MockStore } from '../../mockData';
 import { reactRouterParameters, withRouter } from 'storybook-addon-remix-react-router';
 import { CoinsTable } from '../CoinsTable/CoinsTable';
 

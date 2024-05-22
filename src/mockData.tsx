@@ -38,7 +38,8 @@ export const MockedState = {
     {
       key: "solana",
       add: 'Add',
-      name: "SOL",
+      symbol: "SOL",
+      logo: "SOL",
       priceUsd: "$181.7426325386283304",
       marketCapUsd: "$99411595304.3798540467656292",
       volumeUsd24Hr: "$289187104.4006299359351054",
@@ -46,7 +47,8 @@ export const MockedState = {
     {
       key: "binance-coin",
       add: 'Add',
-      name: "BNB",
+      symbol: "BNB",
+      logo: "BNB",
       priceUsd: "$595.9886757157082279",
       marketCapUsd: "$80980065321.0953356228821051",
       volumeUsd24Hr: "$703515563.7307202310995089",
@@ -133,21 +135,21 @@ export const mockCoinPrices = [
 export const mockCoinRating = [
   {
     id: "yemeni-rial",
-    name: "YER",
+    symbol: "YER",
     currencySymbol: "﷼",
     type: "fiat",
     rateUsd: "0.0039940082048671"
   },
   {
     id: "ethereum",
-    name: "ETH",
+    symbol: "ETH",
     currencySymbol: null,
     type: "crypto",
     rateUsd: "3524.9311737396141461"
   },
   {
     id: "cambodian-riel",
-    name: "KHR",
+    symbol: "KHR",
     currencySymbol: "៛",
     type: "fiat",
     rateUsd: "0.0002472203305005"

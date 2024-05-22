@@ -1,11 +1,11 @@
 
 import React from 'react';
 import { Header } from './Header';
-import { MockedState, MockStore } from '../../tests/mockData';
+import { MockedState, MockStore } from '../../mockData';
 import { reactRouterParameters, withRouter } from 'storybook-addon-remix-react-router';
-import './style.scss'
-import '../PortfolioAmount/style.scss'
-import '../../style.scss'
+import './style.scss';
+import '../PortfolioAmount/style.scss';
+import '../../style.scss';
 
 export default {
   component: Header,

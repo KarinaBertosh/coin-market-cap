@@ -31,19 +31,23 @@ export const columns = [
     title: 'Price',
     dataIndex: 'priceUsd',
     key: 'priceUsd',
-    sorter: (a: ICoinRow, b: ICoinRow) => Number(a.priceUsd.slice(2)) - Number(b.priceUsd.slice(2)),
+    sorter: (a: ICoinRow, b: ICoinRow) =>
+      Number(b.priceUsd.slice(1).replace(/[\s,%]/g, '')) - Number(a.priceUsd.slice(1).replace(/[\s,%]/g, ''))
+
   },
   {
     title: 'Market Cap',
     dataIndex: 'marketCapUsd',
     key: 'marketCapUsd',
-    sorter: (a: ICoinRow, b: ICoinRow) => Number(a.marketCapUsd.slice(2)) - Number(b.marketCapUsd.slice(2)),
+    sorter: (a: ICoinRow, b: ICoinRow) =>
+      Number(b.marketCapUsd.slice(1).replace(/[\s,%]/g, '')) - Number(a.marketCapUsd.slice(1).replace(/[\s,%]/g, ''))
   },
   {
     title: 'Volume (24h)',
     dataIndex: 'volumeUsd24Hr',
     key: 'volumeUsd24Hr',
-    sorter: (a: ICoinRow, b: ICoinRow) => Number(a.volumeUsd24Hr.slice(2)) - Number(b.volumeUsd24Hr.slice(2)),
+    sorter: (a: ICoinRow, b: ICoinRow) =>
+      Number(b.volumeUsd24Hr.slice(1).replace(/[\s,%]/g, '')) - Number(a.volumeUsd24Hr.slice(1).replace(/[\s,%]/g, ''))
   },
 ];
 

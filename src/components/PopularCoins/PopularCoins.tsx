@@ -19,7 +19,7 @@ export const PopularCoins = () => {
   }, []);
 
   return (
-    <div className="popular-coins">
+    <div className="popular-coins" data-testid="popular-coins">
       {popularCoins.map((rating) =>
         <PopularCoin rating={rating} key={rating.id} />
       )}

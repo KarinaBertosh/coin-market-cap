@@ -1,7 +1,6 @@
 import React from 'react';
 import { useAppSelector } from '../../hooks/redux';
-import { getFormattedValue } from '../../utils/default';
-import '../../style.scss';
+import { getFormattedValue, renderIconSrc } from '../../utils/default';
 
 const COIN_INFO_COLUMNS = {
   NAME: 'Name: ',
@@ -22,11 +21,11 @@ export const CoinInfo = () => {
       {
         selectedCoin &&
         <div className="m-b-10">
-          <div className='coin-name'>{COIN_INFO_COLUMNS.NAME}&nbsp;{name}</div>
-          <div className='coin-name'>{COIN_INFO_COLUMNS.LOGO}&nbsp;
+          <div className="coin-name">{COIN_INFO_COLUMNS.NAME}&nbsp;{name}</div>
+          <div className="coin-name">{COIN_INFO_COLUMNS.LOGO}&nbsp;
             <img
               width="15"
-              src={`https://assets.coincap.io/assets/icons/${symbol.toLowerCase()}@2x.png`}
+              src={renderIconSrc(symbol)}
               alt={symbol} />
           </div>
           <div>{COIN_INFO_COLUMNS.SYMBOL}&nbsp;{symbol}</div>

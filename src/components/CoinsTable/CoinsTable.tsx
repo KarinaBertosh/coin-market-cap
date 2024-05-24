@@ -6,7 +6,6 @@ import { setSelectedCoin, } from '../../store/slices/assets';
 import { TextSearch } from '../TextSearch/TextSearch';
 import { IAsset, ICoinRow } from '../../utils/types';
 import { useNavigate } from "react-router-dom";
-import './style.scss';
 
 
 export const CoinsTable = () => {

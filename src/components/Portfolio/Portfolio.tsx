@@ -13,20 +13,20 @@ interface IPortfolioProps {
 export const Portfolio = ({ isModalOpen, setIsModalOpen }: IPortfolioProps) => {
   const coins = localStorage.getItem(KEY_LS);
   const portfolioCoins = coins ? JSON.parse(coins) : [];
-  const emptyPortfolioText = 'Your portfolio is empty';
+  const portfolioIsEmpty = 'Your portfolio is empty';
 
   return (
     <Modal
       isModalOpen={isModalOpen}
       setIsModalOpen={setIsModalOpen}
-      title='Portfolio'
+      title="Portfolio"
       data-testid="portfolio-modal"
     >
       {
         portfolioCoins.length
           ? portfolioCoins.map((coin: ICoinRow) =>
             <PortfolioCoin coin={coin} key={coin.key} />)
-          : <p>{emptyPortfolioText}</p>
+          : <p>{portfolioIsEmpty}</p>
       }
     </Modal>
   );

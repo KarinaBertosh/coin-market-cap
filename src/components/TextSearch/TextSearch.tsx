@@ -28,10 +28,10 @@ export const TextSearch = () => {
   }, []);
 
   useEffect(() => {
-    const checkFirstCharacterMatches = (key: string) => key.toLowerCase().startsWith(searchText.toLowerCase());
+    const checkValueEqualToTextSearch = (key: string) => key.toLowerCase().startsWith(searchText.toLowerCase());
     (async () => {
       if (coinsRow && searchText) {
-        const foundCoin = coinsRow.find((coinRow) => checkFirstCharacterMatches(coinRow.key) || checkFirstCharacterMatches(coinRow.symbol));
+        const foundCoin = coinsRow.find((coinRow) => checkValueEqualToTextSearch(coinRow.key) || checkValueEqualToTextSearch(coinRow.symbol));
         foundCoin
           ? dispatch(setCoinsRow([foundCoin]))
           : renderAllCoins();

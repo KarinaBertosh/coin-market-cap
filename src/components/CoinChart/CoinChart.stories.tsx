@@ -1,6 +1,6 @@
 
 import { CoinChart } from './CoinChart';
-import { mockCoinPrices } from '../../mockData';
+import { mockCoinPrices } from '../../stories/mockData';
 import { fn } from '@storybook/test';
 import { getFormattedValue } from '../../utils/default';
 

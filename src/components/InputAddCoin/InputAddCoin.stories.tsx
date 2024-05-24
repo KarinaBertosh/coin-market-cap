@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { InputAddCoin } from './InputAddCoin';
-import { MockStore, MockedState } from '../../mockData';
+import { MockStore, MockedState } from '../../stories/mockData';
 
 export default {
   component: InputAddCoin,

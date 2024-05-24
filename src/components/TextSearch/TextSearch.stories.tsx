@@ -1,12 +1,11 @@
 
 import React from 'react';
 import { TextSearch } from './TextSearch';
-import { MockedState, MockStore } from '../../mockData';
+import { MockedState, MockStore } from '../../stories/mockData';
 
 export default {
   component: TextSearch,
   title: 'TextSearch',
-  decorators: [(story: any) => <div style={{ padding: '3rem' }}>{story()}</div>],
   tags: ['autodocs'],
   excludeStories: /.*MockedState$/,
 };

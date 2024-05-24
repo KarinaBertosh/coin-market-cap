@@ -11,6 +11,7 @@ interface IAddButtonProps {
 
 export const AddButton = ({ coin, buttonName }: IAddButtonProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const title = "Please select number of coins";
 
   return (
     <>
@@ -18,7 +19,7 @@ export const AddButton = ({ coin, buttonName }: IAddButtonProps) => {
       <Modal
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
-        title='Please select number of coins'
+        title={title}
       >
         <InputAddCoin coin={coin} />
       </Modal>

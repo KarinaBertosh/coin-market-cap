@@ -18,13 +18,10 @@
     min-width: 0;
 }
 
-.bread-crumb {
-    margin: '16px 0';
-}
-
 .footer {
     text-align: 'center';
 }
+
 
 h1 {
     display: flex;
@@ -55,6 +52,10 @@ h1 {
     img {
         margin-right: 5px;
     }
+}
+
+.bread-crumb {
+    margin: '16px 0';
 }
 
 @media (max-width: 1200px) and (min-width: 820px) {

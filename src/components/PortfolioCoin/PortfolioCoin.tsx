@@ -30,7 +30,7 @@ export const PortfolioCoin = ({ coin }: IPortfolioCoinProps) => {
       <Button
         className="m-r-10"
         onClick={deleteCoin}
-        buttonName='Delete'
+        buttonName="Delete"
       />
     </div>
   );

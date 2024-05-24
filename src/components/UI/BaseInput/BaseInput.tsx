@@ -15,7 +15,7 @@ export const BaseInput = (props: IBaseInputProps) => {
   return (
     <>
       <InputANTD
-        defaultValue='0'
+        defaultValue="0"
         maxLength={2}
         onPressEnter={handlingPressEnter}
         data-testid="input-add-coin"

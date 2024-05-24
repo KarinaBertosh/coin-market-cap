@@ -16,10 +16,12 @@ const OPTIONS = [
 ];
 
 export const CoinChart = ({ coinPrices, setChartType, isLoading }: ICoinChartProps) => {
+  const defaultValue = "Price change chart per:";
+
   return (
     <div className="chart" data-testid="chart">
       <Select
-        defaultValue="Price change chart per:"
+        defaultValue={defaultValue}
         style={{ width: 300 }}
         onChange={(type) => setChartType(type)}
         options={OPTIONS}

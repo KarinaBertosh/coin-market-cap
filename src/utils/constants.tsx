@@ -1,7 +1,8 @@
 import React from 'react';
 import { ICoinRow } from "./types";
 import { AddButton } from '../components/AddButton/AddButton';
-import '../style.scss';
+import { getSortedColumn, renderIconSrc } from './default';
+
 
 export const columns = [
   {
@@ -24,7 +25,7 @@ export const columns = [
     render: (logo: any) => {
       return <img
         width="50"
-        src={`https://assets.coincap.io/assets/icons/${String(logo).toLowerCase()}@2x.png`}
+        src={renderIconSrc(logo)}
         alt={logo} />;
     }
   },
@@ -32,23 +33,19 @@ export const columns = [
     title: 'Price',
     dataIndex: 'priceUsd',
     key: 'priceUsd',
-    sorter: (a: ICoinRow, b: ICoinRow) =>
-      Number(b.priceUsd.slice(1).replace(/[\s,%]/g, '')) - Number(a.priceUsd.slice(1).replace(/[\s,%]/g, ''))
-
+    sorter: (a: ICoinRow, b: ICoinRow) => getSortedColumn(a, b)
   },
   {
     title: 'Market Cap',
     dataIndex: 'marketCapUsd',
     key: 'marketCapUsd',
-    sorter: (a: ICoinRow, b: ICoinRow) =>
-      Number(b.marketCapUsd.slice(1).replace(/[\s,%]/g, '')) - Number(a.marketCapUsd.slice(1).replace(/[\s,%]/g, ''))
+    sorter: (a: ICoinRow, b: ICoinRow) => getSortedColumn(a, b)
   },
   {
     title: 'Volume (24h)',
     dataIndex: 'volumeUsd24Hr',
     key: 'volumeUsd24Hr',
-    sorter: (a: ICoinRow, b: ICoinRow) =>
-      Number(b.volumeUsd24Hr.slice(1).replace(/[\s,%]/g, '')) - Number(a.volumeUsd24Hr.slice(1).replace(/[\s,%]/g, ''))
+    sorter: (a: ICoinRow, b: ICoinRow) => getSortedColumn(a, b)
   },
 ];
 

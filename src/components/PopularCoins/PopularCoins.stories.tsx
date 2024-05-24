@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { PopularCoins } from './PopularCoins';
-import { MockedState, MockStore } from '../../mockData';
+import { MockedState, MockStore } from '../../stories/mockData';
 import { reactRouterParameters, withRouter } from 'storybook-addon-remix-react-router';
 
 

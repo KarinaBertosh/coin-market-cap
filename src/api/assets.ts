@@ -19,7 +19,7 @@ export const getCoinPrices = async (params: ICoinPricesParams) => {
   return response.data.data;
 };
 
-export const getRates = async () => {
+export const getPopularCoins = async () => {
   const response = await axios.get('https://api.coincap.io/v2/rates');
   return response.data.data.slice(0, 3);
 };

@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { CoinInfo } from './CoinInfo';
-import { MockedState, MockStore } from '../../tests/mockData';
+import { MockedState, MockStore } from '../../stories/mockData';
 
 export default {
   component: CoinInfo,

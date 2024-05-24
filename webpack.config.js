@@ -6,12 +6,10 @@ module.exports = {
   entry: './src/main.tsx',
   devtool: 'inline-source-map',
   output: {
-    path: path.join(__dirname, '/dist'),
+    path: path.resolve(__dirname, './dist'),
     filename: 'bundle.js',
-    publicPath: '/'
   },
   devServer: {
-    static: './dist',
     historyApiFallback: true,
   },
   module: {

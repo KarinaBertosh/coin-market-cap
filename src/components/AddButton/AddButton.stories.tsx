@@ -1,6 +1,6 @@
 
 import { AddButton } from './AddButton';
-import {  MockedState } from '../../tests/mockData';
+import { MockedState } from '../../stories/mockData';
 
 export default {
   component: AddButton,

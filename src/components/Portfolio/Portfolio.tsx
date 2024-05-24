@@ -1,8 +1,8 @@
 import React from 'react';
 import { ICoinRow } from '../../utils/types';
-import useLocalStorageState from 'use-local-storage-state';
 import { PortfolioCoin } from '../PortfolioCoin/PortfolioCoin';
 import { Modal } from '../UI/Modal/Modal';
+import { KEY_LS } from '../../utils/default';
 import './style.scss';
 
 interface IPortfolioProps {
@@ -10,26 +10,23 @@ interface IPortfolioProps {
   setIsModalOpen: (isModalOpen: boolean) => void;
 }
 
-export const Portfolio = (props: IPortfolioProps) => {
-  const { isModalOpen, setIsModalOpen } = props;
-  const [coins, setCoins] = useLocalStorageState<string>('coins');
-
-  const portfolioCoins = coins
-    ? JSON.parse(coins)
-    : [];
-  const emptyPortfolioText = 'Your portfolio is empty';
+export const Portfolio = ({ isModalOpen, setIsModalOpen }: IPortfolioProps) => {
+  const coins = localStorage.getItem(KEY_LS);
+  const portfolioCoins = coins ? JSON.parse(coins) : [];
+  const portfolioIsEmpty = 'Your portfolio is empty';
 
   return (
     <Modal
       isModalOpen={isModalOpen}
       setIsModalOpen={setIsModalOpen}
-      title='Portfolio'
+      title="Portfolio"
+      data-testid="portfolio-modal"
     >
       {
         portfolioCoins.length
           ? portfolioCoins.map((coin: ICoinRow) =>
-            <PortfolioCoin coin={coin} key={coin.key}/>)
-          : <p>{emptyPortfolioText}</p>
+            <PortfolioCoin coin={coin} key={coin.key} />)
+          : <p>{portfolioIsEmpty}</p>
       }
     </Modal>
   );

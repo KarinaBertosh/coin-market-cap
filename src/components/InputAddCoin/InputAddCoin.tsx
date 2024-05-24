@@ -1,24 +1,24 @@
 import React, { useState } from 'react';
 import { ICoinRow } from '../../utils/types';
-import useLocalStorageState from 'use-local-storage-state';
 import { BaseInput } from '../UI/BaseInput/BaseInput';
-import { getFormattedPriceCoins } from '../../utils/default';
+import { KEY_LS, getFormattedPriceCoins } from '../../utils/default';
+import { setCoins } from '../../store/slices/assets';
+import { useAppDispatch } from '../../hooks/redux';
 
 interface IInputProps {
   coin: ICoinRow;
 }
 
-const ERRORS_TEXT = {
+const ERRORS = {
   NUMBER: 'Error: enter the number',
   ZERO: 'Error: the number must be greater than 0'
 };
 
 export const InputAddCoin = ({ coin }: IInputProps) => {
-  const [coins, setCoins] = useLocalStorageState<string>('coins', {
-    defaultValue: '[]'
-  });
   const [isError, setIsError] = useState(false);
   const [errorText, setErrorText] = useState('');
+
+  const dispatch = useAppDispatch();
 
   const addCoinInPortfolio = (number: string) => {
     setIsError(false);
@@ -27,6 +27,7 @@ export const InputAddCoin = ({ coin }: IInputProps) => {
       coinsNumber: Number(number)
     };
 
+    const coins = localStorage.getItem(KEY_LS);
     const copyCoins: ICoinRow[] = [...coins ? JSON.parse(coins) : []];
     const coinIndex = copyCoins.findIndex((c: ICoinRow) => c.key === coin.key);
     coinIndex >= 0
@@ -35,15 +36,17 @@ export const InputAddCoin = ({ coin }: IInputProps) => {
         coinsNumber: copyCoins[coinIndex].coinsNumber + Number(number),
       }
       : copyCoins.push(updatedCoin);
-    setCoins(JSON.stringify(getFormattedPriceCoins(copyCoins)));
+
+    localStorage.setItem(KEY_LS, JSON.stringify(getFormattedPriceCoins(copyCoins)));
+    dispatch(setCoins(getFormattedPriceCoins(JSON.parse(localStorage.getItem(KEY_LS)))));
   };
 
   const handlingError = (value: string) => {
     if (!Number(value)) {
       setIsError(true);
       setErrorText(Number(value) === 0
-        ? ERRORS_TEXT.ZERO
-        : ERRORS_TEXT.NUMBER
+        ? ERRORS.ZERO
+        : ERRORS.NUMBER
       );
     } else {
       setIsError(false);
@@ -57,10 +60,10 @@ export const InputAddCoin = ({ coin }: IInputProps) => {
   };
 
   return (
-    <BaseInput
-      onPressEnter={handlingPressEnter}
-      isError={isError}
-      errorText={errorText}
-    />
+      <BaseInput
+        handlingPressEnter={handlingPressEnter}
+        isError={isError}
+        errorText={errorText}
+      />
   );
 };

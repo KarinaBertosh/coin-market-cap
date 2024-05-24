@@ -1,23 +1,26 @@
 import React, { useEffect, useState } from 'react';
-import { getRates } from '../../api/assets';
+import { getPopularCoins } from '../../api/assets';
 import { PopularCoin } from '../PopularCoin/PopularCoin';
-import { callApi } from '../../utils/default';
 import './style.scss';
 
 
 export const PopularCoins = () => {
-  const [coins, setCoins] = useState([]);
+  const [popularCoins, setPopularCoins] = useState([]);
 
   useEffect(() => {
     (async () => {
-      const coins = await callApi(async () => await getRates());
-      setCoins(coins);
+      try {
+        const popularCoins = await getPopularCoins();
+        setPopularCoins(popularCoins);
+      } catch (error) {
+        console.log(error);
+      }
     })();
   }, []);
 
   return (
-    <div className="popular-coins">
-      {coins.map((rating) =>
+    <div className="popular-coins" data-testid="popular-coins">
+      {popularCoins.map((rating) =>
         <PopularCoin rating={rating} key={rating.id} />
       )}
     </div >

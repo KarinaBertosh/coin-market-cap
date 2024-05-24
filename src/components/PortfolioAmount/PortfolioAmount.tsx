@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useAppDispatch } from '../../hooks/redux';
-import useLocalStorageState from 'use-local-storage-state';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { Portfolio } from '../Portfolio/Portfolio';
 import { ICoinRow } from '../../utils/types';
 import {
+  KEY_LS,
   getCoinFromApi,
   getFormattedPriceCoins,
   getFormattedValue,
@@ -14,14 +14,15 @@ import './style.scss';
 
 
 export const PortfolioAmount = () => {
-  const [coins, setCoins] = useLocalStorageState<string>('coins');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [amountDifference, setAmountDifference] = useState(0);
   const [percentAmountDifference, setPercentAmountDifference] = useState(0);
 
+  const { coins } = useAppSelector((state) => state.assets);
+
   const dispatch = useAppDispatch();
 
-  const parsedCoins = getFormattedPriceCoins(JSON.parse(coins || ''));
+  const parsedCoins = getFormattedPriceCoins(JSON.parse(localStorage.getItem(KEY_LS)));
   const plus = '+';
 
   useEffect(() => {
@@ -54,10 +55,10 @@ export const PortfolioAmount = () => {
 
   const getPercentAmountDifference = (amountFromApi: number, localAmount: number) => {
     const percent = Number(getFormattedValue(String((localAmount / amountFromApi - 1) * 100)));
-    const finalPercent = String(percent).startsWith('-') ? Number(String(percent).slice(1)) : percent;
+    const formattedPercent = String(percent).startsWith('-') ? Number(String(percent).slice(1)) : percent;
 
     return parsedCoins.length
-      ? finalPercent
+      ? formattedPercent
       : 0;
   };
 
@@ -67,7 +68,7 @@ export const PortfolioAmount = () => {
         className="portfolio-amount"
         onClick={() => setIsModalOpen(true)}
       >
-        <p className="price">
+        <p className="price" data-testid="price">
           {renderDollarAmount(getTotalAmount(parsedCoins))} &nbsp;
         </p>
         {amountDifference > 0 && plus}

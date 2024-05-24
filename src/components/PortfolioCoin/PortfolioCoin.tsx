@@ -1,22 +1,24 @@
 import React from 'react';
 import { ICoinRow } from '../../utils/types';
-import { getTotalAmount, renderDollarAmount } from '../../utils/default';
-import useLocalStorageState from 'use-local-storage-state';
+import { KEY_LS, getFormattedPriceCoins, getTotalAmount, renderDollarAmount } from '../../utils/default';
 import { Button } from '../UI/Button/Button';
+import { useAppDispatch } from '../../hooks/redux';
+import { setCoins } from '../../store/slices/assets';
 
 interface IPortfolioCoinProps {
   coin: ICoinRow;
 }
 
-export const PortfolioCoin = (props: IPortfolioCoinProps) => {
-  const { coin } = props;
+export const PortfolioCoin = ({ coin }: IPortfolioCoinProps) => {
   const { key, symbol } = coin;
+  const coins = localStorage.getItem(KEY_LS);
 
-  const [coins, setCoins] = useLocalStorageState<string>('coins');
+  const dispatch = useAppDispatch();
 
   const deleteCoin = () => {
-    const updateCoins = JSON.parse(coins).filter((c: ICoinRow) => c.key !== coin.key);
-    setCoins(JSON.stringify(updateCoins));
+    const filteredCoins = JSON.parse(coins).filter((c: ICoinRow) => c.key !== coin.key);
+    localStorage.setItem(KEY_LS, JSON.stringify(filteredCoins));
+    dispatch(setCoins(getFormattedPriceCoins(JSON.parse(localStorage.getItem(KEY_LS)))));
   };
 
   return (
@@ -28,7 +30,7 @@ export const PortfolioCoin = (props: IPortfolioCoinProps) => {
       <Button
         className="m-r-10"
         onClick={deleteCoin}
-        buttonName='Delete'
+        buttonName="Delete"
       />
     </div>
   );

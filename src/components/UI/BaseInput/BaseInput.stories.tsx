@@ -11,7 +11,7 @@ type Story = StoryObj<typeof BaseInput>;
 
 export const Default: Story = {
   args: {
-    onPressEnter: () => fn(),
+    handlingPressEnter: () => fn(),
     isError: false,
     errorText: ''
   },

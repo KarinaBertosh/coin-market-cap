@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button as ButtonANTD } from 'antd';
+import './style.scss'
 
 interface IButtonProps {
   onClick: () => void,
@@ -7,7 +8,9 @@ interface IButtonProps {
   className?: string;
 }
 
-export const Button = ({ onClick, buttonName, className = '' }: IButtonProps) => {
+export const Button = (props: IButtonProps) => {
+  const { onClick, buttonName, className = '' } = props;
+  
   return (
     <ButtonANTD onClick={onClick} className={className}>
       {buttonName}

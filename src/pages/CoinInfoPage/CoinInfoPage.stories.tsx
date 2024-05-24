@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { CoinInfoPage } from './CoinInfoPage';
-import { MockedState, MockStore } from '../../tests/mockData';
+import { MockedState, MockStore } from '../../stories/mockData';
 import { reactRouterParameters, withRouter } from 'storybook-addon-remix-react-router';
 
 export default {

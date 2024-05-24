@@ -14,10 +14,10 @@ type Story = StoryObj<typeof Modal>;
 export const DefaultModal: Story = {
   args: {
     isModalOpen: true,
-    setIsModalOpen: () => console.log(1),    
+    setIsModalOpen: () => console.log(1),
     title: '',
-    children: <BaseInput onPressEnter={() => console.log(1)}
-    isError={false}
-    errorText={''}/>,
+    children: <BaseInput handlingPressEnter={() => console.log(1)}
+      isError={false}
+      errorText={''} />,
   },
 };

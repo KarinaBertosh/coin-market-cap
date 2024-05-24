@@ -6,14 +6,16 @@ import { IAsset, ICoinRow } from '../../utils/types';
 
 interface IAssetsState {
   assets: IAsset[];
+  coins: ICoinRow[];
   coinsRow: ICoinRow[];
   isLoading: boolean;
   searchText: string;
-  selectedCoin: IAsset ,
+  selectedCoin: IAsset,
 }
 
 const initialState: IAssetsState = {
   assets: [],
+  coins: [],
   coinsRow: [],
   isLoading: false,
   searchText: '',
@@ -24,6 +26,9 @@ export const slice = createSlice({
   name: 'assets',
   initialState,
   reducers: {
+    setCoins: (state, { payload }) => {
+      state.coins = payload;
+    },
     setCoinsRow: (state, { payload }) => {
       state.coinsRow = payload;
     },
@@ -49,6 +54,7 @@ export const slice = createSlice({
 });
 
 export const {
+  setCoins,
   setCoinsRow,
   setSearchText,
   setSelectedCoin,

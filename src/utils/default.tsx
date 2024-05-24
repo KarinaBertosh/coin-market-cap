@@ -18,7 +18,7 @@ export const getFormattedValue = (value: string, numberPastComma = 2, isPrice = 
 const getOneCoinTotalPrice = (coin: ICoinRow) =>
   Number(getFormattedValue(coin?.priceUsd?.slice(1))) * coin.coinsNumber;
 
-export const getAllCoinsValue = (coins: ICoinRow[]) => coins.reduce((acc: any, cur: ICoinRow) =>
+export const getAllCoinsPrice = (coins: ICoinRow[]) => coins.reduce((acc: any, cur: ICoinRow) =>
   acc + getOneCoinTotalPrice(cur), 0,);
 
 export const getCoinFromApi = async (dispatch: any) => {
@@ -27,8 +27,8 @@ export const getCoinFromApi = async (dispatch: any) => {
     {
       key: asset.id,
       add: 'Add',
-      symbol: asset.symbol,
       logo: asset.symbol,
+      symbol: asset.symbol,
       priceUsd: `$${getFormattedValue(asset.priceUsd, 2, true)}`,
       marketCapUsd: `$${getFormattedValue(asset.marketCapUsd)}`,
       volumeUsd24Hr: `$${getFormattedValue(asset.volumeUsd24Hr)}`,
@@ -38,17 +38,9 @@ export const getCoinFromApi = async (dispatch: any) => {
   return coins;
 };
 
-export const callApi = async (action: any) => {
-  try {
-    return await action();
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 export const getTotalAmount = (portfolioCoins: ICoinRow[]) => {
   if (!portfolioCoins.length) return 0;
-  return getFormattedValue(getAllCoinsValue(portfolioCoins));
+  return getFormattedValue(getAllCoinsPrice(portfolioCoins));
 };
 
 export const renderDollarAmount = (value: string | number) => {
@@ -56,10 +48,19 @@ export const renderDollarAmount = (value: string | number) => {
 };
 
 export const getFormattedPriceCoins = (coins: ICoinRow[]) =>
-  coins.map((coin: ICoinRow) => ({
-    ...coin,
-    priceUsd: coin.priceUsd.replace(',', '')
-  }));
+  coins ?
+    coins.map((coin: ICoinRow) => ({
+      ...coin,
+      priceUsd: coin.priceUsd.replace(',', '')
+    })) : [];
+
+
+export const getSortedColumn = (valueA: ICoinRow, valueB: ICoinRow) =>
+  Number(valueB.priceUsd.slice(1).replace(/[\s,%]/g, '')) - Number(valueA.priceUsd.slice(1).replace(/[\s,%]/g, ''));
+
+export const renderIconSrc = (coinSymbol: string) => `https://assets.coincap.io/assets/icons/${coinSymbol.toLowerCase()}@2x.png`
+   
+export const KEY_LS = 'coins'
 
 
 

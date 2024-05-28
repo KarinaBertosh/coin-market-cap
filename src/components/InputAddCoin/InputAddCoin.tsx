@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ICoinRow } from '../../utils/types';
 import { BaseInput } from '../UI/BaseInput/BaseInput';
-import { KEY_LS, getFormattedPriceCoins } from '../../utils/default';
+import { KEY_LS, getPricesWithoutComma } from '../../utils/default';
 import { setCoins } from '../../store/slices/assets';
 import { useAppDispatch } from '../../hooks/redux';
 
@@ -37,8 +37,8 @@ export const InputAddCoin = ({ coin }: IInputProps) => {
       }
       : copyCoins.push(updatedCoin);
 
-    localStorage.setItem(KEY_LS, JSON.stringify(getFormattedPriceCoins(copyCoins)));
-    dispatch(setCoins(getFormattedPriceCoins(JSON.parse(localStorage.getItem(KEY_LS)))));
+    localStorage.setItem(KEY_LS, JSON.stringify(getPricesWithoutComma(copyCoins)));
+    dispatch(setCoins(getPricesWithoutComma(JSON.parse(localStorage.getItem(KEY_LS)))));
   };
 
   const handlingError = (value: string) => {
@@ -60,10 +60,10 @@ export const InputAddCoin = ({ coin }: IInputProps) => {
   };
 
   return (
-      <BaseInput
-        handlingPressEnter={handlingPressEnter}
-        isError={isError}
-        errorText={errorText}
-      />
+    <BaseInput
+      handlingPressEnter={handlingPressEnter}
+      isError={isError}
+      errorText={errorText}
+    />
   );
 };

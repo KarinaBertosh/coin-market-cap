@@ -1,7 +1,7 @@
 import React from 'react';
 import { ICoinRow } from "./types";
 import { AddButton } from '../components/AddButton/AddButton';
-import { getSortedColumn, renderIconSrc } from './default';
+import { getSortedValues, renderIconSrc } from './default';
 
 
 export const columns = [
@@ -33,19 +33,19 @@ export const columns = [
     title: 'Price',
     dataIndex: 'priceUsd',
     key: 'priceUsd',
-    sorter: (a: ICoinRow, b: ICoinRow) => getSortedColumn(a, b)
+    sorter: (a: ICoinRow, b: ICoinRow) => getSortedValues(a, b)
   },
   {
     title: 'Market Cap',
     dataIndex: 'marketCapUsd',
     key: 'marketCapUsd',
-    sorter: (a: ICoinRow, b: ICoinRow) => getSortedColumn(a, b)
+    sorter: (a: ICoinRow, b: ICoinRow) => getSortedValues(a, b)
   },
   {
     title: 'Volume (24h)',
     dataIndex: 'volumeUsd24Hr',
     key: 'volumeUsd24Hr',
-    sorter: (a: ICoinRow, b: ICoinRow) => getSortedColumn(a, b)
+    sorter: (a: ICoinRow, b: ICoinRow) => getSortedValues(a, b)
   },
 ];
 

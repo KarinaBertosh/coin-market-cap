@@ -4,11 +4,11 @@ import { Portfolio } from '../Portfolio/Portfolio';
 import { ICoinRow } from '../../utils/types';
 import {
   KEY_LS,
-  getCoinFromApi,
-  getFormattedPriceCoins,
+  getCoinsFromApi,
+  getPricesWithoutComma,
   getFormattedValue,
-  getTotalAmount,
-  renderDollarAmount
+  getCoinsTotalAmount,
+  renderPriceWithDollarAndCurrency
 } from '../../utils/default';
 import './style.scss';
 
@@ -22,7 +22,7 @@ export const PortfolioAmount = () => {
 
   const dispatch = useAppDispatch();
 
-  const parsedCoins = getFormattedPriceCoins(JSON.parse(localStorage.getItem(KEY_LS)));
+  const parsedCoins = getPricesWithoutComma(JSON.parse(localStorage.getItem(KEY_LS)));
   const plus = '+';
 
   useEffect(() => {
@@ -39,12 +39,12 @@ export const PortfolioAmount = () => {
 
   const getAmountDifference = async () => {
     let amountFromApi = 0;
-    const coinsFromApi = getFormattedPriceCoins(await getCoinFromApi(dispatch));
+    const coinsFromApi = getPricesWithoutComma(await getCoinsFromApi(dispatch));
     parsedCoins.forEach((parsedCoin: ICoinRow) => {
       const coin = coinsFromApi.find((coinFromApi: ICoinRow) => coinFromApi.key === parsedCoin.key);
       if (coin) amountFromApi += Number(coin.priceUsd.slice(1)) * parsedCoin.coinsNumber;
     });
-    const localAmount = Number(getTotalAmount(parsedCoins));
+    const localAmount = Number(getCoinsTotalAmount(parsedCoins));
 
     return {
       amountDifference: getFormattedValue(String(localAmount - amountFromApi)),
@@ -69,7 +69,7 @@ export const PortfolioAmount = () => {
         onClick={() => setIsModalOpen(true)}
       >
         <p className="price" data-testid="price">
-          {renderDollarAmount(getTotalAmount(parsedCoins))} &nbsp;
+          {renderPriceWithDollarAndCurrency(getCoinsTotalAmount(parsedCoins))} &nbsp;
         </p>
         {amountDifference > 0 && plus}
         {amountDifference}&nbsp;{percentAmountDifference}&nbsp;%

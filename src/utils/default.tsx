@@ -2,26 +2,34 @@ import { fetchAssets } from "../api/assets";
 import { setCoinsRow } from "../store/slices/assets";
 import { IAsset, ICoinRow } from "./types";
 
-export const getFormattedValue = (value: string, numberPastComma = 2, isPrice = false) => {
-  if (!value) return 0;
 
-  const valueString = String(value).startsWith('-') ? String(value).slice(1) : String(value);
+const getPriceWithoutDash = (price: string) => price.startsWith('-') ? price.slice(1) : price;
+
+export const getFormattedValue = (value: string | number, numberPastComma = 2, isPrice = false) => {
+  if (!value) return 0;
+  const priceByString = getPriceWithoutDash(String(value));
   const formatter = new Intl.NumberFormat('en-US');
 
-  const index = valueString.startsWith('0')
-    ? valueString.indexOf(Array.from(valueString).filter((el) => el !== '0')[1]) + numberPastComma + 1
-    : valueString.indexOf('.') === -1 ? valueString.length + 1 : valueString.indexOf('.') + 3;
-  const changedPrice = Number(valueString.slice(0, index));
-  return isPrice ? formatter.format(changedPrice) : changedPrice;
+  const getNonZeroValueSecondIndex = (price: string) => price.indexOf(Array.from(price).find((el) => el !== '0' && el !== '.')) + numberPastComma;
+  const geSecondIndexAfterPoint = (price: string) => price.indexOf('.') !== -1 ? price.indexOf('.') + 3 : price.length - 1;
+
+  const secondIndexAfterPoint = priceByString.startsWith('0')
+    ? getNonZeroValueSecondIndex(priceByString)
+    : geSecondIndexAfterPoint(priceByString);
+
+
+  const changedPrice = parseFloat(priceByString.slice(0, priceByString[secondIndexAfterPoint] === '0' ? secondIndexAfterPoint + 1 : secondIndexAfterPoint));
+
+  return isPrice && !priceByString.startsWith('0') ? formatter.format(changedPrice) : changedPrice;
 };
 
-const getOneCoinTotalPrice = (coin: ICoinRow) =>
+const getCoinTotalPrice = (coin: ICoinRow) =>
   Number(getFormattedValue(coin?.priceUsd?.slice(1))) * coin.coinsNumber;
 
-export const getAllCoinsPrice = (coins: ICoinRow[]) => coins.reduce((acc: any, cur: ICoinRow) =>
-  acc + getOneCoinTotalPrice(cur), 0,);
+export const getCoinsTotalPrice = (coins: ICoinRow[]) => coins.reduce((acc: any, cur: ICoinRow) =>
+  acc + getCoinTotalPrice(cur), 0,);
 
-export const getCoinFromApi = async (dispatch: any) => {
+export const getCoinsFromApi = async (dispatch: any) => {
   const assets = await dispatch(fetchAssets()).unwrap();
   const coins = assets.map((asset: IAsset) => (
     {
@@ -38,16 +46,16 @@ export const getCoinFromApi = async (dispatch: any) => {
   return coins;
 };
 
-export const getTotalAmount = (portfolioCoins: ICoinRow[]) => {
+export const getCoinsTotalAmount = (portfolioCoins: ICoinRow[]) => {
   if (!portfolioCoins.length) return 0;
-  return getFormattedValue(getAllCoinsPrice(portfolioCoins));
+  return getFormattedValue(getCoinsTotalPrice(portfolioCoins));
 };
 
-export const renderDollarAmount = (value: string | number) => {
+export const renderPriceWithDollarAndCurrency = (value: string | number) => {
   return `$${value} USD`;
 };
 
-export const getFormattedPriceCoins = (coins: ICoinRow[]) =>
+export const getPricesWithoutComma = (coins: ICoinRow[]) =>
   coins ?
     coins.map((coin: ICoinRow) => ({
       ...coin,
@@ -55,11 +63,11 @@ export const getFormattedPriceCoins = (coins: ICoinRow[]) =>
     })) : [];
 
 
-export const getSortedColumn = (valueA: ICoinRow, valueB: ICoinRow) =>
+export const getSortedValues = (valueA: ICoinRow, valueB: ICoinRow) =>
   Number(valueB.priceUsd.slice(1).replace(/[\s,%]/g, '')) - Number(valueA.priceUsd.slice(1).replace(/[\s,%]/g, ''));
 
-export const renderIconSrc = (coinSymbol: string) => `https://assets.coincap.io/assets/icons/${coinSymbol.toLowerCase()}@2x.png`
-   
+export const renderIconSrc = (coinSymbol: string) => `https://assets.coincap.io/assets/icons/${coinSymbol.toLowerCase()}@2x.png`;
+
 export const KEY_LS = 'coins'
 
 
